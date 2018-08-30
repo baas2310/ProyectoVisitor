@@ -28,11 +28,23 @@ class ControlVisitantes
             $ArrayVisitante['Nombre2'] = $_POST['Nombre2'];
             $ArrayVisitante['Apellido1'] = $_POST['Apellido1'];
             $ArrayVisitante['Apellido2'] = $_POST['Apellido2'];
-            $ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
+            //$ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
             $ArrayVisitante['TipoVisitante'] = $_POST['TipoVisitante'];
             $ArrayVisitante['TarjetaProfesional'] = $_POST['TarjetaProfesional'];
 
             //var_dump($ArrayVisitante);
+            $dir_subida = __DIR__.'../../ImagenesVisitas/';
+            $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+
+            echo '<pre>';
+            if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+                //echo "El fichero es válido y se subió con éxito.\n";
+            } else {
+                // echo "¡Posible ataque de subida de ficheros!\n";
+            }
+            $ArrayVisitante['UrlImagen'] = $_FILES['UrlImagen']['name'];
+
+
 
             $visitante = new Visitante($ArrayVisitante);
 

@@ -71,83 +71,127 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                 <!-- end row -->
 
                 <!-- start content row -->
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box">
-                            <h4 class="text-center text-custom">HISTORIAL DE CREACION DE INTERNOS</h4>
-
-                            <div class="panel-body">
-                                <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-
-                                    <div class="pad-btm form-inline">
-                                        <div class="row">
-                                            <div class="col-sm-6 text-xs-center">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php echo ControlActividades::adminTableRegistroInterno($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
-
-                                </table>
-                            </div>
+                <!-- Accordion -->
+                <!-- <div class="row">
+                  <div class="col-lg-6"> -->
+                <div id="accordion" class="m-b-20">
+                    <div class="card">
+                        <div class="card-header p-3" id="headingOne">
+                            <h6 class="m-0">
+                                <a href="#collapseOne" class="text-dark" data-toggle="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="collapseOne">
+                                    HISTORIAL DE CREACION DE INTERNOS
+                                </a>
+                            </h6>
                         </div>
-                        <div class="card-box">
-                            <h4 class="text-center text-custom">HISTORIAL DE MODIFICACIONES INTERNAS</h4>
 
-                            <div class="panel-body">
-                                <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+                        <div id="collapseOne" class="collapse show"
+                                aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                              <div class="panel-body">
 
-                                    <div class="pad-btm form-inline">
-                                        <div class="row">
-                                            <div class="col-sm-6 text-xs-center">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php echo ControlActividades::adminTableAlertas($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
-
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-box">
-                            <h4 class="text-center text-custom">HISTORIAL DE CREACION DE USUARIOS</h4>
-
-                            <div class="panel-body">
-                                <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-
-                                    <div class="pad-btm form-inline">
-                                        <div class="row">
-                                            <div class="col-sm-6 text-xs-center">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <?php echo ControlActividades::adminTableRegistroVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
-
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-box">
-                            <h4 class="text-center text-custom">HISTORIAL DE MODIFICACIONES A USUARIOS</h4>
-
-                            <div class="panel-body">
-                                <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-
-                                    <div class="pad-btm form-inline">
-                                        <div class="row">
-                                            <div class="col-sm-6 text-xs-center">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <?php echo ControlActividades::adminTableAlertaVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
-
-                                </table>
+                                  <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+                                        <div class="pad-btm form-inline">
+                                          <div class="row">
+                                              <div class="col-sm-6 text-xs-center">
+                                              </div>
+                                          </div>
+                                      </div>
+                                        <?php echo ControlActividades::adminTableRegistroInterno($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
+                                    </table>
+                              </div>
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header p-3" id="headingTwo">
+                            <h6 class="m-0">
+                                <a href="#collapseTwo" class="text-dark collapsed" data-toggle="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                   HISTORIAL DE MODIFICACIONES INTERNAS
+                                </a>
+                            </h6>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordion">
+                            <div class="card-body">
+                              <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+
+                                      <div class="pad-btm form-inline">
+                                          <div class="row">
+                                              <div class="col-sm-6 text-xs-center">
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <?php echo ControlActividades::adminTableAlertas($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
+
+                                  </table>
+
+                            </div>
+                        </div>
+                        <div id="accordion" class="m-b-20">
+                            <div class="card">
+                                <div class="card-header p-3" id="headingThree">
+                                    <h6 class="m-0">
+                                        <a href="#collapseThree" class="text-dark" data-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseThree">
+                                            HISTORIAL DE CREACION DE USUARIOS
+                                        </a>
+                                    </h6>
+                                </div>
+
+                                <div id="collapseThree" class="collapse show"
+                                     aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="panel-body">
+                                            <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+                                                <div class="pad-btm form-inline">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 text-xs-center">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              <?php echo ControlActividades::adminTableRegistroVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header p-3" id="headingFour">
+                                    <h6 class="m-0">
+                                        <a href="#collapseFour" class="text-dark collapsed" data-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseFour">
+                                            HISTORIAL DE MODIFICACIONES INTERNAS
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingTwo"
+                                     data-parent="#accordion">
+                                    <div class="card-body">
+                                        <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+
+                                            <div class="pad-btm form-inline">
+                                                <div class="row">
+                                                    <div class="col-sm-6 text-xs-center">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <?php echo ControlActividades::adminTableAlertas($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                    </div>
+
+
                 </div>
 
             </div> <!-- container -->

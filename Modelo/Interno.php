@@ -25,6 +25,7 @@ Class Interno extends db_abstract_class{
     private $Municipio;
     private $Estado;
     private $FechaIngreso;
+    private $IdCarcel;
 
     public function __construct($Visitor_data=array())
     {
@@ -56,6 +57,7 @@ Class Interno extends db_abstract_class{
             $this->Municipio="";
             $this->Estado="";
             $this->FechaIngreso="";
+            $this->IdCarcel="";
     }
     }
     function __destruct()
@@ -418,12 +420,29 @@ Class Interno extends db_abstract_class{
         $this->FechaIngreso = $FechaIngreso;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdCarcel()
+    {
+        return $this->IdCarcel;
+    }
+
+    /**
+     * @param string $IdCarcel
+     */
+    public function setIdCarcel($IdCarcel)
+    {
+        $this->IdCarcel = $IdCarcel;
+    }
+
+
 
 
     public static function buscarId($id){
         $Interno = new Interno();
         if ($id>0){
-            $getRow = $Interno->getRow("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion INNER JOIN tbubicacioninterno on tbubicacioninterno.IdUbicacionInterno = tbregistro.IdUbicacionInterna INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado WHERE IdInterno =?", array($id));
+            $getRow = $Interno->getRow("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen, tbregistro.FechaIngreso,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbubicacioninterno.IdCarcel, tbubicacioninterno.IdUbicacionInterno ,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion INNER JOIN tbubicacioninterno on tbubicacioninterno.IdUbicacionInterno = tbregistro.IdUbicacionInterna INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado where IdInterno = ?" , array($id));
             $Interno->IdRegistro=$getRow['IdRegistro'];
             $Interno->IdRegistrado=$getRow['IdInterno'];
             $Interno->TD=$getRow['TD'];
@@ -433,12 +452,15 @@ Class Interno extends db_abstract_class{
             $Interno->Apellido2=$getRow['Apellido2'];
             $Interno->FechaNacimiento=$getRow['FechaNacimiento'];
             $Interno->UrlImagen=$getRow['UrlImagen'];
+            $Interno->FechaIngreso=$getRow['FechaIngreso'];
             $Interno->TipoInterno=$getRow['TipoInterno'];
             $Interno->Delito=$getRow['Delito'];
             $Interno->TipoReclucion=$getRow['TipoReclucion'];
             $Interno->Patio=$getRow['Patio'];
             $Interno->Seccion=$getRow['Seccion'];
             $Interno->Celda=$getRow['Celda'];
+            $Interno->IdCarcel=$getRow['IdCarcel'];
+            $Interno->IdUbicacionInterna=$getRow['IdUbicacionInterno'];
             $Interno->NombreCarcel=$getRow['NombreCarcel'];
             $Interno->Municipio=$getRow['municipio'];
             $Interno->Estado=$getRow['Estado'];

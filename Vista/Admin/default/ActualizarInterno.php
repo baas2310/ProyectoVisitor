@@ -12,6 +12,10 @@ $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
 }
+require ('conexion.php');
+$query = "SELECT IdCarcel, NombreCarcel FROM tbCarcel ORDER BY NombreCarcel";
+$resultado=$mysqli->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +31,20 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <!-- Scripts -->
     <?php include("Includes/imports.php") ?>
 
+    <script language="javascript">
+        $(document).ready(function(){
+            $("#cbx_Carcel").change(function () {
+
+                $("#cbx_Carcel option:selected").each(function () {
+                    IdCarcel = $(this).val();
+                    $.post("includes/getCarcel.php", { IdCarcel: IdCarcel }, function(data){
+                        $("#cbx_Ubicacion").html(data);
+                    });
+                });
+            })
+        });
+
+    </script>
 </head>
 
 
@@ -73,16 +91,18 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                 <div class="row">
 
-                    <?php if (!isset($_GET["IdFuncionario"])){ ?>
+
+                    <?php if (!isset($_GET["IdInterno"])){ ?>
+
                         <div class="alert alert-icon alert-danger alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <i class="mdi mdi-block-helper"></i>
                             No se pudo actualizar al interno.<strong> Error: no se encontro la informacion del interno.</strong> Puede administrar los Usuarios desde <a href="ListarInterno.php" class="alert-link">Aquí</a>.
                         </div>
                     <?php }else{
-                    $IdFuncionario = $_GET["IdFuncionario"];
-                    $_SESSION["IdFuncionario"] = $IdFuncionario;
-                    $objFuncionario = Funcionario::buscarId($IdFuncionario);
+                    $IdInterno = $_GET["IdInterno"];
+                    $_SESSION["IdInterno"] = $IdInterno;
+                    $objInterno = Interno::buscarId($IdInterno);
                     ?>
 
 
@@ -93,6 +113,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
 
                             <h4 class="text-center text-custom">ACTUALIZAR INTERNO</h4>
+
+                            //<?php echo var_dump($objInterno)?>
 
                             <br>
 
@@ -128,7 +150,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-lg-6">
                                                 <label for="FechaNacimiento">Fecha de nacimiento </label>
                                                 <input type="date" value="<?php echo $objInterno->getFechaNacimiento(); ?>" name="FechaNacimiento" id="FechaNacimiento"
-                                                       class="form-control"  />
+                                                       class="form-control" disabled  />
                                             </div>
 
                                             <div class="col-lg-6">
@@ -138,39 +160,45 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="FechaIngreso">Fecha de ingreso </label>
-                                                <input type="date" value="<?php echo $objInterno->getFechaIngreso(); ?>" name="FechaIngreso" id="FechaIngreso"
-                                                       class="form-control"  />
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <label for="FechaSalida">Fecha de salida </label>
-                                                <input type="date" value="<?php echo $objInterno->getFechaSalida(); ?>" name="FechaSalida" id="FechaSalida"
-                                                       class="form-control"  />
+                                                <input type="text" value="<?php echo $objInterno->getFechaIngreso(); ?>" name="FechaIngreso" id="FechaIngreso"
+                                                       class="form-control" disabled />
                                             </div>
 
                                               <div class="col-lg-6">
                                                 <label for="TD">TD</label>
                                                 <input type="text" value="<?php echo $objInterno->getTD(); ?>" name="TD" id="TD"
-                                                       class="form-control" />
+                                                       class="form-control" disabled/>
                                               </div>
 
                                                 <div class="col-lg-6">
                                                   <label for="IdTipoInterno">Tipo de interno</label>
-                                                  <input type="text" value="<?php echo $objInterno->getIdTipoInterno(); ?>" name="idTipoInterno" id="idTipoInterno"
-                                                         class="form-control" />
+                                                  <input type="text" value="<?php echo $objInterno->getTipoInterno(); ?>" name="idTipoInterno" id="idTipoInterno"
+                                                         class="form-control" disabled />
                                                 </div>
                                                 <div class="col-lg-6">
                                                   <label for="idTipoReclusion">Tipo de reclusión</label>
-                                                  <input type="text" value="<?php echo $objInterno->getIdTipoReclusion(); ?>" name="idTipoReclusion" id="idTipoReclusion"
-                                                         class="form-control" />
+                                                  <input type="text" value="<?php echo $objInterno->getTipoReclucion(); ?>" name="idTipoReclusion" id="idTipoReclusion"
+                                                         class="form-control" disabled />
                                                 </div>
+                                            <div class="col-sm-5">
+                                                <label for="cbx_Carcel">Carcel</label>
+                                                <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
+                                                    <option value="<?php echo $objInterno->getIdCarcel()?>"><?php echo $objInterno->getNombreCarcel()?> </option>
+                                                    <?php while($row = $resultado->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row['IdCarcel']; ?>"><?php echo $row['NombreCarcel']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+
+
+                                                <div class="form-group">
+                                                    <label for="cbx_Ubicacion">Ubicacion </label>
+                                                    <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion">
+                                                        <option value="<?php echo $objInterno->getIdUbicacionInterna()?>"<?php echo $objInterno->getIdCarcel()?>"><?php echo "Patio: ".$objInterno->getPatio()." Seccion : ".$objInterno->getSeccion()." Celda: ".$objInterno->getCelda()?> </option>
+                                                    </select>
                                                 <div class="col-lg-6">
-                                                  <label for="idUbicacionInterno">Ubicacion del interno</label>
-                                                  <input type="text" value="<?php echo $objInterno->getIdUbicacionInterno(); ?>" name="idUbicacionInterno" id="idUbicacionInterno"
-                                                         class="form-control" />
                                                 </div>
-                                                <div class="col-lg-6">
                                                   <label for="Ubicacion">Ubicacion</label>
-                                                  <input type="text" value="<?php echo $objInterno->getIdUbicacion(); ?>" name="idUbicacion" id="idUbicacion"
+                                                  <input type="text" value="<?php echo $objInterno->getUbicacion(); ?>" name="idUbicacion" id="idUbicacion"
                                                          class="form-control" />
                                                 </div>
                                                 <div class="col-lg-6">

@@ -17,23 +17,7 @@ $query = "SELECT IdCarcel, NombreCarcel FROM tbCarcel ORDER BY NombreCarcel";
 $resultado=$mysqli->query($query);
 
 
-$formatos   = array('.jpg', '.png', '.gif');
-$directorio = 'archivos';
-if (isset($_POST['boton'])){
 
-    $nombreArchivo    = $_FILES['UrlImagen']['name'];
-    $nombreTmpArchivo = $_FILES['UrlImagen']['tmp_name'];
-    $ext              = substr($nombreArchivo, strrpos($nombreArchivo, '.'));
-    if (in_array($ext, $formatos)){
-        if (move_uploaded_file($nombreTmpArchivo, "$directorio/$nombreArchivo")){
-            echo "Felicitaciones, archivo $nombreArchivo subido exitosamente";
-        }else{
-            echo 'Ocurrió un error subiendo el archivo, valida los permisos de la carpeta "archivos"';
-        }
-    }else{
-        echo 'Aquí va el mensaje que quieres mostrar cuando un usuario suba un archivo con una extensión diferente';
-    }
-}
 ?>
 
 
