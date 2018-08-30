@@ -103,11 +103,11 @@ Class TipoReclusion extends db_abstract_class{
     public static function buscar($query)
     {
         $arrayTipoReclucion = array();
-        $tmp = new TipoReclucion();
+        $tmp = new TipoReclusion();
         $getRows= $tmp->getRows($query);
         foreach ($getRows as $valor){
 
-            $TipoReclucion = new TipoReclucion();
+            $TipoReclucion = new  TipoReclusion();
             $TipoReclucion->IdTipoReclucion=$valor['IdTipoReclucion'];
             $TipoReclucion->TipoReclucion=$valor['TipoReclucion'];
             $TipoReclucion->Descripcion=$valor['Descripcion'];
@@ -120,7 +120,7 @@ Class TipoReclusion extends db_abstract_class{
 
     public static function getAll()
     {
-        return TipoReclucion::buscar("select IdTipoReclucion,TipoReclucion,Descripcion from tbTipoReclucion ");
+        return TipoReclusion::buscar("select IdTipoReclucion,TipoReclucion,Descripcion from tbTipoReclucion ");
     }
 
     public function insertar()

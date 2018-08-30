@@ -74,7 +74,7 @@ class ControlTipoReclusion
     static public function adminTableTipoReclusion()
     {
 
-        $ArrayTipoReclusion = TipoReclucion::getAll();;
+        $ArrayTipoReclusion = TipoReclusion::getAll();;
         //$tmpTipoReclusion = new TipoReclusion();
         $arrColumnas = [/*"Código",*/
             "Tipo", "Descripcion"];

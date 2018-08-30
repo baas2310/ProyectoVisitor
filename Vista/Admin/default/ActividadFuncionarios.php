@@ -75,7 +75,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h4 class="text-center text-custom">LISTA DE CREACION DE INTERNOS</h4>
+                            <h4 class="text-center text-custom">HISTORIAL DE CREACION DE INTERNOS</h4>
 
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
@@ -87,13 +87,13 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         </div>
                                     </div>
 
-
+                                    <?php echo ControlActividades::adminTableRegistroInterno($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
 
                                 </table>
                             </div>
                         </div>
                         <div class="card-box">
-                            <h4 class="text-center text-custom">LISTA DE MODIFICACIONES INTERNAS</h4>
+                            <h4 class="text-center text-custom">HISTORIAL DE MODIFICACIONES INTERNAS</h4>
 
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
@@ -111,7 +111,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                             </div>
                         </div>
                         <div class="card-box">
-                            <h4 class="text-center text-custom">LISTA DE CREACION DE USUARIOS</h4>
+                            <h4 class="text-center text-custom">HISTORIAL DE CREACION DE USUARIOS</h4>
 
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
@@ -123,13 +123,13 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         </div>
                                     </div>
 
-
+                                    <?php echo ControlActividades::adminTableRegistroVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
 
                                 </table>
                             </div>
                         </div>
                         <div class="card-box">
-                            <h4 class="text-center text-custom">LISTA DE MODIFICACIONES A USUARIOS</h4>
+                            <h4 class="text-center text-custom">HISTORIAL DE MODIFICACIONES A USUARIOS</h4>
 
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
@@ -142,6 +142,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                     </div>
 
 
+                                    <?php echo ControlActividades::adminTableAlertaVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
 
                                 </table>
                             </div>

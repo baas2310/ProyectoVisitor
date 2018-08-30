@@ -2,29 +2,16 @@
 require_once ('db_abstract_class.php');
 
 Class Actividad extends db_abstract_class{
-    private $IdAlerta;
-    private $Cedula;
-    private $Nombre1;
-    private $Nombre2;
-    private $nombre2;
-    private $Apellido1;
-    private $Apellido2;
-    private $Celular;
+
     private $Rango;
-    private $Permiso;
-    private $Estado;
-    private $Usuario;
-    private $Pass;
-    private $IdUbicacion;
-    private $id_departamento;
-    private $Ubicacion;
-    private $Departamento;
 
     private $Alerta;
     private $NombreInterno;
     private $ApellidoInterno;
     private $TD;
     private $FechaAlert;
+    private $Delito;
+    private $TipoVisita;
 
     public function __construct($Visitor_data=array())
     {
@@ -34,28 +21,17 @@ Class Actividad extends db_abstract_class{
                 $this->$campo = $valor;
             }
     }else{
-            $this->IdAlerta="";
-            $this->Cedula="";
-            $this->Nombre1="";
-            $this->Nombre2="";
-            $this->Apellido1="";
-            $this->Apellido2="";
-            $this->Celular="";
+
             $this->Rango="";
-            $this->Permiso="";
-            $this->Estado="";
-            $this->Usuario="";
-            $this->Pass="";
-            $this->IdUbicacion;
-            $this->id_departamento;
-            $this->Ubicacion;
-            $this->Departamento;
 
             $this->Alerta;
             $this->NombreInterno;
             $this->ApellidoInterno;
             $this->TD;
             $this->FechaAlert;
+            $this->Delito;
+            $this->TipoVisita;
+
     }
     }
     function __destruct()
@@ -161,6 +137,37 @@ Class Actividad extends db_abstract_class{
         $this->FechaAlert = $FechaAlert;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDelito()
+    {
+        return $this->Delito;
+    }
+
+    /**
+     * @param mixed $Delito
+     */
+    public function setDelito($Delito)
+    {
+        $this->Delito = $Delito;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoVisita()
+    {
+        return $this->TipoVisita;
+    }
+
+    /**
+     * @param mixed $TipoVisita
+     */
+    public function setTipoVisita($TipoVisita)
+    {
+        $this->TipoVisita = $TipoVisita;
+    }
 
 
 
@@ -201,7 +208,7 @@ Class Actividad extends db_abstract_class{
 
     public static function getAlert()
     {
-        return Actividad::buscarRegistro("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbalerta.Alerta,tbalerta.Fecha, tbinterno.Nombre1,tbinterno.Apellido1, tbregistro.TD FROM `tbalerta` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalerta.IdRegistrador INNER JOIN tbinterno on tbinterno.IdInterno = tbalerta.IdModificado INNER JOIN tbregistro on tbregistro.IdRegistrado = tbinterno.IdInterno");
+        return Actividad::buscarAlerta("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbalerta.Alerta,tbalerta.Fecha, tbinterno.Nombre1,tbinterno.Apellido1, tbregistro.TD FROM `tbalerta` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalerta.IdRegistrador INNER JOIN tbinterno on tbinterno.IdInterno = tbalerta.IdModificado INNER JOIN tbregistro on tbregistro.IdRegistrado = tbinterno.IdInterno");
     }
     protected static function buscarRegistro($query)
     {
@@ -209,14 +216,13 @@ Class Actividad extends db_abstract_class{
         $tmp = new Actividad();
         $getRows= $tmp->getRows($query);
         foreach ($getRows as $valor){
-
             $Alerta = new Actividad();
             $Alerta->Rango=$valor['CONCAT(tbfuncionario.Rango,\' : \', tbfuncionario.Apellido1)'];
-            $Alerta->Alerta=$valor['Alerta'];
-            $Alerta->FechaAlert=$valor['Fecha'];
-            $Alerta->NombreInterno=$valor['Nombre1'];
-            $Alerta->ApellidoInterno=$valor['Apellido1'];
+            $Alerta->Alerta="Registró a";
+            $Alerta->FechaAlert=$valor['FechaIngreso'];
+            $Alerta->NombreInterno=$valor['CONCAT(tbinterno.Nombre1,\' : \', tbinterno.Apellido1)'];
             $Alerta->TD=$valor['TD'];
+            $Alerta->Delito=$valor['Delito'];
 
 
             array_push($arrayAlerta,$Alerta);
@@ -227,7 +233,55 @@ Class Actividad extends db_abstract_class{
 
     public static function getReg()
     {
-        return Actividad::buscarRegistro("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbalerta.Alerta,tbalerta.Fecha, tbinterno.Nombre1,tbinterno.Apellido1, tbregistro.TD FROM `tbalerta` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalerta.IdRegistrador INNER JOIN tbinterno on tbinterno.IdInterno = tbalerta.IdModificado INNER JOIN tbregistro on tbregistro.IdRegistrado = tbinterno.IdInterno");
+        return Actividad::buscarRegistro("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbregistro.FechaIngreso, CONCAT(tbinterno.Nombre1,' : ', tbinterno.Apellido1),tbregistro.TD,tbdelito.Delito FROM `tbregistro` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbregistro.IdRegistradorIngreso INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbdelito on tbdelito.IdDelito= tbregistro.IdDelito");
+    }
+    protected static function buscarRegistroVisita($query)
+    {
+        $arrayAlerta = array();
+        $tmp = new Actividad();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+            $Alerta = new Actividad();
+            $Alerta->Rango=$valor['CONCAT(tbfuncionario.Rango,\' : \', tbfuncionario.Apellido1)'];
+            $Alerta->Alerta="Registró a";
+            $Alerta->FechaAlert=$valor['FechaRegistro'];
+            $Alerta->NombreInterno=$valor['CONCAT(tbvisitante.Nombre1,\' : \', tbvisitante.Apellido1)'];
+            $Alerta->TipoVisita=$valor['TipoVisitante'];
+
+
+            array_push($arrayAlerta,$Alerta);
+        }
+        $tmp->Disconnect();
+        return $arrayAlerta;
+    }
+
+    public static function getRegVisita()
+    {
+        return Actividad::buscarRegistroVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),registrovisitantes.FechaRegistro, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM registrovisitantes INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = registrovisitantes.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = registrovisitantes.IdRegistrado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante");
+    }
+    protected static function buscarAlertaVisita($query)
+    {
+        $arrayAlerta = array();
+        $tmp = new Actividad();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+            $Alerta = new Actividad();
+            $Alerta->Rango=$valor['CONCAT(tbfuncionario.Rango,\' : \', tbfuncionario.Apellido1)'];
+            $Alerta->Alerta=$valor["Alerta"];
+            $Alerta->FechaAlert=$valor['Fecha'];
+            $Alerta->NombreInterno=$valor['CONCAT(tbvisitante.Nombre1,\' : \', tbvisitante.Apellido1)'];
+            $Alerta->TipoVisita=$valor['TipoVisitante'];
+
+
+            array_push($arrayAlerta,$Alerta);
+        }
+        $tmp->Disconnect();
+        return $arrayAlerta;
+    }
+
+    public static function getAlertVisita()
+    {
+        return Actividad::buscarAlertaVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbalertavisitante.Alerta ,tbalertavisitante.Fecha, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM tbalertavisitante INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalertavisitante.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = tbalertavisitante.IdModificado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante");
     }
 
     public function insertar()
@@ -293,24 +347,5 @@ $this->Disconnect();
     {
         // TODO: Implement eliminar() method.
     }
-    public static function Login($Usuario, $Password){
-        $arrayAlertas = array();
-        $tmp = new Alerta();
-        $getTempUser = $tmp->getRows("select * from tbAlerta WHERE Usuario = '$Usuario'");
-        if(count($getTempUser) >= 1){
-            $getrows = $tmp->getRows("select * from tbAlerta WHERE Usuario = '$Usuario' AND Pass = '$Password'");
-            if(count($getrows) >= 1){
-                foreach ($getrows as $valor) {
-                    return $valor;
-                }
-            }else{
-                return "Contraseña Incorrecta";
-            }
-        }else{
-            return "No existe el usuario";
-        }
 
-        $tmp->Disconnect();
-        return $arrayAlertas;
-    }
 }

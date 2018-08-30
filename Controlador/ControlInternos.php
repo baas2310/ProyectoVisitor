@@ -33,9 +33,19 @@ class ControlInternos
         $ArrayInterno['Apellido1'] = $_POST['PrimerApellido'];
         $ArrayInterno['Apellido2'] = $_POST['SegundoApellido'];
         $ArrayInterno['FechaNacimiento'] = $_POST['FechaNacimiento'];
-        $ArrayInterno['UrlImagen'] = $_POST['UrlImagen'];
 
 
+
+        $dir_subida = __DIR__.'../../ImagenesInternos/';
+        $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+
+        echo '<pre>';
+        if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+            //echo "El fichero es válido y se subió con éxito.\n";
+        } else {
+           // echo "¡Posible ataque de subida de ficheros!\n";
+        }
+        $ArrayInterno['UrlImagen'] = $_FILES['UrlImagen']['name'];
 
 
         $Interno = new Interno($ArrayInterno);

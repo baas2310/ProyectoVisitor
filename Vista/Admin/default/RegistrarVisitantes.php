@@ -92,7 +92,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=Crear">
+                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=Crear" enctype='multipart/form-data'>
 
                                 <div class="form-group">
                                     <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"parsley-trigger="change" hidden>

@@ -131,7 +131,7 @@ if (isset($_POST['boton'])){
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlInternos.php?accion=crear">
+                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlInternos.php?accion=crear" enctype='multipart/form-data'>
 
                                 <fieldset >
                                     <legend style="color: #38586c;">Información </legend>
