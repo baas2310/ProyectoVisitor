@@ -27,6 +27,19 @@ Class Interno extends db_abstract_class{
     private $FechaIngreso;
     private $IdCarcel;
 
+    private $IdVisitante;
+    private $CedulaVisitante;
+    private $Nombre1Visitante;
+    private $Nombre2Visitante;
+    private $Apellido1Visitante;
+    private $Apellido2Visitante;
+    private $TipoVisitante;
+    private $IdParentesco;
+    private $Parentesco;
+    private $UrlImagenVisitante;
+
+
+
     public function __construct($Visitor_data=array())
     {
         parent::__construct();
@@ -58,6 +71,18 @@ Class Interno extends db_abstract_class{
             $this->Estado="";
             $this->FechaIngreso="";
             $this->IdCarcel="";
+
+            $this->IdVisitante="";
+            $this->CedulaVisitante="";
+            $this->Nombre1Visitante="";
+            $this->Nombre2Visitante="";
+            $this->Apellido1Visitante="";
+            $this->Apellido2Visitante="";
+            $this->TipoVisitante="";
+            $this->IdParentesco="";
+            $this->Parentesco="";
+
+
     }
     }
     function __destruct()
@@ -436,6 +461,165 @@ Class Interno extends db_abstract_class{
         $this->IdCarcel = $IdCarcel;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdVisitante()
+    {
+        return $this->IdVisitante;
+    }
+
+    /**
+     * @param string $IdVisitante
+     */
+    public function setIdVisitante($IdVisitante)
+    {
+        $this->IdVisitante = $IdVisitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCedulaVisitante()
+    {
+        return $this->CedulaVisitante;
+    }
+
+    /**
+     * @param string $CedulaVisitante
+     */
+    public function setCedulaVisitante($CedulaVisitante)
+    {
+        $this->CedulaVisitante = $CedulaVisitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombre1Visitante()
+    {
+        return $this->Nombre1Visitante;
+    }
+
+    /**
+     * @param string $Nombre1Visitante
+     */
+    public function setNombre1Visitante($Nombre1Visitante)
+    {
+        $this->Nombre1Visitante = $Nombre1Visitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombre2Visitante()
+    {
+        return $this->Nombre2Visitante;
+    }
+
+    /**
+     * @param string $Nombre2Visitante
+     */
+    public function setNombre2Visitante($Nombre2Visitante)
+    {
+        $this->Nombre2Visitante = $Nombre2Visitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApellido1Visitante()
+    {
+        return $this->Apellido1Visitante;
+    }
+
+    /**
+     * @param string $Apellido1Visitante
+     */
+    public function setApellido1Visitante($Apellido1Visitante)
+    {
+        $this->Apellido1Visitante = $Apellido1Visitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApellido2Visitante()
+    {
+        return $this->Apellido2Visitante;
+    }
+
+    /**
+     * @param string $Apellido2Visitante
+     */
+    public function setApellido2Visitante($Apellido2Visitante)
+    {
+        $this->Apellido2Visitante = $Apellido2Visitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipoVisitante()
+    {
+        return $this->TipoVisitante;
+    }
+
+    /**
+     * @param string $TipoVisitante
+     */
+    public function setTipoVisitante($TipoVisitante)
+    {
+        $this->TipoVisitante = $TipoVisitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentesco()
+    {
+        return $this->Parentesco;
+    }
+
+    /**
+     * @param string $Parentesco
+     */
+    public function setParentesco($Parentesco)
+    {
+        $this->Parentesco = $Parentesco;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlImagenVisitante()
+    {
+        return $this->UrlImagenVisitante;
+    }
+
+    /**
+     * @param mixed $UrlImagenVisitante
+     */
+    public function setUrlImagenVisitante($UrlImagenVisitante)
+    {
+        $this->UrlImagenVisitante = $UrlImagenVisitante;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdParentesco()
+    {
+        return $this->IdParentesco;
+    }
+
+    /**
+     * @param string $IdParentesco
+     */
+    public function setIdParentesco($IdParentesco)
+    {
+        $this->IdParentesco = $IdParentesco;
+    }
 
 
 
@@ -545,6 +729,47 @@ Class Interno extends db_abstract_class{
                                         INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel 
                                         INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion 
                                         INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado ");
+    }
+    public static function getAllInternoVisita()
+    {
+        return Interno::buscar("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`
+                                        INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado 
+                                        INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno 
+                                        INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion 
+                                        INNER JOIN tbubicacioninterno on tbubicacioninterno.IdUbicacionInterno = tbregistro.IdUbicacionInterna 
+                                        INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito 
+                                        INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel 
+                                        INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion 
+                                        INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado where tbRegistro.IdEstado = 1");
+    }
+    public static function buscarVisita($query)
+    {
+        $arrayVisitante = array();
+        $tmp = new Interno();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            $Visitante = new Interno();
+            $Visitante->IdVisitante=$valor['IdVisitante'];
+            $Visitante->CedulaVisitante=$valor['Cedula'];
+            $Visitante->Nombre1Visitante=$valor['Nombre1'];
+            $Visitante->Nombre2Visitante=$valor['Nombre2'];
+            $Visitante->Apellido1Visitante=$valor['Apellido1'];
+            $Visitante->Apellido2Visitante2=$valor['Apellido2'];
+            $Visitante->UrlImagenVisitante=$valor['UrlImagen'];
+            $Visitante->TipoVisitante=$valor['TipoVisitante'];
+            $Visitante->IdParentesco=$valor['IdParentesco'];
+            $Visitante->Parentesco=$valor['Parentesco'];
+
+            array_push($arrayVisitante,$Visitante);
+        }
+        $tmp->Disconnect();
+        return $arrayVisitante;
+    }
+    public static function getAllVisita($IdInterno)
+    {
+
+        return Interno::buscarVisita("SELECT tbvisitante.IdVisitante, tbvisitante.Cedula,tbvisitante.Nombre1,tbvisitante.Nombre2,tbvisitante.Apellido1,tbvisitante.Apellido2, tbtipovisitante.TipoVisitante,tbparentesco.IdParentesco, tbparentesco.Parentesco,tbvisitante.UrlImagen FROM `tbvinvulo` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvinvulo.IdVisitante INNER JOIN tbtipovisitante ON tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco WHERE tbvinvulo.IdVisitado ="."$IdInterno.");
     }
 
     public function insertar()

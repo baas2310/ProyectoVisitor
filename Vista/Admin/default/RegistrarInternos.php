@@ -204,6 +204,8 @@ $resultado=$mysqli->query($query);
                                         <div class="form-group">
                                             <label>Delito</label>
                                             <?php echo ControlSelectores::SelectDelito(); ?>
+                                            <option value="<?php echo $objInterno->getIdParentesco()?>"<?php echo $objInterno->getParentesco()?> </option>
+
                                         </div>
 
 

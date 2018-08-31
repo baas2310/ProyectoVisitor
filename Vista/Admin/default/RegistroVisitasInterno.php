@@ -76,6 +76,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                     <div class="col-12">
                         <div class="card-box">
                             <h4 class="text-center text-custom">LISTA DE INTERNOS</h4>
+                            <?php
+                    $IdRegistro = $_GET["IdRegistro"];
+                    $_SESSION["IdRegistro"] = $IdRegistro;
+                    ?>
+
+                            
 
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
@@ -91,7 +97,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                     </div>
 
 
-                                    <?php echo ControlInternos::adminTableInternoVisitas(); ?>
+                                    <?php echo ControlInternos::adminTableVisitante(); ?>
 
                             </div>
                         </div>

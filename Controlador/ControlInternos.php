@@ -191,6 +191,112 @@ class ControlInternos
         return $htmltable;
 
     }
+    static public function adminTableInternoVisitas()
+    {
+
+        $ArrayInternos = Interno::getAllInternoVisita();;
+        //$tmpInterno = new Interno();
+        $arrColumnas = [/*"Código",*/
+            "No. TD", "Nombre 1", "Apellido 1", "Tipo Interno", "Delito", "Tipo Reclusion", "Cárcel","Municipio","Estado"];
+        $htmltable = "<thead>";
+        $htmltable .= "<tr>";
+
+        foreach ($arrColumnas as $NameColumna) {
+
+            $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
+
+        }
+        $htmltable .= "<th style='text-align: center'>Acciones</th>";
+        $htmltable .= "</tr>";
+        $htmltable .= "</thead>";
+
+        $htmltable .= "<tbody>";
+        foreach ($ArrayInternos as $objInterno) {
+            $htmltable .= "<tr>";
+
+            /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
+            $htmltable .= "<td>" . $objInterno->getTD() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getNombre1() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getApellido1() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getTipoInterno() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getDelito() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getTipoReclucion() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getNombreCarcel() . "</td>";
+            $htmltable .= "<td>" . $objInterno->getMunicipio() . "</td>";
+
+            if ($objInterno->getEstado() == "Activo") {
+                $htmltable .= "<td><span class= 'label label-success'>" . $objInterno->getEstado() . "</span></td>";
+            } else {
+                $htmltable .= "<td><span class='label label-inverse' >" . $objInterno->getEstado() . "</span></td>";
+            }
+
+            $icons = "";
+            if ($objInterno->getEstado() == "Activo") {
+
+                $icons .= "<a data-toggle='tooltip' title='Visitas del Interno' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='RegistroVisitasInterno.php?IdRegistro=" . $objInterno->getIdRegistro() . "'><i class='fa fa-pencil'></i></a>";
+
+            }
+
+            //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
+
+            $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
+            $htmltable .= "</tr>";
+
+        }
+        $htmltable .= "</tbody>";
+        return $htmltable;
+
+    }
+    static public function adminTableVisitante()
+    {
+
+        $ArrayVisitantes = Interno::getAllVisita($_SESSION["IdRegistro"]);;
+        //$tmpVisitante = new Visitante();
+        $arrColumnas = [/*"Código",*/
+            "No. Documento", "Nombre 1", "Nombre 2", "Apellido 1", "Apellido 2", "Tipo Visitante", "Parentesco"];
+        $htmltable = "<thead>";
+        $htmltable .= "<tr>";
+
+        foreach ($arrColumnas as $NameColumna) {
+
+            $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
+
+        }
+        $htmltable .= "<th style='text-align: center'>Acciones</th>";
+        $htmltable .= "</tr>";
+        $htmltable .= "</thead>";
+
+        $htmltable .= "<tbody>";
+        foreach ($ArrayVisitantes as $objVisitante) {
+            $htmltable .= "<tr>";
+
+            /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
+            $htmltable .= "<td>" . $objVisitante->getCedulaVisitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getNombre1Visitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getNombre2Visitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getApellido1Visitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getApellido2Visitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getTipoVisitante() . "</td>";
+            $htmltable .= "<td>" . $objVisitante->getParentesco() . "</td>";
+            //$htmltable .= "<td>" . $objVisitante->getEstado() . "</td>";
+
+
+
+            $icons = "";
+
+
+            $icons .= "<a data-toggle='tooltip' title='Editar' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarVisitantesInterno.php?IdVisitante=" . $objVisitante->getIdVisitante() . "'><i class='fa fa-pencil'></i></a>";
+
+
+            $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
+            $htmltable .= "</tr>";
+
+        }
+        $htmltable .= "</tbody>";
+        return $htmltable;
+
+    }
     static public function Estado ($Estado){
         try {
 

@@ -60,4 +60,18 @@ class ControlSelectores
         $htmlSelect .= "</select>";
         return $htmlSelect;
     }
+    static public function SelectParentesco()
+    {
+
+        $arraySelector = Selector::SelectParentesco();
+        $htmlSelect = "<select class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
+        $htmlSelect .= "<option >Seleccione ...</option>";
+
+        if (count($arraySelector) > 0) {
+            foreach ($arraySelector as $selector)
+                $htmlSelect .= "<option value='" . $selector->getIdParentesco() . "'>" . $selector->getParentesco(). "</option>";
+        }
+        $htmlSelect .= "</select>";
+        return $htmlSelect;
+    }
 }

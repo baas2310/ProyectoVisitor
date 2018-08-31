@@ -11,6 +11,8 @@ Class Selector extends db_abstract_class{
     private $IdTipoReclucion;
     private  $TipoReclucion;
 
+    private $IdParentesco;
+    private $Parentesco;
 
 
     public function __construct($Visitor_data=array())
@@ -26,6 +28,9 @@ Class Selector extends db_abstract_class{
 
             $this->IdTipoInterno="";
             $this->TipoInterno="";
+
+            $this->IdParentesco="";
+            $this->Parentesco="";
 
 
     }
@@ -131,6 +136,39 @@ Class Selector extends db_abstract_class{
         $this->TipoReclucion = $TipoReclucion;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdParentesco()
+    {
+        return $this->IdParentesco;
+    }
+
+    /**
+     * @param string $IdParentesco
+     */
+    public function setIdParentesco($IdParentesco)
+    {
+        $this->IdParentesco = $IdParentesco;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentesco()
+    {
+        return $this->Parentesco;
+    }
+
+    /**
+     * @param string $Parentesco
+     */
+    public function setParentesco($Parentesco)
+    {
+        $this->Parentesco = $Parentesco;
+    }
+
+
 /*______________________________________________________*/
 
 
@@ -186,6 +224,22 @@ Class Selector extends db_abstract_class{
         $tmp->Disconnect();
         return $arraySelector;
     }
+    public static function buscarParentesco($query)
+    {
+        $arraySelector = array();
+        $tmp = new Selector();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            $Selector = new Selector();
+            $Selector->IdParentesco=$valor['IdParentesco'];
+            $Selector->Parentesco=$valor['Parentesco'];
+
+            array_push($arraySelector,$Selector);
+        }
+        $tmp->Disconnect();
+        return $arraySelector;
+    }
 
     public static function SelectDelito()
     {
@@ -199,6 +253,10 @@ Class Selector extends db_abstract_class{
     public static function SelectTipoReclucion()
     {
         return Selector::buscarTipoReclucion("SELECT * FROM tbTipoReclucion");
+    }
+    public static function SelectParentesco()
+    {
+        return Selector::buscarParentesco("SELECT * FROM tbParentesco");
     }
     public function editar()
     {

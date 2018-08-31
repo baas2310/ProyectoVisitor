@@ -120,7 +120,7 @@ $resultado=$mysqli->query($query);
                             <form role="form" method="post" action="../../../Controlador/ControlInterno.php?action=EditarInterno">
                                 <div class="row ">
                                     <div class="col-xs-9 center-page" style="width: 83%">
-                                        <?php echo var_dump($objInterno)?>
+
 
 
                                         <div class="row">
