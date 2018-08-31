@@ -113,14 +113,14 @@ $resultado=$mysqli->query($query);
 
 
                             <h4 class="text-center text-custom">ACTUALIZAR INTERNO</h4>
-
-                            //<?php echo var_dump($objInterno)?>
+                            
 
                             <br>
 
                             <form role="form" method="post" action="../../../Controlador/ControlInterno.php?action=EditarInterno">
                                 <div class="row ">
                                     <div class="col-xs-9 center-page" style="width: 83%">
+                                        <?php echo var_dump($objInterno)?>
 
 
                                         <div class="row">
@@ -153,10 +153,10 @@ $resultado=$mysqli->query($query);
                                                        class="form-control" disabled  />
                                             </div>
 
-                                            <div class="col-lg-6">
-                                                <label for="UrlImagen">Url de la imagen</label>
-                                                <input type="file" value="<?php echo $objInterno->getUrlImagen(); ?>" name="UrlImagen" id="UrlImagen"
-                                                       class="form-control" />
+                                            <div class="form-group">
+                                                <label for="UrlImagen">Imagen </label>
+                                                <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
+                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="FechaIngreso">Fecha de ingreso </label>
@@ -180,7 +180,19 @@ $resultado=$mysqli->query($query);
                                                   <input type="text" value="<?php echo $objInterno->getTipoReclucion(); ?>" name="idTipoReclusion" id="idTipoReclusion"
                                                          class="form-control" disabled />
                                                 </div>
-                                            <div class="col-sm-5">
+                                            <div class="col-lg-6">
+                                                <label for="Delito">Delito</label>
+                                                <input type="text" value="<?php echo $objInterno->getDelito(); ?>" name="Delito" id="Delito"
+                                                       class="form-control" disabled/>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="Estado">Estado</label>
+                                                <select class="form-control" id="TipoVisitante" required name="TipoVisitante" disabled>
+                                                    <option <?php echo ($objInterno->getEstado() == "Activo") ? "selected" : ""; ?> value="1">Interno</option>
+                                                    <option <?php echo ($objInterno->getEstado() == "Inactivo") ? "selected" : ""; ?> value="2">En Livertad o Estado de baja</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6">
                                                 <label for="cbx_Carcel">Carcel</label>
                                                 <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
                                                     <option value="<?php echo $objInterno->getIdCarcel()?>"><?php echo $objInterno->getNombreCarcel()?> </option>
@@ -195,22 +207,13 @@ $resultado=$mysqli->query($query);
                                                     <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion">
                                                         <option value="<?php echo $objInterno->getIdUbicacionInterna()?>"<?php echo $objInterno->getIdCarcel()?>"><?php echo "Patio: ".$objInterno->getPatio()." Seccion : ".$objInterno->getSeccion()." Celda: ".$objInterno->getCelda()?> </option>
                                                     </select>
-                                                <div class="col-lg-6">
+                                                <div class="form-group">
                                                 </div>
-                                                  <label for="Ubicacion">Ubicacion</label>
+                                                  <label for="Ubicacion">Ubicacion Domiciliaria</label>
                                                   <input type="text" value="<?php echo $objInterno->getUbicacion(); ?>" name="idUbicacion" id="idUbicacion"
                                                          class="form-control" />
                                                 </div>
-                                                <div class="col-lg-6">
-                                                  <label for="Delito">Delito</label>
-                                                  <input type="text" value="<?php echo $objInterno->getDelito(); ?>" name="Delito" id="Delito"
-                                                         class="form-control" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                  <label for="Estado">Estado</label>
-                                                  <input type="text" value="<?php echo $objInterno->getEstado(); ?>" name="Estado" id="Estado"
-                                                         class="form-control" />
-                                                </div>
+
 
 
                                             <br><br>

@@ -35,26 +35,29 @@ class ControlInternos
         $ArrayInterno['FechaNacimiento'] = $_POST['FechaNacimiento'];
 
 
-
+        $formatos   = array('.jpg', '.png');
         $dir_subida = __DIR__.'../../ImagenesInternos/';
         $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+        $ext              = substr($fichero_subido, strrpos($fichero_subido, '.'));
 
         echo '<pre>';
-        if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+        if (in_array($ext, $formatos)){
+            move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido);
             //echo "El fichero es válido y se subió con éxito.\n";
+            $Interno = new Interno($ArrayInterno);
+
+            $Interno->insertar();
+            $IdRegistrado=(Interno::buscarIdInterno($_POST['Cedula']));
+            var_dump($IdRegistrado->getIdRegistrado());
+            var_dump(self::CrearRegistro($IdRegistrado->getIdRegistrado()));
+            //header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
         } else {
            // echo "¡Posible ataque de subida de ficheros!\n";
         }
         $ArrayInterno['UrlImagen'] = $_FILES['UrlImagen']['name'];
 
 
-        $Interno = new Interno($ArrayInterno);
 
-        $Interno->insertar();
-        $IdRegistrado=(Interno::buscarIdInterno($_POST['Cedula']));
-        var_dump($IdRegistrado->getIdRegistrado());
-        var_dump(self::CrearRegistro($IdRegistrado->getIdRegistrado()));
-        //header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
     } catch (Exception $e) {
         var_dump($e);
 
@@ -171,11 +174,13 @@ class ControlInternos
             $icons = "";
             if ($objInterno->getEstado() == "Activo") {
                 $icons .= "<a data-toggle='tooltip' title='Inactivar Usuario' data-placement='top' class='btn btn-icon waves-effect waves-light btn-danger newTooltip' href='../../../Controlador/ControlInternos.php?accion=DesactivarInterno&IdRegistrado=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-remove'></i></a>";
+                $icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
             } else {
                 $icons .= "<a data-toggle='tooltip' title='Interno en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
             }
 
-            $icons .= "<a data-toggle='tooltip' title='Editar' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+            //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
 
 
             $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
@@ -197,21 +202,22 @@ class ControlInternos
             $objRegistro->setIdRegistradorIngreso($idRegistrador);
             $objRegistro->setFechaIngreso(date('Y/m/d H:i:s'));
             $objRegistro->editarEstado();
-            self::CrearAlerta($IdRegistrado);
+            $Alerta = " Dio salida o baja";
+            self::CrearAlerta($IdRegistrado,$Alerta);
             header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=correcto");
         }catch (Exception $e){
             $txtMensaje = $e->getMessage();
             header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=error&Mensaje=".$txtMensaje);
         }
     }
-    static public function CrearAlerta($IdRegistrado)
+    static public function CrearAlerta($IdRegistrado,$alerta)
     {
         try {
             //var_dump($_POST);
             $ArrayInterno = Array();
             $ArrayInterno['IdRegistrador'] = $_SESSION["DataUser"]["IdFuncionario"];
             $ArrayInterno['IdModificado'] = $IdRegistrado;
-            $ArrayInterno['Alerta']=" Dio salida o baja";
+            $ArrayInterno['Alerta']=$alerta;
             $ArrayInterno['FechaRegistro'] =date('Y/m/d H:i:s');
 
 

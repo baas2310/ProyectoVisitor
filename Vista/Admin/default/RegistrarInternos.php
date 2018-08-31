@@ -158,7 +158,7 @@ $resultado=$mysqli->query($query);
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="UrlImagen">Imagen</label>
+                                                <label for="UrlImagen">Imagen </label>
                                                 <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
