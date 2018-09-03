@@ -208,7 +208,7 @@ Class Actividad extends db_abstract_class{
 
     public static function getAlert()
     {
-        return Actividad::buscarAlerta("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbalerta.Alerta,tbalerta.Fecha, tbinterno.Nombre1,tbinterno.Apellido1, tbregistro.TD FROM `tbalerta` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalerta.IdRegistrador INNER JOIN tbinterno on tbinterno.IdInterno = tbalerta.IdModificado INNER JOIN tbregistro on tbregistro.IdRegistrado = tbinterno.IdInterno");
+        return Actividad::buscarAlerta("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbalerta.Alerta,tbalerta.Fecha, tbinterno.Nombre1,tbinterno.Apellido1, tbregistro.TD FROM `tbalerta` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalerta.IdRegistrador INNER JOIN tbinterno on tbinterno.IdInterno = tbalerta.IdModificado INNER JOIN tbregistro on tbregistro.IdRegistrado = tbinterno.IdInterno ORDER BY tbalerta.Fecha DESC");
     }
     protected static function buscarRegistro($query)
     {
@@ -233,7 +233,7 @@ Class Actividad extends db_abstract_class{
 
     public static function getReg()
     {
-        return Actividad::buscarRegistro("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbregistro.FechaIngreso, CONCAT(tbinterno.Nombre1,' : ', tbinterno.Apellido1),tbregistro.TD,tbdelito.Delito FROM `tbregistro` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbregistro.IdRegistradorIngreso INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbdelito on tbdelito.IdDelito= tbregistro.IdDelito");
+        return Actividad::buscarRegistro("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbregistro.FechaIngreso, CONCAT(tbinterno.Nombre1,' : ', tbinterno.Apellido1),tbregistro.TD,tbdelito.Delito FROM `tbregistro` INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbregistro.IdRegistradorIngreso INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbdelito on tbdelito.IdDelito= tbregistro.IdDelito order by tbRegistro.FechaIngreso DESC ");
     }
     protected static function buscarRegistroVisita($query)
     {
@@ -257,7 +257,7 @@ Class Actividad extends db_abstract_class{
 
     public static function getRegVisita()
     {
-        return Actividad::buscarRegistroVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),registrovisitantes.FechaRegistro, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM registrovisitantes INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = registrovisitantes.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = registrovisitantes.IdRegistrado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante");
+        return Actividad::buscarRegistroVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),registrovisitantes.FechaRegistro, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM registrovisitantes INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = registrovisitantes.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = registrovisitantes.IdRegistrado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante ORDER BY registrovisitantes.FechaRegistro DESC");
     }
     protected static function buscarAlertaVisita($query)
     {
@@ -281,7 +281,7 @@ Class Actividad extends db_abstract_class{
 
     public static function getAlertVisita()
     {
-        return Actividad::buscarAlertaVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbalertavisitante.Alerta ,tbalertavisitante.Fecha, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM tbalertavisitante INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalertavisitante.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = tbalertavisitante.IdModificado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante");
+        return Actividad::buscarAlertaVisita("SELECT CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1),tbalertavisitante.Alerta ,tbalertavisitante.Fecha, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbtipovisitante.TipoVisitante FROM tbalertavisitante INNER JOIN tbfuncionario on tbfuncionario.IdFuncionario = tbalertavisitante.IdRegistrador INNER JOIN tbvisitante on tbvisitante.IdVisitante = tbalertavisitante.IdModificado INNER JOIN tbtipovisitante on tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante ORDER  BY tbalertavisitante.Fecha DESC ");
     }
 
     public function insertar()

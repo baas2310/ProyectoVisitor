@@ -27,6 +27,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <!-- Controlador Necesario -->
     <?php require "../../../Controlador/ControlVisitantes.php" ?>
 
+    <?php require "../../../Controlador/ControlSelectores.php" ?>
+
     <?php include("Includes/imports.php") ?>
 
 </head>
@@ -118,12 +120,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Tipo Visitante</label>
-                                                <select class="form-control" id="TipoVisitante" required name="TipoVisitante">
 
-                                                    <option value="1">Visitante Ocasional</option>
-                                                    <option value="3">Abogados</option>
-
-                                                </select>
+                                                <?php echo ControlSelectores::SelectParentesco()?>
                                             </div>
 
                                         </div>

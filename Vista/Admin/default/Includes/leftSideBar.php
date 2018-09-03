@@ -47,7 +47,7 @@
                     <ul class="nav-second-level" aria-expanded="false">
                       <li><a href=" RegistrarVisitantes.php">Crear Visitantes</a></li>
                       <li><a href=" ListarVisitantes.php">Actualizar Visitantes</a></li>
-                      <li><a href=" IngresoVisitas.php">Ingreso Visitantes</a></li>
+                      <li><a href=" FormularioVisitas.php">Ingreso Visitantes</a></li>
 
                     </ul>
                 </li>

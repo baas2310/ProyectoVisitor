@@ -31,7 +31,7 @@ session_destroy(); //Destruye la sesión
     <body class="bg-accpunt-pages">
 
         <!-- HOME -->
-        <section>
+        <section style="background: #38586c">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">

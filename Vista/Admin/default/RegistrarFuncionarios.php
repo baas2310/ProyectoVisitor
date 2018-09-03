@@ -118,70 +118,68 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
                             <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
 
-                                <fieldset title="1">
+                                <fieldset title="Datos básicos">
                                     <legend>Información </legend>
 
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Cedula"> Documento </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" data-parsley-type="number" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" pattern="[A-Za-z]" minlength="7" maxlength="15" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" pattern="[A-Za-z]"  maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" maxlength="30" >
                                             </div>
 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" maxlength="30"required >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Celular">Celular</label>
-                                                <input type="text" class="form-control" id="Celular" name="Celular"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Rango">Rango</label>
                                                 <input type="text" class="form-control" id="Rango" name="Rango"
-                                                       parsley-trigger="change" required>
+                                                       required maxlength="30">
                                             </div>
                                         </div>
                                     </div>
 
                                 </fieldset>
 
-                            <fieldset title="2">
+                            <fieldset title="Datos de inicio de sesión">
                                 <legend>Datos Inicio Sesión </legend>
 
                                 <div class="row m-t-20">
                                     <div class="col-sm-6">
 
-
-
                                         <div class="form-group">
                                             <label for="Usuario">Usuario</label>
                                             <input type="text" class="form-control" id="Usuario" name="Usuario"
-                                                   parsley-trigger="change" required>
+                                                   maxlength="30" required>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="Password">Contraseña</label>
                                             <input type="password" class="form-control" id="Password" name="Password"
-                                                   placeholder="" parsley-trigger="change" required>
+                                                   maxlength="30" required>
                                         </div>
 
 
@@ -191,24 +189,23 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="form-group">
                                             <label for="Password2">Confirmar Contraseña</label>
                                             <input data-parsley-equalto="#Password"type="password" class="form-control"
-                                                   id="Password2" name="Password2" placeholder="" required>
-                                    </div>
+                                            id="Password2" name="Password2" required>
+                                        </div>
+
                                         <div class="col-sm-6">
                                             <label>Permiso</label>
                                             <select class="form-control" id="Permiso" required name="Permiso">
-
                                                 <option value="3">Administrador 1</option>
                                                 <option value="4">Administrador 2</option>
                                                 <option value="5">Administrador 3</option>
                                                 <option value="6">Auxiliar 1</option>
                                                 <option value="7">Auxiliar 2</option>
                                                 <option value="8">Auxiliar 3</option>
-
                                             </select>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <label for="departamentp">Departamento </label>
+                                            <label for="departamento">Departamento </label>
                                         <select class="form-control" name="departamento" id="departamento">
                                             <option value="0">Seleccionar departamento</option>
                                             <?php while($row = $resultado->fetch_assoc()) { ?>
@@ -219,10 +216,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
                                         <div class="form-group">
                                             <label for="municipio">Municipio </label>
-                                            <select class="form-control" name="municipio" id="municipio">
-
+                                            <select class="form-control" name="municipio" id="municipio" >
                                             </select>
                                         </div>
+
                                         </div>
 
                                     </div>

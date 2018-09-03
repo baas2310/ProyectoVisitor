@@ -113,11 +113,11 @@ $resultado=$mysqli->query($query);
 
 
                             <h4 class="text-center text-custom">ACTUALIZAR INTERNO</h4>
-                            
+
 
                             <br>
 
-                            <form role="form" method="post" action="../../../Controlador/ControlInterno.php?action=EditarInterno">
+                            <form role="form" method="post" action="../../../Controlador/ControlInternos.php?accion=Editar">
                                 <div class="row ">
                                     <div class="col-xs-9 center-page" style="width: 83%">
 
@@ -129,22 +129,23 @@ $resultado=$mysqli->query($query);
                                                 <label for="Nombre1">Primer nombre </label>
 
                                                 <input type="text" value="<?php echo $objInterno->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                       class="form-control"  disabled/>
+                                                       class="form-control" pattern="[A-Za-z]" maxlength="30"  disabled/>
                                             </div>
+                                            a
                                             <div class="col-lg-6">
                                                 <label for="Nombre2">Segundo nombre </label>
                                                 <input type="text" value="<?php echo $objInterno->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                       class="form-control"  disabled/>
+                                                       class="form-control" pattern="[A-Za-z]" maxlength="30" disabled/>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido1">Primer apellido </label>
                                                 <input type="text" value="<?php echo $objInterno->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                       class="form-control" disabled />
+                                                       class="form-control" pattern="[A-Za-z]" disabled />
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objInterno->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control" disabled />
+                                                       class="form-control" pattern="[A-Za-z]" disabled />
                                             </div>
 
                                             <div class="col-lg-6">
@@ -153,11 +154,7 @@ $resultado=$mysqli->query($query);
                                                        class="form-control" disabled  />
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="UrlImagen">Imagen </label>
-                                                <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
-                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
-                                            </div>
+
                                             <div class="col-lg-6">
                                                 <label for="FechaIngreso">Fecha de ingreso </label>
                                                 <input type="text" value="<?php echo $objInterno->getFechaIngreso(); ?>" name="FechaIngreso" id="FechaIngreso"
@@ -189,9 +186,10 @@ $resultado=$mysqli->query($query);
                                                 <label for="Estado">Estado</label>
                                                 <select class="form-control" id="TipoVisitante" required name="TipoVisitante" disabled>
                                                     <option <?php echo ($objInterno->getEstado() == "Activo") ? "selected" : ""; ?> value="1">Interno</option>
-                                                    <option <?php echo ($objInterno->getEstado() == "Inactivo") ? "selected" : ""; ?> value="2">En Livertad o Estado de baja</option>
+                                                    <option <?php echo ($objInterno->getEstado() == "Inactivo") ? "selected" : ""; ?> value="2">En Libertad o Estado de baja</option>
                                                 </select>
                                             </div>
+                                          
                                             <div class="col-lg-6">
                                                 <label for="cbx_Carcel">Carcel</label>
                                                 <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
@@ -203,9 +201,9 @@ $resultado=$mysqli->query($query);
 
 
                                                 <div class="form-group">
-                                                    <label for="cbx_Ubicacion">Ubicacion </label>
+                                                    <label for="cbx_Ubicacion">Ubicación </label>
                                                     <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion">
-                                                        <option value="<?php echo $objInterno->getIdUbicacionInterna()?>"<?php echo $objInterno->getIdCarcel()?>"><?php echo "Patio: ".$objInterno->getPatio()." Seccion : ".$objInterno->getSeccion()." Celda: ".$objInterno->getCelda()?> </option>
+                                                        <option value="<?php echo $objInterno->getIdUbicacionInterna()?><?php echo $objInterno->getIdCarcel()?>"><?php echo "Patio: ".$objInterno->getPatio()." Seccion : ".$objInterno->getSeccion()." Celda: ".$objInterno->getCelda()?> </option>
                                                     </select>
                                                 <div class="form-group">
                                                 </div>
@@ -213,21 +211,14 @@ $resultado=$mysqli->query($query);
                                                   <input type="text" value="<?php echo $objInterno->getUbicacion(); ?>" name="idUbicacion" id="idUbicacion"
                                                          class="form-control" />
                                                 </div>
-
-
-
-                                            <br><br>
-
-
-
                                         </div>
 
-
                                         <div class="form-group text-center">
-
-                                            <button onclick=" location.href='ListarInterno.php'" type="reset" class="btn btn-gris font-15" style="border-radius: 5px">
+                                            <br><br>  <br> <br> <br>
+                                            <button onclick=" location.href='ListarInterno.php'" type="reset" class="btn btn-gris font-15">
                                                 <strong>Cancelar</strong>
                                             </button>
+
 
 
 

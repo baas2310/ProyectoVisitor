@@ -811,19 +811,10 @@ $this->Disconnect();
     }
     public function editar()
     {
-        $this->updateRow("update tbInterno set TD= ?, Nombre1= ?, Nombre2= ?, Apellido1= ?, Apellido2= ?, FechaNacimiento= ?, UrlImagen= ?, IdDelito= ?, TipoReclucion= ?, Patio= ? where IdRegistrado = ?",array(
+        $this->updateRow("update tbRegistro set IdUbicacionInterna= ? where IdRegistrado = ?",array(
 
 
-                $this->TD,
-                $this->Nombre1,
-                $this->Nombre2,
-                $this->Apellido1,
-                $this->Apellido2,
-                $this->FechaNacimiento,
-                $this->UrlImagen,
-                $this->Delito,
-                $this->TipoReclucion,
-                $this->Patio,
+                $this->IdUbicacionInterna,
                 $this->IdRegistrado,
             )
         );

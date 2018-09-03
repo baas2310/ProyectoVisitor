@@ -100,6 +100,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
 
 
+
                             <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
 
                                 <fieldset >
@@ -137,24 +138,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                             <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento"  required>
                                         </div>
                                         <div class="col-sm-6">
-
-
                                             <div class="form-group ">
+                                            </div>
 
-                                            </div>
-                                            <div class="form-group">
-                                               <?php
-                                               include ("conexion.php");
-                                               $query = "Select UrlImagen from tbVisitante ";
-                                               $resultado= $conexion->query($query);
-                                               ?>
-                                               <?php echo $row ["UrlImagen"] ;  ?>
-                                            </div>
 
                                             <div class="form-group">
                                                 <label for="Rango">Rango</label>
                                                 <input type="text" class="form-control" id="Rango" name="Rango"
-                                                       parsley-trigger="change" required>
+                                                        required>
                                             </div>
                                         </div>
                                     </div>

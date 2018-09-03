@@ -183,7 +183,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 </div>
                                             </div>
 
-                                            <?php echo ControlActividades::adminTableAlertas($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
+                                            <?php echo ControlActividades::adminTableAlertaVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
 
                                         </table>
 

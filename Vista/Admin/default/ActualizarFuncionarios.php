@@ -129,7 +129,7 @@ va
                                                     <label for="Cedula">Cedula </label>
 
                                                     <input type="text" value="<?php echo $objFuncionario->getCedula(); ?>" name="Cedula" id="Cedula"
-                                                           class="form-control"  required/>
+                                                           class="form-control" minlength="7" maxlength="15" pattern="[0-9]" required/>
                                                 </div>
                                                 <br> <br>
                                                 <div class="col-lg-6">
@@ -137,22 +137,22 @@ va
                                                     <label for="Nombre1">Nombre 1 </label>
 
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                           class="form-control"  required/>
+                                                           class="form-control" maxlength="30" minlength="2" pattern="[A-Za-z]" required/>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <label for="Nombre2">Nombre 2 </label>
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                           class="form-control"  />
+                                                           class="form-control" pattern="[A-Za-z]" />
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <label for="Apellido1">Apellido 1 </label>
                                                     <input type="text" value="<?php echo $objFuncionario->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                           class="form-control" required />
+                                                           class="form-control" pattern="[A-Za-z]" required />
                                                 </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido2">Apellido 2 </label>
                                                 <input type="text" value="<?php echo $objFuncionario->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control"  />
+                                                       class="form-control" pattern="[A-Za-z]" />
                                             </div>
 
                                                 <div class="col-lg-6">
@@ -205,24 +205,24 @@ va
                                                            class="form-control"  required/>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label for="Celular"><strong>Celular</strong><span class="text-danger">*</span></label>
-                                                    <input type="text" value="<?php echo $objFuncionario->getCelular(); ?>" name="Celular" parsley-trigger="change" required
-                                                           placeholder="Ingrese numero de Celular" class="form-control" id="Celular" >
+                                                    <label for="Celular"><strong>Celular</strong></span></label>
+                                                    <input type="text" value="<?php echo $objFuncionario->getCelular(); ?>" name="Celular"  required
+                                                            class="form-control" id="Celular" >
                                                 </div>
 
 
                                                 <div class="row">
 
                                                     <div class="col-lg-6">
-                                                        <label for="Password"><strong>Contraseña</strong><span class="text-danger">*</span></label>
-                                                        <input id="Password" value="<?php echo $objFuncionario->getPass(); ?>" name="Password" type="password" placeholder="Contraseña" required
-                                                               class="form-control">
+                                                        <label for="Password"><strong>Contraseña</label>
+                                                        <input id="Password" value="<?php echo $objFuncionario->getPass(); ?>" name="Password" type="password"  required
+                                                               class="form-control" minlength="3" maxlength="50">
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <label for="Password2"><strong>Confirme Contraseña</strong><span class="text-danger">*</span></label>
-                                                        <input data-parsley-equalto="#Password" type="password" required
-                                                               placeholder="Repetir contraseña" class="form-control" id="Password2">
+                                                        <input data-parsley-equalto="#Password" type="password" required minlength="3" maxlength="50"
+                                                               class="form-control" id="Password2">
                                                     </div>
                                                 <br><br>
 

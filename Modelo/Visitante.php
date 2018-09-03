@@ -13,6 +13,8 @@ Class Visitante extends db_abstract_class{
     private $TipoVisitante;
     private $TarjetaProfesional;
     private $Observaciones;
+    private $IdParentesco;
+    private $Parentesco;
 
     Private $IdRegistrador;
     private $IdModificado;
@@ -37,6 +39,8 @@ Class Visitante extends db_abstract_class{
             $this->TipoVisitante="";
             $this->TarjetaProfesional="";
             $this->Observaciones="";
+            $this->IdParentesco="";
+            $this->Parentesco="";
 
             $this->IdRegistrador;
             $this->IdModificado;
@@ -258,12 +262,58 @@ Class Visitante extends db_abstract_class{
         $this->Alerta = $Alerta;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdParentesco()
+    {
+        return $this->IdParentesco;
+    }
 
+    /**
+     * @param string $IdParentesco
+     */
+    public function setIdParentesco($IdParentesco)
+    {
+        $this->IdParentesco = $IdParentesco;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentesco()
+    {
+        return $this->Parentesco;
+    }
+
+    /**
+     * @param string $Parentesco
+     */
+    public function setParentesco($Parentesco)
+    {
+        $this->Parentesco = $Parentesco;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaRegistro()
+    {
+        return $this->FechaRegistro;
+    }
+
+    /**
+     * @param mixed $FechaRegistro
+     */
+    public function setFechaRegistro($FechaRegistro)
+    {
+        $this->FechaRegistro = $FechaRegistro;
+    }
 
     public static function buscarId($id){
         $Visitante = new Visitante();
         if ($id>0){
-            $getRow = $Visitante->getRow("select IdVisitante,Cedula,Nombre1,Nombre2,Apellido1,Apellido2,UrlImagen,TipoVisitante,TarjetaProfesional,Observaciones from tbVisitante inner join tbTipoVisitante on tbVisitante.IdTipoVisitante = tbTipoVisitante.IdTipoVisitante  WHERE IdVisitante =?", array($id));
+            $getRow = $Visitante->getRow("select tbvisitante.IdVisitante,Cedula,Nombre1,Nombre2,Apellido1,Apellido2,UrlImagen,TipoVisitante,TarjetaProfesional,Observaciones from tbVisitante inner join tbTipoVisitante on tbVisitante.IdTipoVisitante = tbTipoVisitante.IdTipoVisitante WHERE tbvisitante.IdVisitante = ?", array($id));
             $Visitante->IdVisitante=$getRow['IdVisitante'];
             $Visitante->Cedula=$getRow['Cedula'];
             $Visitante->Nombre1=$getRow['Nombre1'];
@@ -274,6 +324,33 @@ Class Visitante extends db_abstract_class{
             $Visitante->TipoVisitante=$getRow['TipoVisitante'];
             $Visitante->TarjetaProfesional=$getRow['TarjetaProfesional'];
             $Visitante->Observaciones=$getRow['Observaciones'];
+
+
+            $Visitante->Disconnect();
+            return $Visitante;
+        }else{
+            return NULL;
+        }
+    }
+
+
+
+    public static function buscarIdVint($id){
+        $Visitante = new Visitante();
+        if ($id>0){
+            $getRow = $Visitante->getRow("select tbvisitante.IdVisitante,Cedula,Nombre1,Nombre2,Apellido1,Apellido2,UrlImagen,TipoVisitante,TarjetaProfesional,Observaciones,tbparentesco.Parentesco, tbparentesco.IdParentesco from tbVisitante inner join tbTipoVisitante on tbVisitante.IdTipoVisitante = tbTipoVisitante.IdTipoVisitante INNER JOIN tbvinvulo on tbvinvulo.IdVisitante = tbvisitante.IdVisitante INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco  WHERE tbvisitante.IdVisitante = ?", array($id));
+            $Visitante->IdVisitante=$getRow['IdVisitante'];
+            $Visitante->Cedula=$getRow['Cedula'];
+            $Visitante->Nombre1=$getRow['Nombre1'];
+            $Visitante->Nombre2=$getRow['Nombre2'];
+            $Visitante->Apellido1=$getRow['Apellido1'];
+            $Visitante->Apellido2=$getRow['Apellido2'];
+            $Visitante->UrlImagen=$getRow['UrlImagen'];
+            $Visitante->TipoVisitante=$getRow['TipoVisitante'];
+            $Visitante->TarjetaProfesional=$getRow['TarjetaProfesional'];
+            $Visitante->Observaciones=$getRow['Observaciones'];
+            $Visitante->IdParentesco=$getRow['IdParentesco'];
+            $Visitante->Parentesco=$getRow['Parentesco'];
 
             $Visitante->Disconnect();
             return $Visitante;

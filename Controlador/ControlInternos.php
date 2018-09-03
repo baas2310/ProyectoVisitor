@@ -97,20 +97,16 @@ class ControlInternos
         try {
             $tmpObject = Interno::buscarId($_SESSION["IdInterno"]);
             $ArrayInterno = Array();
-            $ArrayInterno['Cedula'] = $_POST['Cedula'];
-            $ArrayInterno['Nombre1'] = $_POST['Nombre1'];
-            $ArrayInterno['Nombre2'] = $_POST['Nombre2'];
-            $ArrayInterno['Apellido1'] = $_POST['Apellido1'];
-            $ArrayInterno['Apellido2'] = $_POST['Apellido2'];
-            $ArrayInterno['UrlImagen'] = $_POST['UrlImagen'];
-            $ArrayInterno['TipoInterno'] = $_POST['TipoInterno'];
-            $ArrayInterno['TarjetaProfesional'] = $_POST['TarjetaProfesional'];
+            $ArrayInterno['IdUbicacionInterna'] = $_POST['cbx_Ubicacion'];
             $ArrayInterno['IdInterno']=$_SESSION['IdInterno'];
             $Interno = new Interno($ArrayInterno);
 
+            var_dump($ArrayInterno);
 
 
             $Interno->editar();
+            self::CrearAlerta($_SESSION["IdInterno"],"Translado");
+            self::EstadoTranslado(2);
             unset($_SESSION["IdInterno"]);
             header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=correcto&IdInterno=" . $ArrayInterno['IdInterno']);
         } catch (Exception $e) {
@@ -316,6 +312,25 @@ class ControlInternos
             header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=error&Mensaje=".$txtMensaje);
         }
     }
+    static public function EstadoTranslado ($Estado){
+        try {
+
+            $IdRegistrado = $_SESSION["IdInterno"];
+            $idRegistrador = $_SESSION["DataUser"]["IdFuncionario"];
+            echo ($IdRegistrado);
+            $objRegistro = Interno::buscarId($IdRegistrado);
+            $objRegistro->setEstado($Estado);
+            $objRegistro->setIdRegistradorIngreso($idRegistrador);
+            $objRegistro->setFechaIngreso(date('Y/m/d H:i:s'));
+            $objRegistro->editarEstado();
+            $Alerta = " Dio salida o baja";
+            self::CrearAlerta($IdRegistrado,$Alerta);
+            //header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=correcto");
+        }catch (Exception $e){
+            $txtMensaje = $e->getMessage();
+            header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=error&Mensaje=".$txtMensaje);
+        }
+    }
     static public function CrearAlerta($IdRegistrado,$alerta)
     {
         try {
@@ -337,5 +352,5 @@ class ControlInternos
 
         }
     }
-    
+
 }

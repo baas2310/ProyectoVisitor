@@ -50,6 +50,58 @@ $resultado=$mysqli->query($query);
                 });
             })
         });
+        function IsNumeric(valor)
+        {
+        var log=valor.length; var sw="S";
+        for (x=0; x<log; x++)
+        { v1=valor.substr(x,1);
+        v2 = parseInt(v1);
+        //Compruebo si es un valor numérico
+        if (isNaN(v2)) { sw= "N";}
+        }
+        if (sw=="S") {return true;} else {return false; }
+        }
+        function formateafecha(fecha)
+        {
+          var primerslap=false;
+          var segundoslap=false;
+          var long = fecha.length;
+          var dia;
+          var mes;
+          var ano;
+          if ((long>=2) && (primerslap==false)) { dia=fecha.substr(0,2);
+          if ((IsNumeric(dia)==true) && (dia<=31) && (dia!="00")) { fecha=fecha.substr(0,2)+"/"+fecha.substr(3,7); primerslap=true; }
+          else { fecha=""; primerslap=false;}
+          }
+          else
+          { dia=fecha.substr(0,1);
+          if (IsNumeric(dia)==false)
+          {fecha="";}
+          if ((long<=2) && (primerslap=true)) {fecha=fecha.substr(0,1); primerslap=false; }
+          }
+          if ((long>=5) && (segundoslap==false))
+          { mes=fecha.substr(3,2);
+          if ((IsNumeric(mes)==true) &&(mes<=12) && (mes!="00")) { fecha=fecha.substr(0,5)+"/"+fecha.substr(6,4); segundoslap=true; }
+          else { fecha=fecha.substr(0,3); segundoslap=false;}
+          }
+          else { if ((long<=5) && (segundoslap=true)) { fecha=fecha.substr(0,4); segundoslap=false; } }
+          if (long>=7)
+          { ano=fecha.substr(6,4);
+          if (IsNumeric(ano)==false) { fecha=fecha.substr(0,6); }
+          else { if (long==10){ if ((ano==0) || (ano<1900) || (ano>2018)) { fecha=fecha.substr(0,6); } } }
+          }
+          if (long>=10)
+          {
+          fecha=fecha.substr(0,10);
+          dia=fecha.substr(0,2);
+          mes=fecha.substr(3,2);
+          ano=fecha.substr(6,4);
+          // Año no viciesto y es febrero y el dia es mayor a 28
+          if ( (ano%4 != 0) && (mes == 2) && (dia > 28) ) { fecha=fecha.substr(0,2)+"/"; }
+          }
+          return (fecha);
+        }
+
 
     </script>
 </head>
@@ -120,7 +172,8 @@ $resultado=$mysqli->query($query);
                                 <fieldset >
                                     <legend style="color: #38586c;">Información </legend>
                                     <div class="form-group">
-                                        <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"parsley-trigger="change" hidden>
+                                        <label for="IdRegistrador"></label>
+                                        <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador" hidden>
                                     </div>
 
                                     <div class="row m-t-20">
@@ -128,33 +181,34 @@ $resultado=$mysqli->query($query);
 
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula"  maxlength="15" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="PrimerNombre">Primer nombre</label>
-                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre"  maxlength="30"  required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="SegundoNombre">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"  maxlength="30" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="FechaNacimiento"> Fecha de nacimiento </label>
-                                                <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento"  required>
+                                                <input type="text" size="10" class="form-control" id="FechaNacimiento" name="FechaNacimiento" onKeyUp = "this.value=formateafecha(this.value);" max=<?php $hoy=date("Y-m-d"); echo $hoy;?> required maxlength="10">
+                                                <small id="fileHelp" class="form-text text-muted">(dd/mm/aaaa)</small>
                                             </div>
 
                                           </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label for="PrimerApellido">Primer apellido</label>
-                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido"  maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="SegundoApellido">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"  maxlength="30" >
                                             </div>
 
                                             <div class="form-group">
@@ -172,12 +226,13 @@ $resultado=$mysqli->query($query);
 
 
 
+
                                 <div class="row m-t-17">
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label for="TD">TD</label>
                                             <input type="text" class="form-control" id="TD" name="TD"
-                                                   parsley-trigger="change" required>
+                                                    maxlength="30" required>
                                         </div>
                                         <label>Tipo Interno</label>
                                         <?php echo ControlSelectores::SelectTipoInterno(); ?>
@@ -204,8 +259,6 @@ $resultado=$mysqli->query($query);
                                         <div class="form-group">
                                             <label>Delito</label>
                                             <?php echo ControlSelectores::SelectDelito(); ?>
-                                            <option value="<?php echo $objInterno->getIdParentesco()?>"<?php echo $objInterno->getParentesco()?> </option>
-
                                         </div>
 
 
@@ -217,14 +270,14 @@ $resultado=$mysqli->query($query);
 
                                         </div>
                                     </div>
-                                </fieldset>
+
                                 </div>
 
 
                                 <input type="submit" class="btn btn-primary stepy-finish" name="boton" id="boton" value="Registrar interno">
 
 
-                            </form>
+
 
 
 
@@ -241,7 +294,7 @@ $resultado=$mysqli->query($query);
             2018 Software ADSI Visitor
         </footer>
 
-    </div>
+
 
 
     <!-- ============================================================== -->
@@ -249,7 +302,6 @@ $resultado=$mysqli->query($query);
     <!-- ============================================================== -->
 
 
-</div>
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>

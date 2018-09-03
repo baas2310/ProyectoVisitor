@@ -13,7 +13,9 @@ class ControlVisitantes
             ControlVisitantes::Crear();
         } elseif ($action == 'Editar') {
             ControlVisitantes::Editar();
-        } elseif ($action == 'Select') {
+        } elseif ($action == 'EditarVisitaInt') {
+            ControlVisitantes::EditarVisitaInterno();
+        }elseif ($action == 'Select') {
             ControlVisitantes::Select();
         }
     }
@@ -91,11 +93,25 @@ class ControlVisitantes
             $ArrayVisitante['Nombre2'] = $_POST['Nombre2'];
             $ArrayVisitante['Apellido1'] = $_POST['Apellido1'];
             $ArrayVisitante['Apellido2'] = $_POST['Apellido2'];
-            $ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
+            //$ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
             $ArrayVisitante['TipoVisitante'] = $_POST['TipoVisitante'];
             $ArrayVisitante['TarjetaProfesional'] = $_POST['TarjetaProfesional'];
             $ArrayVisitante['Observaciones'] = $_POST['Observaciones'];
             $ArrayVisitante['IdVisitante']=$_SESSION['IdVisitante'];
+
+            $dir_subida = __DIR__.'../../ImagenesVisitas/';
+            $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+
+            echo '<pre>';
+            if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+                //echo "El fichero es válido y se subió con éxito.\n";
+            } else {
+                // echo "¡Posible ataque de subida de ficheros!\n";
+            }
+            $ArrayVisitante['UrlImagen'] = $_FILES['UrlImagen']['name'];
+
+
+
             $visitante = new Visitante($ArrayVisitante);
 
             var_dump($ArrayVisitante);
@@ -104,6 +120,46 @@ class ControlVisitantes
             self::CrearAlerta($_SESSION["IdVisitante"]);
             unset($_SESSION["IdVisitante"]);
             header("Location: ../Vista/Admin/default/ListarVisitantes.php?respuesta=correcto&IdVisitante=" . $ArrayVisitante['IdVisitante']);
+        } catch (Exception $e) {
+            var_dump($e);
+        }
+    }
+    static public function EditarVisitaInterno()
+    {
+        try {
+            $tmpObject = Visitante::buscarId($_SESSION["IdVisitante"]);
+            $ArrayVisitante = Array();
+            $ArrayVisitante['Cedula'] = $_POST['Cedula'];
+            $ArrayVisitante['Nombre1'] = $_POST['Nombre1'];
+            $ArrayVisitante['Nombre2'] = $_POST['Nombre2'];
+            $ArrayVisitante['Apellido1'] = $_POST['Apellido1'];
+            $ArrayVisitante['Apellido2'] = $_POST['Apellido2'];
+            //$ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
+            $ArrayVisitante['TipoVisitante'] = $_POST['TipoVisitante'];
+            $ArrayVisitante['Observaciones'] = $_POST['Observaciones'];
+            $ArrayVisitante['IdVisitante']=$_SESSION['IdVisitante'];
+
+            $dir_subida = __DIR__.'../../ImagenesVisitas/';
+            $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+
+            echo '<pre>';
+            if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+                //echo "El fichero es válido y se subió con éxito.\n";
+            } else {
+                // echo "¡Posible ataque de subida de ficheros!\n";
+            }
+            $ArrayVisitante['UrlImagen'] = $_FILES['UrlImagen']['name'];
+
+
+
+            $visitante = new Visitante($ArrayVisitante);
+
+            var_dump($ArrayVisitante);
+
+            $visitante->editar();
+            self::CrearAlerta($_SESSION["IdVisitante"]);
+            unset($_SESSION["IdVisitante"]);
+            header("Location: ../Vista/Admin/default/RegistroVisitasInterno.php?IdRegistro=".$_SESSION["IdRegistro"]);
         } catch (Exception $e) {
             var_dump($e);
         }

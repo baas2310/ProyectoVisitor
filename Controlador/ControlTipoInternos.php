@@ -86,9 +86,7 @@ class ControlTipoInternos
             $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
 
         }
-        $htmltable .= "<th style='text-align: center'>Acciones</th>";
-        $htmltable .= "</tr>";
-        $htmltable .= "</thead>";
+
 
         $htmltable .= "<tbody>";
         foreach ($ArrayTipoInternos as $objTipoInterno) {
@@ -101,8 +99,6 @@ class ControlTipoInternos
 
             $icons = "";
 
-
-            $icons .= "<a data-toggle='tooltip' title='Editar' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarTipoInternos.php?IdTipoInterno=" . $objTipoInterno->getIdTipoInterno() . "'><i class='fa fa-pencil'></i></a>";
 
 
             $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";

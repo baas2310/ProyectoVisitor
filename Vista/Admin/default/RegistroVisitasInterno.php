@@ -76,6 +76,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                     <div class="col-12">
                         <div class="card-box">
                             <h4 class="text-center text-custom">LISTA DE INTERNOS</h4>
+
                             <?php
                     $IdRegistro = $_GET["IdRegistro"];
                     $_SESSION["IdRegistro"] = $IdRegistro;
@@ -90,7 +91,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="row">
                                             <div class="col-sm-6 text-xs-center">
                                                 <div class="form-group">
-                                                    <button onclick="location.href='RegistrarInternos.php'" id="Registrar" class="btn btn-success m-b-20"><i class="fa fa-plus m-r-5"></i>Añadir Registro</button>
+                                                    <button onclick="location.href='RegistrarVisitantesInternos.php'" id="Registrar" class="btn btn-success m-b-20"><i class="fa fa-plus m-r-5"></i>Añadir Registro</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -84,7 +84,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                     <?php }else{
                     $IdVisitante = $_GET["IdVisitante"];
                     $_SESSION["IdVisitante"] = $IdVisitante;
-                    $objVisitante = Visitante::buscarId($IdVisitante);
+                    $objVisitante = Visitante::buscarIdVint($IdVisitante);
                     ?>
 
 
@@ -97,9 +97,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                             <h4 class="text-center text-custom">ACTUALIZAR VISITANTES</h4>
 
 
+
                             <br>
 
-                            <form role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=Editar">
+                            <form role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=EditarVisitaInt"enctype='multipart/form-data'>
                                 <div class="row ">
                                     <div class="col-xs-9 center-page" style="width: 83%">
 
@@ -141,10 +142,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="text" value="<?php echo $objVisitante->getApellido2(); ?>" name="Apellido2" id="Apellido2"
                                                        class="form-control"  />
                                             </div>
-                                            <div class="col-lg-6">
-                                                <label for="UrlImagen">Url </label>
-                                                <input type="text" value="<?php echo $objVisitante->getUrlImagen(); ?>" name="UrlImagen" id="UrlImagen"
-                                                       class="form-control"  />
+                                            <div class="form-group">
+                                                <label for="UrlImagen">Imagen </label>
+                                                <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
+                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
 
                                             <div class="col-lg-6">
@@ -160,11 +161,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                             </div>
 
-                                            <div class="col-lg-6">
-                                                <label for="TarjetaProfesional">Tarjeta profesional</label>
-                                                <input type="text" value="<?php echo $objVisitante->getTarjetaProfesional(); ?>" name="TarjetaProfesional" id="TarjetaProfesional"
-                                                       class="form-control"  />
-                                            </div>
+
                                             <div class="col-lg-6">
                                                 <label for="Observaciones">Observaciones</label>
                                                 <input type="text" value="" name="Observaciones" id="Observaciones"
@@ -172,11 +169,16 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
                                             <div class="form-group">
                                                 <label>Parentesco</label>
-                                                <?php echo ControlSelectores::SelectParentesco(); ?>
+                                                <input type="text" value="<?php echo $objVisitante->getParentesco(); ?>" name="Parentesco" id="Parentesco" class="form-control"  disabled />
                                             </div>
 
                                             <div class="form-group">
                                                 <input type="text" value="<?php echo date('Y/m/d H:i:s')?>" class="form-control" id="Fecha" name="Fecha"parsley-trigger="change" hidden >
+                                            </div>
+                                            <br><br>
+                                            <div class="col-lg-6">
+                                                <label>Ultima modificacion</label>
+                                                <input type="text" value="<?php echo $objVisitante->getObservaciones(); ?>" name="mod" id="mod" class="form-control"  disabled />
                                             </div>
                                             <br><br>
 
@@ -187,7 +189,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                         <div class="form-group text-center">
 
-                                            <button onclick=" location.href='ListarVisitantes.php'" type="reset" class="btn btn-gris font-15" style="border-radius: 5px">
+
+                                            <button onclick=" location.href='RegistroVisitasInterno.php?IdRegistro=<?php echo $_SESSION["IdRegistro"]?>' " type="reset" class="btn btn-gris font-15" style="border-radius: 5px">
                                                 <strong>Cancelar</strong>
                                             </button>
 

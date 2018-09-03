@@ -18,7 +18,7 @@ $asunto = $_POST['asunto'];
 $mensaje = $_POST['Sujeto'];
 
   if (!empty($documento)|| !empty($asunto) || !empty($mensaje)) {
-      if (mail('jramirez485@misena.edu.co', $asunto,$mensaje)
+      if (mail('jramirez485@misena.edu.co', $asunto,$mensaje))
           echo "email enviado con exito";
   }else{
   echo "Por favor verifique los datos e intente nuevamente ";
