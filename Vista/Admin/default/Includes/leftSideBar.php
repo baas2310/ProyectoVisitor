@@ -18,7 +18,7 @@
                       <li><a href=" CrearTipoReclusion.php">Crear tipo de reclusion</a></li>
                       <li><a href="CrearUbicacionInterno.php">Crear ubicación del interno</a></li>
                       <li><a href=" CrearDelitos.php">Crear delitos</a></li>
-                      <li><a href="TarjetasInterno.php">Tarjeta de interno</a></li>
+                      <li><a href="ListaTarjetas.php">Tarjeta de interno</a></li>
                       <li><a href=" VisitasInterno.php">Visitas del interno</a></li>
 
                     </ul>

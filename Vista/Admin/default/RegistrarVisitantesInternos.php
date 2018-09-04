@@ -91,6 +91,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                     <div class="col-md-12">
                         <div class="card-box">
                             <h3 class="text-center text-custom" style="color: #0b2e13">REGISTRO DE VISITANTE</h3>
+                            <h6> <?php echo var_dump($_SESSION)?> </h6>
 
 
 
@@ -119,7 +120,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" required>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label>Tipo Visitante</label>
+                                                <label>Patentesco</label>
 
                                                 <?php echo ControlSelectores::SelectParentesco()?>
                                             </div>
@@ -141,8 +142,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="file" class="form-control" id="UrlImagen" name="UrlImagen" minlength="5" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="TarjetaProfesional">Tarjeta Profesional</label>
-                                                <input type="text" class="form-control" id="TarjetaProfesional" name="TarjetaProfesional" minlength="3" maxlength="25">
+                                                <label for="Observacionesr">Observaciones</label>
+                                                <input type="text" class="form-control" id="Observacionesr" name="Observacionesr" minlength="3" maxlength="25">
                                             </div>
 
                                             <div class="form-group">

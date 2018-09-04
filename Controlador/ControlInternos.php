@@ -2,6 +2,7 @@
 if (session_id()=="")
     session_start();
 require_once (__DIR__.'/../Modelo/Interno.php');
+require_once (__DIR__.'/../Modelo/Visitante.php');
 if (!empty($_GET['accion'])){
     ControlInternos::main($_GET['accion']);
 }
@@ -19,6 +20,8 @@ class ControlInternos
             ControlInternos::Estado('1');
         } elseif ($action == 'DesactivarInterno') {
             ControlInternos::Estado('2');
+        }elseif ($action == 'DesactivarVisitante') {
+            ControlInternos::EstadoVisitante('2');
         }
     }
 
@@ -40,10 +43,10 @@ class ControlInternos
         $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
         $ext              = substr($fichero_subido, strrpos($fichero_subido, '.'));
 
-        echo '<pre>';
         if (in_array($ext, $formatos)){
             move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido);
             //echo "El fichero es válido y se subió con éxito.\n";
+            $ArrayInterno['UrlImagen'] = $_FILES['UrlImagen']['name'];
             $Interno = new Interno($ArrayInterno);
 
             $Interno->insertar();
@@ -54,7 +57,7 @@ class ControlInternos
         } else {
            // echo "¡Posible ataque de subida de ficheros!\n";
         }
-        $ArrayInterno['UrlImagen'] = $_FILES['UrlImagen']['name'];
+
 
 
 
@@ -129,64 +132,123 @@ class ControlInternos
     }
 
     static public function adminTableInterno()
-    {
+{
 
-        $ArrayInternos = Interno::getAll();;
-        //$tmpInterno = new Interno();
-        $arrColumnas = [/*"Código",*/
-            "No. TD", "Nombre 1", "Apellido 1", "Tipo Interno", "Delito", "Tipo Reclusion", "Cárcel","Municipio","Estado"];
-        $htmltable = "<thead>";
-        $htmltable .= "<tr>";
+    $ArrayInternos = Interno::getAll();;
+    //$tmpInterno = new Interno();
+    $arrColumnas = [/*"Código",*/
+        "No. TD", "Nombre 1", "Apellido 1", "Tipo Interno", "Delito", "Tipo Reclusion", "Cárcel","Municipio","Estado"];
+    $htmltable = "<thead>";
+    $htmltable .= "<tr>";
 
-        foreach ($arrColumnas as $NameColumna) {
+    foreach ($arrColumnas as $NameColumna) {
 
-            $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
-
-        }
-        $htmltable .= "<th style='text-align: center'>Acciones</th>";
-        $htmltable .= "</tr>";
-        $htmltable .= "</thead>";
-
-        $htmltable .= "<tbody>";
-        foreach ($ArrayInternos as $objInterno) {
-            $htmltable .= "<tr>";
-
-            /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
-            $htmltable .= "<td>" . $objInterno->getTD() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getNombre1() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getApellido1() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getTipoInterno() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getDelito() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getTipoReclucion() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getNombreCarcel() . "</td>";
-            $htmltable .= "<td>" . $objInterno->getMunicipio() . "</td>";
-
-            if ($objInterno->getEstado() == "Activo") {
-                $htmltable .= "<td><span class= 'label label-success'>" . $objInterno->getEstado() . "</span></td>";
-            } else {
-                $htmltable .= "<td><span class='label label-inverse' >" . $objInterno->getEstado() . "</span></td>";
-            }
-
-            $icons = "";
-            if ($objInterno->getEstado() == "Activo") {
-                $icons .= "<a data-toggle='tooltip' title='Inactivar Usuario' data-placement='top' class='btn btn-icon waves-effect waves-light btn-danger newTooltip' href='../../../Controlador/ControlInternos.php?accion=DesactivarInterno&IdRegistrado=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-remove'></i></a>";
-                $icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
-
-            } else {
-                $icons .= "<a data-toggle='tooltip' title='Interno en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
-            }
-
-            //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
-
-
-            $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
-            $htmltable .= "</tr>";
-
-        }
-        $htmltable .= "</tbody>";
-        return $htmltable;
+        $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
 
     }
+    $htmltable .= "<th style='text-align: center'>Acciones</th>";
+    $htmltable .= "</tr>";
+    $htmltable .= "</thead>";
+
+    $htmltable .= "<tbody>";
+    foreach ($ArrayInternos as $objInterno) {
+        $htmltable .= "<tr>";
+
+        /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
+        $htmltable .= "<td>" . $objInterno->getTD() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getNombre1() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getApellido1() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getTipoInterno() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getDelito() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getTipoReclucion() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getNombreCarcel() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getMunicipio() . "</td>";
+
+        if ($objInterno->getEstado() == "Activo") {
+            $htmltable .= "<td><span class= 'label label-success'>" . $objInterno->getEstado() . "</span></td>";
+        } else {
+            $htmltable .= "<td><span class='label label-inverse' >" . $objInterno->getEstado() . "</span></td>";
+        }
+
+        $icons = "";
+        if ($objInterno->getEstado() == "Activo") {
+            $icons .= "<a data-toggle='tooltip' title='Inactivar Usuario' data-placement='top' class='btn btn-icon waves-effect waves-light btn-danger newTooltip' href='../../../Controlador/ControlInternos.php?accion=DesactivarInterno&IdRegistrado=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-remove'></i></a>";
+            $icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
+        } else {
+            $icons .= "<a data-toggle='tooltip' title='Interno en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
+        }
+
+        //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
+
+        $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
+        $htmltable .= "</tr>";
+
+    }
+    $htmltable .= "</tbody>";
+    return $htmltable;
+
+}static public function adminTableTargetas()
+{
+
+    $ArrayInternos = Interno::getAll();;
+    //$tmpInterno = new Interno();
+    $arrColumnas = [/*"Código",*/
+        "No. TD", "Nombre 1", "Apellido 1", "Tipo Interno", "Delito", "Tipo Reclusion", "Cárcel","Municipio","Estado"];
+    $htmltable = "<thead>";
+    $htmltable .= "<tr>";
+
+    foreach ($arrColumnas as $NameColumna) {
+
+        $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
+
+    }
+    $htmltable .= "<th style='text-align: center'>Acciones</th>";
+    $htmltable .= "</tr>";
+    $htmltable .= "</thead>";
+
+    $htmltable .= "<tbody>";
+    foreach ($ArrayInternos as $objInterno) {
+        $htmltable .= "<tr>";
+
+        /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
+        $htmltable .= "<td>" . $objInterno->getTD() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getNombre1() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getApellido1() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getTipoInterno() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getDelito() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getTipoReclucion() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getNombreCarcel() . "</td>";
+        $htmltable .= "<td>" . $objInterno->getMunicipio() . "</td>";
+
+        if ($objInterno->getEstado() == "Activo") {
+            $htmltable .= "<td><span class= 'label label-success'>" . $objInterno->getEstado() . "</span></td>";
+        } else {
+            $htmltable .= "<td><span class='label label-inverse' >" . $objInterno->getEstado() . "</span></td>";
+        }
+
+        $icons = "";
+        if ($objInterno->getEstado() == "Activo") {
+
+            $icons .= "<a data-toggle='tooltip' title='Generar Targeta' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='TarjetaInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
+        } else {
+            $icons .= "<a data-toggle='tooltip' title='Interno en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
+            $icons .= "<a data-toggle='tooltip' title='Generar Targeta' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='TarjetaInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+        }
+
+        //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+
+
+        $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
+        $htmltable .= "</tr>";
+
+    }
+    $htmltable .= "</tbody>";
+    return $htmltable;
+
+}
     static public function adminTableInternoVisitas()
     {
 
@@ -250,7 +312,7 @@ class ControlInternos
         $ArrayVisitantes = Interno::getAllVisita($_SESSION["IdRegistro"]);;
         //$tmpVisitante = new Visitante();
         $arrColumnas = [/*"Código",*/
-            "No. Documento", "Nombre 1", "Nombre 2", "Apellido 1", "Apellido 2", "Tipo Visitante", "Parentesco"];
+            "No. Documento", "Nombre 1", "Nombre 2", "Apellido 1", "Apellido 2", "Tipo Visitante", "Parentesco", "Estado"];
         $htmltable = "<thead>";
         $htmltable .= "<tr>";
 
@@ -275,11 +337,16 @@ class ControlInternos
             $htmltable .= "<td>" . $objVisitante->getApellido2Visitante() . "</td>";
             $htmltable .= "<td>" . $objVisitante->getTipoVisitante() . "</td>";
             $htmltable .= "<td>" . $objVisitante->getParentesco() . "</td>";
-            //$htmltable .= "<td>" . $objVisitante->getEstado() . "</td>";
 
-
+            if ($objVisitante->getEstado() == "1") {
+                $htmltable .= "<td><span class= 'label label-success'>" . "Activo" . "</span></td>";
+            }
 
             $icons = "";
+
+            if ($objVisitante->getEstado() == "1") {
+                $icons .= "<a data-toggle='tooltip' title='Inactivar Usuario' data-placement='top' class='btn btn-icon waves-effect waves-light btn-danger newTooltip' href='../../../Controlador/ControlInternos.php?accion=DesactivarVisitante&IdVisitante=" . $objVisitante->getIdVisitante() . "'><i class='fa fa-remove'></i></a>";
+            }
 
 
             $icons .= "<a data-toggle='tooltip' title='Editar' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarVisitantesInterno.php?IdVisitante=" . $objVisitante->getIdVisitante() . "'><i class='fa fa-pencil'></i></a>";
@@ -312,6 +379,7 @@ class ControlInternos
             header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=error&Mensaje=".$txtMensaje);
         }
     }
+
     static public function EstadoTranslado ($Estado){
         try {
 
@@ -346,6 +414,45 @@ class ControlInternos
 
             $Interno = new Interno($ArrayInterno);
             $Interno->insertarAlerta();
+            //header("location: ../Vista/Admin/default/RegistrarVisitantes.php?respuesta=Correcto");
+        } catch (Exception $e) {
+            var_dump($e);
+
+        }
+    }
+    static public function EstadoVisitante ($Estado){
+        try {
+
+            $ArrayVisitante = Array();
+
+            $ArrayVisitante['IdVisitante'] =  $_GET["IdVisitante"];
+            $ArrayVisitante['Estado']=2;
+            $Interno= new Interno($ArrayVisitante);
+            $Interno->editarEstadoVisitante();
+
+            var_dump($ArrayVisitante);
+            self::CrearAlertaVisita($_GET["IdVisitante"]);
+            header("Location: ../Vista/Admin/default/RegistroVisitasInterno.php?IdRegistro=".$_SESSION["IdRegistro"]);
+        }catch (Exception $e){
+            $txtMensaje = $e->getMessage();
+            header("Location: ../Vista/Admin/default/RegistroVisitasInterno.php?IdRegistro='".$_SESSION["IdRegistro"]);
+        }
+    }
+    static public function CrearAlertaVisita($IdRegistrado)
+    {
+        try {
+            //var_dump($_POST);
+            $ArrayVisitante = Array();
+            $ArrayVisitante['IdRegistrador'] = $_SESSION["DataUser"]['IdFuncionario'];
+            $ArrayVisitante['IdModificado'] =  $IdRegistrado;
+            $ArrayVisitante['Alerta']="Inactivacion de Usuario";
+            $ArrayVisitante['FechaRegistro'] =date('Y/m/d H:i:s');
+
+
+            var_dump($ArrayVisitante);
+
+            $visitante = new Visitante($ArrayVisitante);
+            $visitante->insertarAlertaMod();
             //header("location: ../Vista/Admin/default/RegistrarVisitantes.php?respuesta=Correcto");
         } catch (Exception $e) {
             var_dump($e);

@@ -108,7 +108,7 @@ $resultado=$mysqli->query($query);
 
                     <div class="col-md-12">
                         <div class="card-box">
-                            <h3 class="text-center text-custom" style="color: #0b2e13">REGISTRO DE CARCELES</h3>
+                            <h3 class="text-center text-custom" style="color: #0b2e13">ACTUALIZACIÓN DE CARCELES</h3>
 
 
 
@@ -165,11 +165,6 @@ $resultado=$mysqli->query($query);
 
 
                             </form>
-                        <div class="form-group">
-                            <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-                                <?php echo ControlCarceles::adminTableCarcel()?>
-
-                        </div>
 
 
 

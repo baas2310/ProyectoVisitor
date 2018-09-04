@@ -264,11 +264,10 @@ $this->Disconnect();
 
     public function editar()
     {
-        $this->updateRow("update tbCarcel set Carcel= ?, Descripcion= ? where IdCarcel = ?",array(
+        $this->updateRow("update tbCarcel set IdDirector= ?, Descripcion= ? where IdCarcel = ?",array(
 
 
-                $this->Carcel,
-                $this->Descripcion,
+                $this->IdDirector,
                 $this->IdCarcel,
 
 

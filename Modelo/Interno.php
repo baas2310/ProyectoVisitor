@@ -26,6 +26,8 @@ Class Interno extends db_abstract_class{
     private $Estado;
     private $FechaIngreso;
     private $IdCarcel;
+    private $IdRegistradorSalida;
+    private $FechaSalida;
 
     private $IdVisitante;
     private $CedulaVisitante;
@@ -71,6 +73,8 @@ Class Interno extends db_abstract_class{
             $this->Estado="";
             $this->FechaIngreso="";
             $this->IdCarcel="";
+            $this->IdRegistradorSalida="";
+            $this->FechaSalida="";
 
             $this->IdVisitante="";
             $this->CedulaVisitante="";
@@ -621,12 +625,45 @@ Class Interno extends db_abstract_class{
         $this->IdParentesco = $IdParentesco;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdRegistradorSalida()
+    {
+        return $this->IdRegistradorSalida;
+    }
+
+    /**
+     * @param string $IdRegistradorSalida
+     */
+    public function setIdRegistradorSalida($IdRegistradorSalida)
+    {
+        $this->IdRegistradorSalida = $IdRegistradorSalida;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFechaSalida()
+    {
+        return $this->FechaSalida;
+    }
+
+    /**
+     * @param string $FechaSalida
+     */
+    public function setFechaSalida($FechaSalida)
+    {
+        $this->FechaSalida = $FechaSalida;
+    }
+
+
 
 
     public static function buscarId($id){
         $Interno = new Interno();
         if ($id>0){
-            $getRow = $Interno->getRow("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen, tbregistro.FechaIngreso,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbubicacioninterno.IdCarcel, tbubicacioninterno.IdUbicacionInterno ,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion INNER JOIN tbubicacioninterno on tbubicacioninterno.IdUbicacionInterno = tbregistro.IdUbicacionInterna INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado where IdInterno = ?" , array($id));
+            $getRow = $Interno->getRow("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen, tbregistro.FechaIngreso,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbubicacioninterno.IdCarcel, tbubicacioninterno.IdUbicacionInterno ,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado ,tbregistro.FechaSalida FROM `tbregistro`INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion INNER JOIN tbubicacioninterno on tbubicacioninterno.IdUbicacionInterno = tbregistro.IdUbicacionInterna INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacioninterno.IdCarcel INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado where IdInterno = ?" , array($id));
             $Interno->IdRegistro=$getRow['IdRegistro'];
             $Interno->IdRegistrado=$getRow['IdInterno'];
             $Interno->TD=$getRow['TD'];
@@ -648,6 +685,7 @@ Class Interno extends db_abstract_class{
             $Interno->NombreCarcel=$getRow['NombreCarcel'];
             $Interno->Municipio=$getRow['municipio'];
             $Interno->Estado=$getRow['Estado'];
+            $Interno->FechaSalida=$getRow['FechaSalida'];
 
             $Interno->Disconnect();
             return $Interno;
@@ -732,7 +770,7 @@ Class Interno extends db_abstract_class{
     }
     public static function getAllInternoVisita()
     {
-        return Interno::buscar("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`
+        return Interno::buscar("SELECT IdRegistro, tbinterno.IdInterno, tbregistro.TD,tbinterno.Nombre1,tbinterno.Nombre2,tbinterno.Apellido1,tbinterno.Apellido2,tbinterno.FechaNacimiento,tbinterno.UrlImagen,tbtipointerno.TipoInterno,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacioninterno.Patio,tbubicacioninterno.Seccion,tbubicacioninterno.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado  FROM `tbregistro`
                                         INNER JOIN tbinterno ON tbinterno.IdInterno = tbregistro.IdRegistrado 
                                         INNER JOIN tbtipointerno on tbtipointerno.IdTipoInterno = tbregistro.IdTipoInterno 
                                         INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion 
@@ -760,6 +798,8 @@ Class Interno extends db_abstract_class{
             $Visitante->TipoVisitante=$valor['TipoVisitante'];
             $Visitante->IdParentesco=$valor['IdParentesco'];
             $Visitante->Parentesco=$valor['Parentesco'];
+            $Visitante->Estado=$valor['IdEstado'];
+
 
             array_push($arrayVisitante,$Visitante);
         }
@@ -769,7 +809,25 @@ Class Interno extends db_abstract_class{
     public static function getAllVisita($IdInterno)
     {
 
-        return Interno::buscarVisita("SELECT tbvisitante.IdVisitante, tbvisitante.Cedula,tbvisitante.Nombre1,tbvisitante.Nombre2,tbvisitante.Apellido1,tbvisitante.Apellido2, tbtipovisitante.TipoVisitante,tbparentesco.IdParentesco, tbparentesco.Parentesco,tbvisitante.UrlImagen FROM `tbvinvulo` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvinvulo.IdVisitante INNER JOIN tbtipovisitante ON tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco WHERE tbvinvulo.IdVisitado ="."$IdInterno.");
+        return Interno::buscarVisita("SELECT tbvisitante.IdVisitante, tbvisitante.Cedula,tbvisitante.Nombre1,tbvisitante.Nombre2,tbvisitante.Apellido1,tbvisitante.Apellido2, tbtipovisitante.TipoVisitante,tbparentesco.IdParentesco, tbparentesco.Parentesco,tbvisitante.UrlImagen,tbvisitante.IdEstado FROM `tbvinvulo` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvinvulo.IdVisitante INNER JOIN tbtipovisitante ON tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco WHERE tbvinvulo.IdVisitado ="."$IdInterno"." AND tbVisitante.IdEstado = 1");
+    }
+    public static function buscarLimite($query)
+    {
+
+        $tmp = new Interno();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            $Limite = $valor['COUNT(IdVinculo)'];
+
+        }
+        $tmp->Disconnect();
+        return $Limite;
+    }
+    public static function getLimite($IdVisitado)
+    {
+
+        return Interno::buscarLimite("SELECT COUNT(IdVinculo) FROM tbvinvulo INNER join tbvisitante on tbvisitante.IdVisitante = tbvinvulo.IdVisitante WHERE IdVisitado ="."$IdVisitado"." AND tbVisitante.IdEstado = 1");
     }
 
     public function insertar()
@@ -839,6 +897,34 @@ $this->Disconnect();
     public function insertarAlerta()
     {var_dump($this);
         $this->insertRow("insert into tbAlerta values(NULL ,?,?,?,? )",array(
+
+
+                $this->IdRegistrador,
+                $this->IdModificado,
+                $this->Alerta,
+                $this->FechaRegistro,
+
+            )
+        );
+        $this->Disconnect();
+
+    }
+    public function editarEstadoVisitante()
+    {
+        $this->updateRow("UPDATE `tbVisitante` set IdEstado =?WHERE IdVisitante = ? ",array(
+
+
+
+                $this->Estado,
+                $this->IdVisitante,
+            )
+        );
+        $this->Disconnect();
+
+    }
+    public function insertarAlertaModVisita()
+    {
+        $this->insertRow("insert into tbAlertaVisitante values(NULL ,?,?,?,? )",array(
 
 
                 $this->IdRegistrador,

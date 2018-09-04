@@ -77,14 +77,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                         <div class="card-box">
                             <h4 class="text-center text-custom">LISTA DE INTERNOS</h4>
 
-
-                            <?php
-                    $IdRegistro = $_GET["IdRegistro"];
-                    $_SESSION["IdRegistro"] = $IdRegistro;
-                    ?>
-
-
-
                             <div class="panel-body">
                                 <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
 
@@ -92,20 +84,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="row">
                                             <div class="col-sm-6 text-xs-center">
                                                 <div class="form-group">
-                                                    <?php if ( Interno::getLimite($_SESSION["IdRegistro"])<= 10){
-                                                        $Link = 'RegistrarVisitantesInternos.php';
-                                                    }else{
-                                                        $Link= 'RegistroVisitasInterno.php';
-                                                    }?>
-
-                                                    <button onclick="location.href='<?php echo $Link ?>'" id="Registrar" class="btn btn-success m-b-20"><i class="fa fa-plus m-r-5"></i>Añadir Registro</button>
+                                                    <button onclick="location.href='RegistrarInternos.php'" id="Registrar" class="btn btn-success m-b-20"><i class="fa fa-plus m-r-5"></i>Añadir Registro</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <?php echo ControlInternos::adminTableVisitante(); ?>
+                                    <?php echo ControlInternos::adminTableTargetas(); ?>
 
                             </div>
                         </div>
