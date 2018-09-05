@@ -21,6 +21,8 @@ Class Visitante extends db_abstract_class{
     private $FechaRegistro;
     private $Alerta;
 
+    private $IdVisitado;
+
     public function __construct($Visitor_data=array())
     {
         parent::__construct();
@@ -310,6 +312,23 @@ Class Visitante extends db_abstract_class{
         $this->FechaRegistro = $FechaRegistro;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdVisitado()
+    {
+        return $this->IdVisitado;
+    }
+
+    /**
+     * @param mixed $IdVisitado
+     */
+    public function setIdVisitado($IdVisitado)
+    {
+        $this->IdVisitado = $IdVisitado;
+    }
+
+
     public static function buscarId($id){
         $Visitante = new Visitante();
         if ($id>0){
@@ -419,7 +438,7 @@ Class Visitante extends db_abstract_class{
     }
     public function insertar()
     {
-        $this->insertRow("insert into tbVisitante values(NULL ,?,?,?,?,?,?,?,?,NULL )",array(
+        $this->insertRow("insert into tbVisitante values(NULL ,?,?,?,?,?,?,?,?,?,1 )",array(
 
 
                 $this->Cedula,
@@ -430,6 +449,7 @@ Class Visitante extends db_abstract_class{
                 $this->UrlImagen,
                 $this->TipoVisitante,
                 $this->TarjetaProfesional,
+                $this->Observaciones,
             )
         );
 $this->Disconnect();
@@ -464,6 +484,21 @@ $this->Disconnect();
         $this->Disconnect();
 
     }
+    public function insertVinculo()
+    {
+        $this->insertRow("insert into tbvinvulo values(NULL ,?,?,? )",array(
+
+
+                $this->IdVisitante,
+                $this->IdVisitado,
+                $this->Parentesco,
+
+
+            )
+        );
+        $this->Disconnect();
+
+    }
 
 
     public function editar()
@@ -492,25 +527,5 @@ $this->Disconnect();
     protected function eliminar($id)
     {
         // TODO: Implement eliminar() method.
-    }
-    public static function Login($Usuario, $Password){
-        $arrayVisitantes = array();
-        $tmp = new Visitante();
-        $getTempUser = $tmp->getRows("select * from tbVisitante WHERE Usuario = '$Usuario'");
-        if(count($getTempUser) >= 1){
-            $getrows = $tmp->getRows("select * from tbVisitante WHERE Usuario = '$Usuario' AND Pass = '$Password'");
-            if(count($getrows) >= 1){
-                foreach ($getrows as $valor) {
-                    return $valor;
-                }
-            }else{
-                return "Contraseña Incorrecta";
-            }
-        }else{
-            return "No existe el usuario";
-        }
-
-        $tmp->Disconnect();
-        return $arrayVisitantes;
     }
 }

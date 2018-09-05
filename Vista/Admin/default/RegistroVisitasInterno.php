@@ -92,10 +92,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="row">
                                             <div class="col-sm-6 text-xs-center">
                                                 <div class="form-group">
-                                                    <?php if ( Interno::getLimite($_SESSION["IdRegistro"])<= 10){
+                                                    <?php if ( Interno::getLimite($_SESSION["IdRegistro"])< 10){
                                                         $Link = 'RegistrarVisitantesInternos.php';
                                                     }else{
-                                                        $Link= 'RegistroVisitasInterno.php';
+                                                        $Link= 'RegistroVisitasInterno.php?IdRegistro='.$_SESSION["IdRegistro"];
                                                     }?>
 
                                                     <button onclick="location.href='<?php echo $Link ?>'" id="Registrar" class="btn btn-success m-b-20"><i class="fa fa-plus m-r-5"></i>Añadir Registro</button>

@@ -37,12 +37,6 @@ class ControlActividades
         $htmltable .= "<td>" . $objActividad->getNombreInterno() . "</td>";
         $htmltable .= "<td>" . $objActividad->getApellidoInterno() . "</td>";
         $htmltable .= "<td>" . $objActividad->getTD() . "</td>";
-
-
-
-
-
-
     }
     $htmltable .= "</tbody>";
     return $htmltable;
@@ -77,12 +71,6 @@ class ControlActividades
             $htmltable .= "<td>" . $objActividad->getFechaAlert() . "</td>";
             $htmltable .= "<td>" . $objActividad->getTD() . "</td>";
             $htmltable .= "<td>" . $objActividad->getDelito() . "</td>";
-
-
-
-
-
-
         }
         $htmltable .= "</tbody>";
         return $htmltable;

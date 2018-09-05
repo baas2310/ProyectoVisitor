@@ -17,6 +17,8 @@ class ControlVisitantes
             ControlVisitantes::EditarVisitaInterno();
         }elseif ($action == 'Select') {
             ControlVisitantes::Select();
+        }elseif ($action == 'CrearVisitInt') {
+            ControlVisitantes::CrearVisitanteInt();
         }
     }
 
@@ -61,6 +63,51 @@ class ControlVisitantes
 
         }
     }
+    static public function CrearVisitanteInt()
+    {
+        try {
+
+            $ArrayVisitante = Array();
+            $ArrayVisitante['Cedula'] = $_POST['Cedula'];
+            $ArrayVisitante['Nombre1'] = $_POST['Nombre1'];
+            $ArrayVisitante['Nombre2'] = $_POST['Nombre2'];
+            $ArrayVisitante['Apellido1'] = $_POST['Apellido1'];
+            $ArrayVisitante['Apellido2'] = $_POST['Apellido2'];
+            //$ArrayVisitante['UrlImagen'] = $_POST['UrlImagen'];
+            $ArrayVisitante['TipoVisitante'] = 2;
+            $ArrayVisitante['TarjetaProfesional'] = "";
+            $ArrayVisitante['Observaciones'] = $_POST["Observaciones"];
+
+
+            //var_dump($ArrayVisitante);
+            $dir_subida = __DIR__.'../../ImagenesVisitas/';
+            $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+
+            echo '<pre>';
+            if (move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido)) {
+                //echo "El fichero es válido y se subió con éxito.\n";
+            } else {
+                // echo "¡Posible ataque de subida de ficheros!\n";
+            }
+            $ArrayVisitante['UrlImagen'] = $_FILES['UrlImagen']['name'];
+
+
+
+            $visitante = new Visitante($ArrayVisitante);
+
+            $visitante->insertar();
+
+            var_dump($ArrayVisitante);
+            $IdRegistrado=Visitante::buscarIdRegistrado($_POST["Cedula"]);
+            var_dump($IdRegistrado->getIdVisitante());
+            self::CrearRegistro($IdRegistrado->getIdVisitante());
+            self::CrearVinculo($IdRegistrado->getIdVisitante());
+            header("location: ../Vista/Admin/default/RegistroVisitasInterno.php?IdRegistro=".$_SESSION["IdRegistro"]);
+        } catch (Exception $e) {
+            var_dump($e);
+
+        }
+    }
     static public function CrearRegistro($IdRegistrado)
     {
         try {
@@ -75,6 +122,26 @@ class ControlVisitantes
 
             $visitante = new Visitante($ArrayVisitante);
             $visitante->insertarAlerta();
+            //header("location: ../Vista/Admin/default/RegistrarVisitantes.php?respuesta=Correcto");
+        } catch (Exception $e) {
+            var_dump($e);
+
+        }
+    }
+    static public function CrearVinculo($IdRegistrado)
+    {
+        try {
+            //var_dump($_POST);
+            $ArrayVisitante = Array();
+            $ArrayVisitante['IdVisitante'] = $IdRegistrado;
+            $ArrayVisitante['IdVisitado'] = $_SESSION["IdRegistro"];
+            $ArrayVisitante['Parentesco'] =$_POST["Parentesco"];
+
+
+            var_dump($ArrayVisitante);
+
+            $visitante = new Visitante($ArrayVisitante);
+            $visitante->insertVinculo();
             //header("location: ../Vista/Admin/default/RegistrarVisitantes.php?respuesta=Correcto");
         } catch (Exception $e) {
             var_dump($e);

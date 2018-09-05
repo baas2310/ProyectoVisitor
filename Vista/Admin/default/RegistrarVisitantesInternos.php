@@ -95,7 +95,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=Crear" enctype='multipart/form-data'>
+                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=CrearVisitInt" enctype='multipart/form-data'>
 
                                 <div class="form-group">
                                     <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"parsley-trigger="change" hidden>
@@ -107,7 +107,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                              <div class="form-group">
                                                 <label for="Cedula"> Cedula </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" >
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" required>
                                             </div>
 
                                             <div class="form-group">
@@ -117,7 +117,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" >
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Patentesco</label>
@@ -129,21 +129,21 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" pattern="[A-Za-z]" minlength="2" maxlength="30" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" pattern="[A-Za-z]"  minlength="2" maxlength="30" required>
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  >
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Url">Url Imagen</label>
-                                                <input type="file" class="form-control" id="UrlImagen" name="UrlImagen" minlength="5" required>
+                                                <input type="file" class="form-control" id="UrlImagen" name="UrlImagen"  >
                                             </div>
                                             <div class="form-group">
-                                                <label for="Observacionesr">Observaciones</label>
-                                                <input type="text" class="form-control" id="Observacionesr" name="Observacionesr" minlength="3" maxlength="25">
+                                                <label for="Observaciones">Observaciones</label>
+                                                <input type="text" class="form-control" id="Observaciones" name="Observaciones" >
                                             </div>
 
                                             <div class="form-group">

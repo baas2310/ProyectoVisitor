@@ -895,7 +895,7 @@ $this->Disconnect();
 
     }
     public function insertarAlerta()
-    {var_dump($this);
+    {
         $this->insertRow("insert into tbAlerta values(NULL ,?,?,?,? )",array(
 
 

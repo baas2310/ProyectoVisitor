@@ -111,7 +111,7 @@ class ControlInternos
             self::CrearAlerta($_SESSION["IdInterno"],"Translado");
             self::EstadoTranslado(2);
             unset($_SESSION["IdInterno"]);
-            header("Location: ../Vista/Admin/default/ListarInterno.php?respuesta=correcto&IdInterno=" . $ArrayInterno['IdInterno']);
+            header("Location: ../Vista/Admin/default/ListarInterno.php");
         } catch (Exception $e) {
             var_dump($e);
         }

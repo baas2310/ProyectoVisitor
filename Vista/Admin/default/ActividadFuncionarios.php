@@ -173,15 +173,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                 </div>
                                 <div id="collapseFour" class="collapse" aria-labelledby="headingTwo"
                                      data-parent="#accordion">
-                                    <div class="card-body">
+                                    <div class="form-group">
                                         <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-
-                                            <div class="pad-btm form-inline">
-                                                <div class="row">
-                                                    <div class="col-sm-6 text-xs-center">
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <?php echo ControlActividades::adminTableAlertaVisita($_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"]); ?>
 
