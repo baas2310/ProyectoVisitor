@@ -97,12 +97,6 @@ class ControlTipoInternos
             $htmltable .= "<td>" . $objTipoInterno->getDescripcion() . "</td>";
 
 
-            $icons = "";
-
-
-
-            $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
-            $htmltable .= "</tr>";
 
         }
         $htmltable .= "</tbody>";

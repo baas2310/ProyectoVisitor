@@ -22,16 +22,21 @@ class ControlTipoReclusion
     {
         try {
 
-            $ArrayTipoReclusion = Array();
-            $ArrayTipoReclusion['TipoReclucion'] = $_POST['TipoReclusion'];
-            $ArrayTipoReclusion['Descripcion'] = $_POST['Descripcion'];
+            if (TipoReclusion::getLimite($_POST['TipoReclusion'])==0) {
+                $ArrayTipoReclusion = Array();
+                $ArrayTipoReclusion['TipoReclucion'] = $_POST['TipoReclusion'];
+                $ArrayTipoReclusion['Descripcion'] = $_POST['Descripcion'];
 
-            var_dump($ArrayTipoReclusion);
+                var_dump($ArrayTipoReclusion);
 
-            $TipoReclusion = new TipoReclucion($ArrayTipoReclusion);
-            $TipoReclusion->insertar();
-            header("location: ../Vista/Admin/default/CrearTipoReclusion.php?respuesta=Correcto");
-        } catch (Exception $e) {
+                $TipoReclusion = new TipoReclusion($ArrayTipoReclusion);
+                $TipoReclusion->insertar();
+                header("location: ../Vista/Admin/default/CrearTipoReclusion.php?respuesta=Correcto");
+            }else{
+                header("location: ../Vista/Admin/default/CrearTipoReclusion.php?respuesta=Existente");
+
+            }
+            } catch (Exception $e) {
             var_dump($e);
 
         }
@@ -86,9 +91,6 @@ class ControlTipoReclusion
             $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
 
         }
-        $htmltable .= "<th style='text-align: center'>Acciones</th>";
-        $htmltable .= "</tr>";
-        $htmltable .= "</thead>";
 
         $htmltable .= "<tbody>";
         foreach ($ArrayTipoReclusion as $objTipoReclusion) {
@@ -99,21 +101,11 @@ class ControlTipoReclusion
             $htmltable .= "<td>" . $objTipoReclusion->getDescripcion() . "</td>";
 
 
-            $icons = "";
-
-
-            $icons .= "<a data-toggle='tooltip' title='Editar' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarTipoReclusion.php?IdTipoInterno=" . $objTipoReclusion->getIdTipoReclucion() . "'><i class='fa fa-pencil'></i></a>";
-
-
-            $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
-            $htmltable .= "</tr>";
-
         }
         $htmltable .= "</tbody>";
         return $htmltable;
 
     }
-
 
 
 }

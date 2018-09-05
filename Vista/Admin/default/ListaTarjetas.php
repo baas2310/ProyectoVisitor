@@ -93,6 +93,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                     <?php echo ControlInternos::adminTableTargetas(); ?>
 
+                                </table>
                             </div>
                         </div>
                     </div>

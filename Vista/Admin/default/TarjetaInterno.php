@@ -209,7 +209,17 @@ $resultado=$mysqli->query($query);
                                                    class="form-control" disabled/>
                                         </div>
 
-                                          
+                                    </div><div class="col-lg-6">
+                                        <label>Reporte Realizado por: </label>
+                                        <br>
+                                        <label><?php echo $_SESSION["DataUser"]["Rango"]?></label>
+                                        <br>
+                                        <label><?php echo $_SESSION["DataUser"]["Apellido1"]." "?> <label><?php echo $_SESSION["DataUser"]["Apellido2"]?></label></label>
+                                        <br>
+                                        <label>Para la Institucion Penitenciaria:</label>
+                                        <label><?php echo $objInterno->getNombreCarcel()?></label>
+                                        <label><?php echo date('Y/m/d H:i') ?></label>
+                                    </div>
 
                                         </div>
 

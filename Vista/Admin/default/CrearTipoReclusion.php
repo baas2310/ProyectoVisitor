@@ -1,17 +1,15 @@
 <?php
 
-/*session_start();
 
-require "../../../Modelo/estudiante.php";
-
-if (empty($_SESSION["DataUser"]["idRol"])){
+session_start();
+if (empty($_SESSION["DataUser"]["IdFuncionario"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["idRol"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
 
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
-}*/
+}
 ?>
 
 <!DOCTYPE html>
@@ -90,44 +88,37 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                         <div class="card-box">
                             <h3 class="text-center text-custom" style="color: #0b2e13">REGISTRO GENERAL</h3>
 
-
-
                             <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlTipoReclusion.php?accion=Crear">
-
 
                         <fieldset title="2">
                             <legend>Registro de tipo de reclusion </legend>
 
                             <div class="row m-t-20">
                                 <div class="col-sm-6">
-                                  <div class="form-group">
+                                  <div class="col-sm-6">
                                       <label for="TipoReclusion">Tipo de reclusion</label>
                                       <input type="text" class="form-control" id="TipoReclusion" name="TipoReclusion"parsley-trigger="change" required>
-                                  </div>
+
 
                                   <div class="form-group">
                                       <label for="Descripcion">Descripcion</label>
                                       <input type="text" class="form-control" id="Descripcion" name="Descripcion"parsley-trigger="change" required>
                                   </div>
+                                  </div>
 
-
-
-                                </fieldset>
-
+                                </div>
+                                    <div class="form-group">
+                                        <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+                                            <?php echo ControlTipoReclusion::adminTableTipoReclusion()?>
+                                        </table>
+                                    </div>
+                        </fieldset>
                                 <input type="submit" class="btn btn-primary stepy-finish" value="Registrar"></input>
 
                             </form>
-
-                            <div class="form-group">
-                                <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-                                    <?php echo ControlTipoReclusion::adminTableTipoReclusion()?>
-
                             </div>
-
-
                         </div>
                     </div>
-                </div>
                 <!-- End row -->
 
             </div> <!-- container -->

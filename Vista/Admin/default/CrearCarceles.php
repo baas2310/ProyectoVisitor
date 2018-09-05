@@ -119,7 +119,7 @@ $resultado=$mysqli->query($query);
 
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
-                                            <<div class="col-sm-6">
+                                            <div class="col-sm-6">
                                                 <label for="departamentp">Departamento </label>
                                                 <select class="form-control" name="departamento" id="departamento">
                                                     <option value="0">Seleccionar departamento</option>

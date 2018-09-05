@@ -154,6 +154,25 @@ $this->Disconnect();
 
     }
 
+    public static function buscarLimite($query)
+    {
+
+        $tmp = new TipoReclusion();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            $Limite = $valor['COUNT(IdTipoReclucion)'];
+
+        }
+        $tmp->Disconnect();
+        return $Limite;
+    }
+
+    public static function getLimite($Tipo)
+    {
+
+        return TipoReclusion::buscarLimite("select COUNT(IdTipoReclucion) from tbtiporeclucion WHERE TipoReclucion = '"."$Tipo"."'");
+    }
     protected function eliminar($id)
     {
         // TODO: Implement eliminar() method.
