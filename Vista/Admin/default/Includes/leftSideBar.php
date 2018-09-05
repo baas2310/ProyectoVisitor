@@ -14,10 +14,6 @@
                     <ul class="nav-second-level" aria-expanded="false">
                       <li><a href=" RegistrarInternos.php">Crear Internos</a></li>
                         <li><a href=" ListarInterno.php">Buscar interno</a></li>
-                      <li><a href=" CrearTipoInterno.php">Crear tipo de internos</a></li>
-                      <li><a href=" CrearTipoReclusion.php">Crear tipo de reclusion</a></li>
-                      <li><a href="CrearUbicacionInterno.php">Crear ubicación del interno</a></li>
-                      <li><a href=" CrearDelitos.php">Crear delitos</a></li>
                       <li><a href="ListaTarjetas.php">Tarjeta de interno</a></li>
                       <li><a href=" VisitasInterno.php">Visitas del interno</a></li>
 
@@ -47,7 +43,24 @@
                     <ul class="nav-second-level" aria-expanded="false">
                       <li><a href=" RegistrarVisitantes.php">Crear Visitantes</a></li>
                       <li><a href=" ListarVisitantes.php">Actualizar Visitantes</a></li>
-                      <li><a href=" FormularioVisitas.php">Ingreso Visitantes</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);"><i class="mdi mdi-clipboard-account"></i><span>Administrativo </span> <span class="menu-arrow"></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href=" CrearTipoInterno.php">Crear tipo de internos</a></li>
+                        <li><a href=" CrearTipoReclusion.php">Crear tipo de reclusion</a></li>
+                        <li><a href="CrearUbicacionInterno.php">Crear ubicación interna</a></li>
+                        <li><a href=" CrearDelitos.php">Crear delitos</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);"><i class="mdi mdi-clipboard-account"></i><span>Visita </span> <span class="menu-arrow"></span></a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href=" FormularioVisitas.php">Ingreso Visitantes</a></li>
+                        <li><a href=" HistorialVisitas.php">Historial Visitantes</a></li>
 
                     </ul>
                 </li>

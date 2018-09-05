@@ -9,7 +9,7 @@ if (empty($_SESSION["DataUser"]["IdFuncionario"])){
 }
 $_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3"){
     header('Location: Index.php');
 }
 require ('conexion.php');

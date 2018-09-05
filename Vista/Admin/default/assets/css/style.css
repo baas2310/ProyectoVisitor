@@ -3861,6 +3861,28 @@ textarea.form-control {
   display: block;
 }
 
+#img_contain{
+  border:1px solid grey;
+  margin-top:10px;
+  width:300px;
+
+}
+
+#UrlImagen{
+  margin-left:7px;
+  padding:10px;
+  background-color:white;
+
+}
+#preview{
+  height:140px;
+  width:auto;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  padding:5px;
+}
+
 /* Bootstrap-select */
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   width: 100% !important;

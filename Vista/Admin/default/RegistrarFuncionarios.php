@@ -226,7 +226,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                 </div>
                                 </fieldset>
 
-                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar persona"></input>
+                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar persona">
 
                             </form>
 
