@@ -40,13 +40,13 @@ class ControlInternos
 
         $formatos   = array('.jpg', '.png');
         $dir_subida = __DIR__.'../../ImagenesInternos/';
-        $fichero_subido = $dir_subida . basename($_FILES['UrlImagen']['name']);
+        $fichero_subido = $dir_subida . basename($_FILES['urlImagen']['name']);
         $ext              = substr($fichero_subido, strrpos($fichero_subido, '.'));
 
         if (in_array($ext, $formatos)){
-            move_uploaded_file($_FILES['UrlImagen']['tmp_name'], $fichero_subido);
+            move_uploaded_file($_FILES['urlImagen']['tmp_name'], $fichero_subido);
             //echo "El fichero es válido y se subió con éxito.\n";
-            $ArrayInterno['UrlImagen'] = $_FILES['UrlImagen']['name'];
+            $ArrayInterno['urlImagen'] = $_FILES['urlImagen']['name'];
             $Interno = new Interno($ArrayInterno);
 
             $Interno->insertar();

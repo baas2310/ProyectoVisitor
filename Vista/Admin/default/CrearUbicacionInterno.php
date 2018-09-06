@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "../../../Modelo/Funcionario.php";
+require "../../../Modelo/Ubicacion.php";
 
 if (empty($_SESSION["DataUser"]["IdFuncionario"])){
     header("Location: login.php");
@@ -11,6 +11,9 @@ $_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
     header('Location: Index.php');
 }
+require ('conexion.php');
+$query = "SELECT IdCarcel, NombreCarcel FROM tbCarcel ORDER BY NombreCarcel";
+$resultado=$mysqli->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -24,10 +27,23 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
-    <?php /*require "../../../Controlador/InternoController.php" */?>
+    <?php require "../../../Controlador/ControlUbicacion.php" ?>
 
     <?php include("Includes/imports.php") ?>
 
+    <script language="javascript">
+        $(document).ready(function(){
+            $("#cbx_Carcel").change(function () {
+
+                $("#cbx_Carcel option:selected").each(function () {
+                    IdCarcel = $(this).val();
+                    $.post("includes/getCarcel.php", { IdCarcel: IdCarcel }, function(data){
+                        $("#cbx_Ubicacion").html(data);
+                    });
+                });
+            })
+        });
+        </script>
 </head>
 
 
@@ -91,12 +107,22 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../Controlador//registrarPatio.php?action=crear">
+                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlUbicacion.php?accion=Crear">
 
 
                         <fieldset >
                             <legend>Información </legend>
 
+                            <div class="col-sm-5">
+                                <label for="cbx_Carcel">Carcel</label>
+                                <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
+                                    <option value="0">Seleccionar Carcel</option>
+                                    <?php while($row = $resultado->fetch_assoc()) { ?>
+                                        <option value="<?php echo $row['IdCarcel']; ?>"><?php echo $row['NombreCarcel']; ?></option>
+                                    <?php } ?>
+                                </select>
+
+                            </div>
                             <div class="row m-t-20">
                                 <div class="col-sm-6">
                                   <div class="form-group">
@@ -105,14 +131,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                   </div>
 
 
-                                  <div class="form-group">
-                                      <label for="idCarcel">Cárcel</label>
-                                      <?php echo cursoController::selectCarcel(true, "idCarcel", "Carcel", "form-control"); ?>
-                                  </div>
 
-
-
-                                </fieldset>
 
 
 
@@ -127,6 +146,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                               <label for="Celda">Celda</label>
                                               <input type="text" class="form-control" id="Celda" name="Celda"parsley-trigger="change" required>
                                           </div>
+
+                        </fieldset>
 
 
 

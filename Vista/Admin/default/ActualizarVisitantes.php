@@ -20,12 +20,52 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Scripts -->
     <?php include("Includes/imports.php") ?>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
+
+    <script>
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros y letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+
+
+
+
+
+    </script>
 
 </head>
 
@@ -94,17 +134,13 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                             <h4 class="text-center text-custom">ACTUALIZAR VISITANTES</h4>
 
-                            <h6> <?php echo var_dump($objVisitante)?> </h6>
+
                             <br>
 
                             <form role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=Editar" enctype='multipart/form-data'>
                                 <div class="row ">
                                     <div class="col-xs-9 center-page" style="width: 83%">
-
-
-
-
-
+                                        <label for="IdRegistrador"></label>
                                             <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" name="IdRegistrador" id="IdRegistrador"
                                                    class="form-control"  hidden/>
 
@@ -115,29 +151,29 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <label for="Cedula">Cedula </label>
 
                                                 <input type="text" value="<?php echo $objVisitante->getCedula(); ?>" name="Cedula" id="Cedula"
-                                                       class="form-control"  required/>
+                                                       class="form-control" minlength="7" maxlength="15" onkeypress="valida(event)" required/>
                                             </div>
                                             <div class="col-lg-6">
 
-                                                <label for="Nombre1">Nombre 1 </label>
+                                                <label for="Nombre1">Primer nombre </label>
 
                                                 <input type="text" value="<?php echo $objVisitante->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                       class="form-control"  required/>
+                                                       class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required/>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="Nombre2">Nombre2 </label>
+                                                <label for="Nombre2">Segundo nombre</label>
                                                 <input type="text" value="<?php echo $objVisitante->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                       class="form-control"  />
+                                                       class="form-control"  maxlength="30" onkeypress="check(event)"/>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="Apellido1">Apellido 1 </label>
+                                                <label for="Apellido1">Primer apellido </label>
                                                 <input type="text" value="<?php echo $objVisitante->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                       class="form-control" required />
+                                                       class="form-control" minlength="2" maxlength="30" required onkeypress="check(event)"/>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="Apellido2">Apellido 2 </label>
+                                                <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objVisitante->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control"  />
+                                                       class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="UrlImagen">Imagen </label>
@@ -148,7 +184,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-lg-6">
 
 
-                                                <label>Permiso</label>
+                                                <label for="TipoVisitante">Permiso</label>
                                                 <select class="form-control" id="TipoVisitante" required name="TipoVisitante">
                                                     <option <?php echo ($objVisitante->getTipoVisitante() == "Visitante Ocasional") ? "selected" : ""; ?> value="1">Visitante Ocasional</option>
                                                     <option <?php echo ($objVisitante->getTipoVisitante() == "Visitante Interno") ? "selected" : ""; ?> value="2">Visitante Interno</option>
@@ -161,7 +197,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-lg-6">
                                                 <label for="TarjetaProfesional">Tarjeta profesional</label>
                                                 <input type="text" value="<?php echo $objVisitante->getTarjetaProfesional(); ?>" name="TarjetaProfesional" id="TarjetaProfesional"
-                                                       class="form-control"  />
+                                                       class="form-control" minlength="5" maxlength="20" onkeypress="check(event)"/>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Observaciones">Observaciones</label>
@@ -170,7 +206,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="text" value="<?php echo date('Y/m/d H:i:s')?>" class="form-control" id="Fecha" name="Fecha"parsley-trigger="change" hidden >
+                                                <label for="Fecha"></label>
+                                                <input type="text" value="<?php echo date('Y/m/d H:i:s')?>" class="form-control" id="Fecha" name="Fecha" hidden >
                                             </div>
                                             <br><br>
 
@@ -198,7 +235,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                         </div>
 
 
-                        </form>
+
                     </div> <!-- end card-box -->
                 </div>
                 <!-- end col -->
@@ -223,10 +260,59 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 <!-- ============================================================== -->
 
 
-</div>
+
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+<script>
+
+    $("#wizard-clickable").validate({
+        rules:{
+            Nombre1:{
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+
+            },
+            Apellido1: {
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+
+            },
+            Cedula:{
+                required: true,
+                minlenght:7,
+                maxlenght:15
+            },
+            messages:{
+
+                Nombre1: {
+                    required:"Por favor ingrese su primer nombre",
+                    minlenght:"Ingrese un nombre válido",
+                    maxlenght:"Ingrese un nombre válido"
+                },
+
+                Apellido1: {
+                    required:"Por favor ingrese su primer apellido",
+                    minlenght:"Ingrese un apellido válido",
+                    maxlenght:"Ingrese un apellido válido"
+                },
+
+                Cedula: {
+                    required:"Por favor ingrese su cedula",
+                    minlenght:"Ingrese una cédula válida",
+                    maxlenght:"Ingrese una cédula válida"
+                }
+
+
+            }
+
+        });
+
+    })
+
+</script>
 
 </body>
 </html>

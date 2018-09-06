@@ -18,8 +18,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
@@ -27,6 +25,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
     <!-- Imports -->
     <?php include ("Includes/imports.php")?>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
 </head>
 

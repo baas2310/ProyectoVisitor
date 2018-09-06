@@ -36,7 +36,15 @@ $resultado=$mysqli->query($query);
     <?php require "../../../Controlador/ControlSelectores.php" ?>
     <?php include("Includes/imports.php") ?>
 
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script language="javascript" src="assets/"></script>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -101,6 +109,57 @@ $resultado=$mysqli->query($query);
           }
           return (fecha);
         }
+        function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#preview').attr('src', e.target.result);
+
+      $('#preview').hide();
+      $('#preview').fadeIn(650);
+
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(function() {
+   $("input:file").change(function (){
+     var fileName = $(this).val();
+     readURL(this);
+   });
+});
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8 ){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros y letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+
+
 
 
     </script>
@@ -181,17 +240,17 @@ $resultado=$mysqli->query($query);
 
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula"  maxlength="15" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula"  minlength="7" maxlength="15"  onkeypress="return valida(event)"  required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="PrimerNombre">Primer nombre</label>
-                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre"  maxlength="30"  required>
+                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre" minlength="2" maxlength="30" onkeypress="return check(event) "  required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="SegundoNombre">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"  maxlength="30" >
+                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"  maxlength="30" onkeypress="return check(event) " >
                                             </div>
                                             <div class="form-group">
                                                 <label for="FechaNacimiento"> Fecha de nacimiento </label>
@@ -203,7 +262,7 @@ $resultado=$mysqli->query($query);
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label for="PrimerApellido">Primer apellido</label>
-                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido"  maxlength="30" required>
+                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" minlength="2" maxlength="30" onkeypress="return check(event) " required>
                                             </div>
 
                                             <div class="form-group">
@@ -212,8 +271,8 @@ $resultado=$mysqli->query($query);
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="UrlImagen">Imagen </label>
-                                                <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
+                                                <input type='file' id="urlImagen" name="urlImagen" />
+                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
 
@@ -232,7 +291,7 @@ $resultado=$mysqli->query($query);
                                         <div class="form-group">
                                             <label for="TD">TD</label>
                                             <input type="text" class="form-control" id="TD" name="TD"
-                                                    maxlength="30" required>
+                                                    maxlength="30" onkeypress="return valida(event) " required>
                                         </div>
                                         <label>Tipo Interno</label>
                                         <?php echo ControlSelectores::SelectTipoInterno(); ?>
@@ -253,7 +312,7 @@ $resultado=$mysqli->query($query);
                                             <label for="cbx_Ubicacion">Ubicacion </label>
                                             <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion"></select>
                                             <label for="UbicacionDom">Ubicacion Domiciliaria </label>
-                                            <input type="text" class="form-control" id="UbicacionDom" name="UbicacionDom"parsley-trigger="change" >
+                                            <input type="text" class="form-control" id="UbicacionDom" name="UbicacionDom" >
                                         </div>
 
                                         <div class="form-group">
@@ -305,6 +364,62 @@ $resultado=$mysqli->query($query);
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+<script>
+    $("#wizard-clickeable").validate({
+        rules: {
+            Nombre1: {
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+            },
+            Apellido1: {
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+            },
+            Cedula: {
+                required: true,
+                minlenght: 7,
+                maxlenght: 15
+            },
 
+
+            TD: {
+                required: true,
+                minlenght:5
+            }
+
+        }
+        messages:{
+            Nombre1:{
+                required: "Por favor digite su nombre",
+                minlenght: "Por favor digite un nombre válido"
+                maxlenght:"Por favor digite un nombre válido"
+            },
+            Apellido1:{
+                required: "Por favor digite su primer apellido",
+                minlenght:"Por favor digite un apellido válido",
+                maxlenght: "Por favor digite un apellido válido"
+            },
+            Cedula:{
+                required: "Por favor digite su cédula"
+                minlenght:"Por favor digite una cédula válida",
+                maxlenght:"Por favor digite una cédula válida"
+            }
+            TD:{
+                required:"Por favor digite el TD",
+                minlenght:"Por favor digite un TD válido"
+            }
+
+
+
+
+        }
+
+
+
+
+    });
+</script>
 </body>
 </html>

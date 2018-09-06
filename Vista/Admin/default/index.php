@@ -13,8 +13,6 @@ $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <?php include ("Includes/imports.php")?>
@@ -43,18 +41,12 @@ $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
         <div class="content">
             <div class="container-fluid">
 
-                <!-- start row -->
-                <div class="row">
-
-                </div>
-                <!-- end row -->
-
-                <!-- start content row -->
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <div class="clearfix"></div>
-                            <img src="assets/images/LogoMomentaneo.jpg" width="100%" height="auto">
+                            <div class="banner">
+
+                            </div>
                         </div>
                     </div>
                 </div>

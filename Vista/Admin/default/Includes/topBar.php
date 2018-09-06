@@ -6,10 +6,10 @@
     <div class="topbar-left">
         <a href="index.php" class="logo">
               <span>
-                  <img src="assets/images/logo.png" alt="" height="100" width="150">
+                  <img src="assets/images/LogoVisitor.png" alt="" width="150 " height="75">
               </span>
             <i>
-                <img src="assets/images/logoMomentaneo.jpg" alt="" height="50" width="50">
+                <img src="../assets/images/LogoVisitor.png" alt="" >
             </i>
         </a>
     </div>
@@ -58,7 +58,7 @@
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/logo.png" alt="" height="50" width="50">
+                    <img src="assets/images/LogoVisitor.png" alt="" width="150 " height="75">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
@@ -72,7 +72,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="page-logout.php" class="dropdown-item notify-item">
+                    <a href="../page-logout.php" class="dropdown-item notify-item">
                         <i class="mdi mdi-power"></i> <span>Cerrar Sesión</span>
                     </a>
 

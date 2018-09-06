@@ -12,6 +12,10 @@ $_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
     header('Location: Index.php');
 }
+require ('conexion.php');
+$query = "SELECT * FROM tbVisitante ";
+$resultado=$mysqli->query($query);
+
 
 ?>
 
@@ -23,8 +27,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
@@ -32,9 +34,29 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
     <?php include("Includes/imports.php") ?>
 
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
 
+    <script language="javascript">
+        $(document).ready(function(){
+            $("#Cedula").change(function () {
+
+                $("#Cedula option:selected").each(function () {
+                    IdVisitante = $(this).val();
+                    $.post("includes/getVinculado.php", { IdVisitante: IdVisitante }, function(data){
+                        $("#TD").html(data);
+                    });
+                });
+            })
+        });
+        </script>
 
 </head>
 
@@ -101,7 +123,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
+                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitas.php?accion=Crear">
 
 
 
@@ -111,13 +133,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                     <legend>Datos del visitante </legend>
 
                                     <div class="row m-t-20">
-                                        <div class="col-lg-6">
-                                            <label for="Cedula">Cédula </label>
-                                            <input type="text" class="form-control" id="Cedula" name="Cedula"  required>
-                                            <br>
-                                            <form action="">
-                                                <input type="button" value="Buscar" name="BuscarCedula" id="BuscarCedula" class="btn btn-primary stepy-finish" >
-                                            </form>
+                                        <div class="col-sm-5">
+                                            <label for="Cedula">Carcel</label>
+                                            <select class="form-control" name="Cedula" id="Cedula">
+                                                <option value="0">Cedula del Visitante</option>
+                                                <?php while($row = $resultado->fetch_assoc()) { ?>
+                                                    <option value="<?php echo $row['IdVisitante']; ?>"><?php echo $row['Cedula']; ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
 
                                         <div class="col-lg-6">
@@ -130,12 +153,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class = "col-lg-6">
                                             <label for="Nombre1">Primer nombre</label>
                                             <input type="text" value="" name="Nombre1" id="Nombre1"
-                                                   class="form-control"  required/>
+                                                   class="form-control"  />
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="Apellido1">Primer apellido </label>
                                             <input type="text" value="" name="Apellido1" id="Apellido1"
-                                                   class="form-control" required />
+                                                   class="form-control"  />
                                         </div>
 
                                         <div class="col-lg-6">
@@ -156,13 +179,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <legend>Datos del interno  </legend>
 
                                         <div class="row m-t-20">
-                                            <div class="col-lg-6">
+                                            <div class="form-group">
                                                 <label for="TD">TD </label>
-                                                <input type="text" class="form-control" id="TD" name="TD"  required minlength="7" maxlength="15">
-                                                <br>
-                                                <form action="">
-                                                    <input type="button" value="Buscar" name="BuscarCedula" id="BuscarCedula" class="btn btn-primary stepy-finish" >
-                                                </form>
+                                                <select class="form-control" name="TD" id="TD"></select>
+
                                             </div>
 
                                             <div class="col-lg-6">
@@ -175,12 +195,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                             <div class = "col-lg-6">
                                                 <label for="Nombre1">Primer nombre</label>
                                                 <input type="text" value="" name="Nombre1" id="Nombre1"
-                                                       class="form-control"  required/>
+                                                       class="form-control"  />
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido1">Primer apellido </label>
                                                 <input type="text" value="" name="Apellido1" id="Apellido1"
-                                                       class="form-control" required />
+                                                       class="form-control"  />
                                             </div>
 
                                             <div class="col-lg-6">
@@ -226,7 +246,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
                                         <br> <br>
 
-                                    <input type="submit" class="btn btn-primary stepy-finish" value="Visita">
+                                        <input type="submit" class="btn btn-primary stepy-finish" name="boton" id="boton" value="Generar Ingreso">
 
                                     </div>
                         </div>
@@ -251,15 +271,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
             2018 Software ADSI Visitor
         </footer>
 
-    </div>
 
-
-    <!-- ============================================================== -->
-    <!-- End Right content here -->
-    <!-- ============================================================== -->
-
-
-</div>
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>

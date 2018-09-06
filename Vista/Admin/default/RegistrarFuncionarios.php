@@ -26,8 +26,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
         <meta charset="utf-8" />
     <title>Registro de Funcionario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
@@ -35,7 +33,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
     <?php include("Includes/imports.php") ?>
 
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -49,9 +47,43 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                 });
             })
         });
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros y letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
 
     </script>
 
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 </head>
 
 
@@ -103,7 +135,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -116,7 +148,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
 
 
-                            <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
+                            <form id="FormFuncionario" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
 
                                 <fieldset title="Datos básicos">
                                     <legend>Información </legend>
@@ -125,33 +157,33 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Cedula"> Documento </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" pattern="[A-Za-z]" minlength="7" maxlength="15" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="valida(event)" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" pattern="[A-Za-z]"  maxlength="30" required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" onkeypress="check(event)"  maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" maxlength="30" >
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="check(event)"  maxlength="30" >
                                             </div>
 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" onkeypress="check(event)" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" maxlength="30"required >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" onkeypress="check(event)" maxlength="30" required >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Celular">Celular</label>
-                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" required>
+                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" onkeypress="valida(event)" required>
                                             </div>
 
                                             <div class="form-group">
@@ -188,12 +220,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
                                         <div class="form-group">
                                             <label for="Password2">Confirmar Contraseña</label>
-                                            <input data-parsley-equalto="#Password"type="password" class="form-control"
+                                            <input data-parsley-equalto="#Password" type="password" class="form-control"
                                             id="Password2" name="Password2" required>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <label>Permiso</label>
+                                            <label for="Permiso">Permiso</label>
                                             <select class="form-control" id="Permiso" required name="Permiso">
                                                 <option value="3">Administrador 1</option>
                                                 <option value="4">Administrador 2</option>

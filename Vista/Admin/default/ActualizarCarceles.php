@@ -24,15 +24,20 @@ $resultado=$mysqli->query($query);
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
     <?php require "../../../Controlador/ControlCarceles.php" ?>
 
     <?php include("Includes/imports.php") ?>
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -46,6 +51,19 @@ $resultado=$mysqli->query($query);
                 });
             })
         });
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
 
     </script>
 
@@ -100,7 +118,7 @@ $resultado=$mysqli->query($query);
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -120,7 +138,7 @@ $resultado=$mysqli->query($query);
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                             <<div class="col-sm-6">
-                                                <label for="departamentp">Departamento </label>
+                                                <label for="departamento">Departamento </label>
                                                 <select class="form-control" name="departamento" id="departamento">
                                                     <option value="0">Seleccionar departamento</option>
                                                     <?php while($row = $resultado->fetch_assoc()) { ?>
@@ -139,11 +157,11 @@ $resultado=$mysqli->query($query);
 
                                             <div class="form-group">
                                                 <label for="NombreCarcel">Nombre Carcel</label>
-                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel"parsley-trigger="change" required >
+                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="30" required >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula Director Carcel</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" >
                                                 <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar priviamente registrado</small>
 
                                             </div>
@@ -155,16 +173,8 @@ $resultado=$mysqli->query($query);
 
                                         </div>
                                     </div>
-                        <input type="submit" class="btn btn-primary stepy-finish" value="Registrar Carcel">
+                                    <input type="submit" class="btn btn-primary stepy-finish" value="Registrar Carcel">
 
-                                </fieldset>
-
-
-
-
-
-
-                            </form>
 
 
 
@@ -189,7 +199,7 @@ $resultado=$mysqli->query($query);
     <!-- ============================================================== -->
 
 
-</div>
+
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>

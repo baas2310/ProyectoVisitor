@@ -18,14 +18,20 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
     <?php require "../../../Controlador/ControlDelito.php" ?>
 
     <?php include("Includes/imports.php") ?>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
 </head>
 
@@ -78,7 +84,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -97,12 +103,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="col-sm-6">
                                                 <label for="Delito"> Delito</label>
-                                                <input type="text" class="form-control" id="Delito" name="Delito" data-parsley-type="number" required>
+                                                <input type="text" class="form-control" id="Delito" name="Delito" minlength="3" maxlength="35" required>
 
 
                                             <div class="form-group">
                                                 <label for="Descripcion">Descripcion</label>
-                                                <input type="text" class="form-control" id="Descripcion" name="Descripcion"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Descripcion" name="Descripcion" minlength="5" maxlength="150" required>
                                             </div>
                                             </div>
 
@@ -114,7 +120,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         </div>
                                     </div>
                                 </fieldset>
-                                    <input type="submit" class="btn btn-primary stepy-finish" value="Registrar"></input>
+                                    <input type="submit" class="btn btn-primary stepy-finish" value="Registrar">
 
                             </form>
                         </div>
@@ -141,6 +147,45 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+    <script>
+
+        $("#wizard-clickable").validate({
+            rules:{
+                Delito:{
+                    required: true,
+                    minlenght: 2,
+                    maxlenght: 30
+
+                },
+                Descripcion: {
+                    required: true,
+                    minlenght: 2,
+                    maxlenght: 150
+
+                }
+                messages:{
+
+                    Delito: {
+                        required:"Por favor ingrese un delito",
+                        minlenght:"Ingrese un delito válido",
+                        maxlenght:"Ingrese un delito válido"
+                    },
+
+                    Descripcion: {
+                        required:"Por favor ingrese una descripción",
+                        minlenght:"Ingrese una descripción válida",
+                        maxlenght:"Ingrese un descripción válida"
+                    }
+
+
+
+                }
+
+            });
+
+        })
+
+    </script>
 
 </body>
 </html>

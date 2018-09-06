@@ -30,6 +30,14 @@ $resultado=$mysqli->query($query);
 
     <!-- Scripts -->
     <?php include("Includes/imports.php") ?>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -129,23 +137,23 @@ $resultado=$mysqli->query($query);
                                                 <label for="Nombre1">Primer nombre </label>
 
                                                 <input type="text" value="<?php echo $objInterno->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                       class="form-control" pattern="[A-Za-z]" maxlength="30"  disabled/>
+                                                       class="form-control"  maxlength="30"  disabled/>
                                             </div>
 
                                             <div class="col-lg-6">
                                                 <label for="Nombre2">Segundo nombre </label>
                                                 <input type="text" value="<?php echo $objInterno->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                       class="form-control" pattern="[A-Za-z]" maxlength="30" disabled/>
+                                                       class="form-control"  maxlength="30" disabled/>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido1">Primer apellido </label>
                                                 <input type="text" value="<?php echo $objInterno->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                       class="form-control" pattern="[A-Za-z]" disabled />
+                                                       class="form-control"  disabled />
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objInterno->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control" pattern="[A-Za-z]" disabled />
+                                                       class="form-control"  disabled />
                                             </div>
 
                                             <div class="col-lg-6">
@@ -173,7 +181,7 @@ $resultado=$mysqli->query($query);
                                               </div>
 
                                                 <div class="col-lg-6">
-                                                  <label for="IdTipoInterno">Tipo de interno</label>
+                                                  <label for="idTipoInterno">Tipo de interno</label>
                                                   <input type="text" value="<?php echo $objInterno->getTipoInterno(); ?>" name="idTipoInterno" id="idTipoInterno"
                                                          class="form-control" disabled />
                                                 </div>
@@ -188,18 +196,18 @@ $resultado=$mysqli->query($query);
                                                        class="form-control" disabled/>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="Estado">Estado</label>
+                                                <label for="TipoVisitante">Estado</label>
                                                 <select class="form-control" id="TipoVisitante" required name="TipoVisitante" disabled>
                                                     <option <?php echo ($objInterno->getEstado() == "Activo") ? "selected" : ""; ?> value="1">Interno</option>
                                                     <option <?php echo ($objInterno->getEstado() == "Inactivo") ? "selected" : ""; ?> value="2">En Libertad o Estado de baja</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label for="Ubicacion">Ubicacion Domiciliaria</label>
+                                                <label for="idUbicacion">Ubicacion Domiciliaria</label>
                                                 <input type="text" value="<?php echo $objInterno->getUbicacion(); ?>" name="idUbicacion" id="idUbicacion"
                                                        class="form-control"  disabled/>
                                             </div><div class="col-lg-6">
-                                                <label for="Carcel">Carcel</label>
+                                                <label for="Carcel">Cárcel</label>
                                                 <input type="text" value="<?php echo $objInterno->getNombreCarcel()?>" name="Carcel" id="Carcel"
                                                        class="form-control" disabled/>
                                             </div>
@@ -210,15 +218,7 @@ $resultado=$mysqli->query($query);
                                         </div>
 
                                     </div><div class="col-lg-6">
-                                        <label>Reporte Realizado por: </label>
-                                        <br>
-                                        <label><?php echo $_SESSION["DataUser"]["Rango"]?></label>
-                                        <br>
-                                        <label><?php echo $_SESSION["DataUser"]["Apellido1"]." "?> <label><?php echo $_SESSION["DataUser"]["Apellido2"]?></label></label>
-                                        <br>
-                                        <label>Para la Institucion Penitenciaria:</label>
-                                        <label><?php echo $objInterno->getNombreCarcel()?></label>
-                                        <label><?php echo date('Y/m/d H:i') ?></label>
+
                                     </div>
 
                                         </div>
@@ -234,7 +234,7 @@ $resultado=$mysqli->query($query);
                         </div>
 
 
-                        </form>
+
                     </div> <!-- end card-box -->
                 </div>
                 <!-- end col -->
@@ -245,13 +245,22 @@ $resultado=$mysqli->query($query);
 
         </div> <!-- container -->
 
-    </div> <!-- content -->
+
 
     <footer class="footer text-right">
+        <label>Reporte Realizado por: </label>
+        <br>
+        <label><?php echo $_SESSION["DataUser"]["Rango"]?></label>
+        <br>
+        <label><?php echo $_SESSION["DataUser"]["Apellido1"]." "?> <label><?php echo $_SESSION["DataUser"]["Apellido2"]?></label></label>
+        <br>
+        <label>Para la Institucion Penitenciaria:</label>
+        <label><?php echo $objInterno->getNombreCarcel()?></label>
+        <label><?php echo date('Y/m/d H:i') ?></label>
         2018 Software ADSI Visitor
     </footer>
 
-</div>
+
 
 
 <!-- ============================================================== -->
@@ -259,7 +268,7 @@ $resultado=$mysqli->query($query);
 <!-- ============================================================== -->
 
 
-</div>
+
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>

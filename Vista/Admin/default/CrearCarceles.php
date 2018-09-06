@@ -32,7 +32,14 @@ $resultado=$mysqli->query($query);
     <?php require "../../../Controlador/ControlCarceles.php" ?>
 
     <?php include("Includes/imports.php") ?>
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -100,7 +107,7 @@ $resultado=$mysqli->query($query);
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -114,13 +121,13 @@ $resultado=$mysqli->query($query);
 
                             <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlCarceles.php?accion=Crear">
 
-                                <fieldset title="1">
+                                <fieldset>
                                     <legend>Información </legend>
 
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                             <div class="col-sm-6">
-                                                <label for="departamentp">Departamento </label>
+                                                <label for="departamento">Departamento </label>
                                                 <select class="form-control" name="departamento" id="departamento">
                                                     <option value="0">Seleccionar departamento</option>
                                                     <?php while($row = $resultado->fetch_assoc()) { ?>
@@ -131,20 +138,19 @@ $resultado=$mysqli->query($query);
 
                                                 <div class="form-group">
                                                     <label for="municipio">Municipio </label>
-                                                    <select class="form-control" name="municipio" id="municipio">
-
+                                                    <select class="form-control" name="municipio" id="municipio" required>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="NombreCarcel">Nombre Carcel</label>
-                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel"parsley-trigger="change" required >
+                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="50" required >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula Director Carcel</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula"parsley-trigger="change" >
-                                                <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar priviamente registrado</small>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" >
+                                                <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar previamente registrado</small>
 
                                             </div>
 
@@ -155,16 +161,16 @@ $resultado=$mysqli->query($query);
 
                                         </div>
                                     </div>
-                        <input type="submit" class="btn btn-primary stepy-finish" value="Registrar Carcel">
-
-                                </fieldset>
+                                      <input type="submit" class="btn btn-primary stepy-finish" value="Registrar Carcel">
 
 
 
 
 
 
-                            </form>
+
+
+
                         <div class="form-group">
                             <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
                                 <?php echo ControlCarceles::adminTableCarcel()?>
@@ -194,10 +200,49 @@ $resultado=$mysqli->query($query);
     <!-- ============================================================== -->
 
 
-</div>
+
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+<script>
+
+    $("#wizard-clickable").validate({
+        rules:{
+            NombreCarcel:{
+                required: true,
+                minlenght: 2,
+                maxlenght: 50
+
+            },
+            Cedula: {
+                required: true,
+                minlenght: 7,
+                maxlenght: 15
+
+            }
+            messages:{
+
+                NombreCarcel: {
+                    required:"Por favor ingrese el nombre de la cárcel",
+                    minlenght:"Ingrese un nombre de la cárcel válido",
+                    maxlenght:"Ingrese un nombre de la cárcel válido"
+                },
+
+                Cedula: {
+                    required:"Por favor ingrese una cédula",
+                    minlenght:"Ingrese una cédula válida",
+                    maxlenght:"Ingrese una cédula válida"
+                }
+
+
+
+            }
+
+        });
+
+    })
+
+</script>
 
 </body>
 </html>

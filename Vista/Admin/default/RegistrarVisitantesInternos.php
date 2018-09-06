@@ -1,8 +1,8 @@
 <?php
 
-/*session_start();
+session_start();
 
-require "../../../Modelo/estudiante.php";
+require "../../../Modelo/Visitante.php";
 
 if (empty($_SESSION["DataUser"]["idRol"])){
     header("Location: login.php");
@@ -11,14 +11,14 @@ $_SESSION["user"]=$_SESSION["DataUser"]["idRol"];
 
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
-}*/
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Registro de Alumno</title>
+    <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -30,6 +30,67 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <?php require "../../../Controlador/ControlSelectores.php" ?>
 
     <?php include("Includes/imports.php") ?>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
+
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+
+                    $('#preview').hide();
+                    $('#preview').fadeIn(650);
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function() {
+            $("input:file").change(function (){
+                var fileName = $(this).val();
+                readURL(this);
+            });
+        });
+        function valida(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+            function check(e) {
+                tecla = (document.all) ? e.keyCode : e.which;
+
+                //Tecla de retroceso para borrar, siempre la permite
+                if (tecla == 8) {
+                    return true;
+                }
+
+                // Patron de entrada, en este caso solo acepta numeros y letras
+                patron = /[A-Za-z]/;
+                tecla_final = String.fromCharCode(tecla);
+                return patron.test(tecla_final);
+            }
+
+    </script>
 
 </head>
 
@@ -82,7 +143,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -91,14 +152,15 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                     <div class="col-md-12">
                         <div class="card-box">
                             <h3 class="text-center text-custom" style="color: #0b2e13">REGISTRO DE VISITANTE</h3>
-                            <h6> <?php echo var_dump($_SESSION)?> </h6>
+
 
 
 
                             <form id="wizard-clickeable" role="form" method="post" action="../../../Controlador/ControlVisitantes.php?accion=CrearVisitInt" enctype='multipart/form-data'>
 
                                 <div class="form-group">
-                                    <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"parsley-trigger="change" hidden>
+                                    <label for="IdRegistrador"></label>
+                                    <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador" hidden>
                                 </div>
                                 <fieldset title="1">
                                     <legend>Información </legend>
@@ -106,18 +168,18 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                              <div class="form-group">
-                                                <label for="Cedula"> Cedula </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" required>
+                                                <label for="Cedula"> Cédula </label>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1"parsley-trigger="change" required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" minlength="2" maxlength="30" onkeypress="return check(event) " required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2"parsley-trigger="change" >
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" maxlength="30">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Patentesco</label>
@@ -129,24 +191,26 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" minlength="2" maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  minlength="2" maxlength="30" >
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="Url">Url Imagen</label>
-                                                <input type="file" class="form-control" id="UrlImagen" name="UrlImagen"  >
+                                                <input type='file' id="urlImagen" />
+                                                <div id='img_contain'><img id="preview" name="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp" /></div>
+                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Observaciones">Observaciones</label>
-                                                <input type="text" class="form-control" id="Observaciones" name="Observaciones" >
+                                                <input type="text" class="form-control" id="Observaciones" name="Observaciones" maxlength="125" required >
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="Fecha"></label>
                                                 <input type="text" value="<?php echo date('Y/m/d H:i:s')?>" class="form-control" id="Fecha" name="Fecha"  hidden>
                                             </div>
                                     </div>
@@ -155,7 +219,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
 
 
-                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar persona"></input>
+                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar persona">
 
                             </form>
 
@@ -186,6 +250,62 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+<script>
+    $("#wizard-clickeable").validate({
+        rules: {
+            Nombre1: {
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+            },
+            Apellido1: {
+                required: true,
+                minlenght: 2,
+                maxlenght: 30
+            },
+            Cedula: {
+                required: true,
+                minlenght: 7,
+                maxlenght: 15
+            },
+
+
+            Observaciones: {
+                required: true,
+                minlenght:5,
+                maxlenght:150
+            }
+
+        }
+        messages:{
+            Nombre1:{
+                required: "Por favor digite su nombre",
+                minlenght: "Por favor digite un nombre válido"
+                maxlenght:"Por favor digite un nombre válido"
+            },
+            Apellido1:{
+                required: "Por favor digite su primer apellido",
+                minlenght:"Por favor digite un apellido válido",
+                maxlenght: "Por favor digite un apellido válido"
+            },
+            Cedula:{
+                required: "Por favor digite su cédula"
+                minlenght:"Por favor digite una cédula válida",
+                maxlenght:"Por favor digite una cédula válida"
+            }
+            Observaciones:{
+                required:"Por favor digite la observación respectiva",
+                minlenght:"Por favor digite una observación de por lo menos 5 caracteres",
+                maxlenght:"Ha alcanzado el limite de caracteres"
+            }
+
+
+        }
+
+
+    });
+
+</script>
 
 </body>
 </html>

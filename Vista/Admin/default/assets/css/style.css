@@ -18,6 +18,49 @@ File: Main Css
 .metismenu ul li {
   list-style: none;
 }
+.banner{
+  width:85%;
+  height:550px;
+  margin: auto;
+
+  background-size: 100% 100%;
+
+  animation:banner 10s infinite;
+
+}
+@keyframes banner {
+  0%, 21%{
+    background-image:url(../../assets/images/ComplejoCarcelarioTulua.jpg);
+    opacity:1;
+  }
+  22%,24%{
+    opacity: 0.1;
+  }
+  25%, 44%{
+    background-image:url(../../assets/images/CompletoPenitenciario.jpg);
+    opacity:1;
+  }
+  45%,48%{
+    opacity: 0.1;
+  }
+  49%, 70%{
+    background-image:url(../../assets/images/PicotaEstablecimientoCarcelario.jpg);
+    opacity:1;
+  }
+  71%,73%{
+    opacity: 0.1;
+  }
+  74%, 100%{
+    background-image:url(../../assets/images/penitenciarianacionaldeemboscadapadrejuanantoniodelavega.jpg);
+    opacity:1;
+  }
+
+
+
+
+
+
+}
 
 .nav-second-level li a, .nav-thrid-level li a {
   padding: 8px 20px 8px 10px;

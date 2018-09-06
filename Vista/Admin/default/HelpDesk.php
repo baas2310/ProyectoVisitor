@@ -1,8 +1,8 @@
 <?php
 
-/*session_start();
+session_start();
 
-require "../../../Modelo/estudiante.php";
+require "../../../Modelo/Funcionario.php";
 
 if (empty($_SESSION["DataUser"]["idRol"])){
     header("Location: login.php");
@@ -11,7 +11,7 @@ $_SESSION["user"]=$_SESSION["DataUser"]["idRol"];
 
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
-}*/
+}
 
 $Documento = $_POST['Documento'];
 $asunto = $_POST['asunto'];
@@ -33,8 +33,6 @@ $mensaje = $_POST['Sujeto'];
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -166,7 +164,7 @@ $mensaje = $_POST['Sujeto'];
     <!-- ============================================================== -->
 
 
-</div>
+
 <!-- END wrapper -->
 
 

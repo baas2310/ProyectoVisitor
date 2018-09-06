@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!empty($_SESSION['idRol'])){
+if (!empty($_SESSION['idFuncionario'])){
     header("Location: Index.php");
 }
 ?>
@@ -11,8 +11,6 @@ if (!empty($_SESSION['idRol'])){
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <?php include ("Includes/imports.php")?>
@@ -34,12 +32,12 @@ if (!empty($_SESSION['idRol'])){
             <div class="col-sm-12">
                 <div class="wrapper-page">
                     <div class="account-pages">
-                        <div class="account-box"style="background-color: #38586c">
+                        <div class="account-box" style="background-color: #38586c">
                             <div class="account-logo-box" >
                                 <h2 class="text-uppercase text-center">
                                         <span><a src="assets/images/logo.jpg" alt="" height="160"></span>
                                         <h4 style="color: whitesmoke">Visitor</h4>
-                                    </a>
+
                                 </h2>
                             </div>
 
@@ -50,7 +48,7 @@ if (!empty($_SESSION['idRol'])){
                                     <div class="form-group m-b-20">
                                         <div class="col-xs-12">
 
-                                            <input class="form-control" style="background-color: white" id="Usuario" name="Usuario" type="" placeholder="&#128273; Usuario" required >
+                                            <input class="form-control" style="background-color: white" id="Usuario" name="Usuario" type="text" placeholder="&#128273; Usuario" required >
                                         </div>
                                     </div>
 
@@ -70,8 +68,8 @@ if (!empty($_SESSION['idRol'])){
                                 </form>
 
                                 <p>
-                                <div id="resultado" name="resultado" class="ui-widget">  </div>
-                                </p>
+                                <div id="resultado" id="resultado" class="ui-widget">  </div>
+
 
 
                             </div>
@@ -85,8 +83,8 @@ if (!empty($_SESSION['idRol'])){
 
             </div>
         </div>
-    </div>
-</section>
+
+
 
 
 

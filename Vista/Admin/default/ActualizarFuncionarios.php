@@ -31,7 +31,14 @@ va
 
     <!-- Scripts -->
     <?php include("Includes/imports.php") ?>
-    <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script src="assets/jquery/lib/jquery.js"></script>
+    <script src="assets/jquery/lib/jquery.form.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
+    <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script language="javascript">
         $(document).ready(function(){
@@ -45,6 +52,32 @@ va
                 });
             })
         });
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros y letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
 
     </script>
 
@@ -98,7 +131,7 @@ va
                         <div class="alert alert-icon alert-danger alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <i class="mdi mdi-block-helper"></i>
-                            No se pudo actualizar al Funcionario.<strong> Error: no se encontro la informacion del Funcionario.</strong> Puede administrar los Usuarios desde <a href="ListarFuncionario.php" class="alert-link">Aquí</a>.
+                            No se pudo actualizar al Funcionario.<strong> Error: no se encontro la informacion del Funcionario.</strong> Puede administrar los Usuarios desde <a href="ListarFuncionarios.php" class="alert-link">Aquí</a>.
                         </div>
 
                     <?php }else{
@@ -118,7 +151,7 @@ va
 
                                 <br>
 
-                                <form role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=EditarFuncionario">
+                                <form role="form" method="post" id="FormFuncionario" name="FormFuncionario" action="../../../Controlador/ControlFuncionarios.php?accion=EditarFuncionario">
                                     <div class="row ">
                                         <div class="col-xs-9 center-page" style="width: 83%">
 
@@ -129,30 +162,30 @@ va
                                                     <label for="Cedula">Cedula </label>
 
                                                     <input type="text" value="<?php echo $objFuncionario->getCedula(); ?>" name="Cedula" id="Cedula"
-                                                           class="form-control" minlength="7" maxlength="15" pattern="[0-9]" required/>
+                                                           class="form-control" minlength="7" maxlength="15"  onkeypress="return valida(event)" required/>
                                                 </div>
                                                 <br> <br>
                                                 <div class="col-lg-6">
 
-                                                    <label for="Nombre1">Nombre 1 </label>
+                                                    <label for="Nombre1">Primer nombre </label>
 
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                           class="form-control" maxlength="30" minlength="2" pattern="[A-Za-z]" required/>
+                                                           class="form-control" maxlength="30" minlength="2" onkeypress="check(event)" required/>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label for="Nombre2">Nombre 2 </label>
+                                                    <label for="Nombre2">Segundo nombre</label>
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                           class="form-control" pattern="[A-Za-z]" />
+                                                           class="form-control"  maxlength="30" onkeypress="check(event)" />
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label for="Apellido1">Apellido 1 </label>
+                                                    <label for="Apellido1">Primer apellido </label>
                                                     <input type="text" value="<?php echo $objFuncionario->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                           class="form-control" pattern="[A-Za-z]" required />
+                                                           class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required />
                                                 </div>
                                             <div class="col-lg-6">
-                                                <label for="Apellido2">Apellido 2 </label>
+                                                <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objFuncionario->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control" pattern="[A-Za-z]" />
+                                                       class="form-control"  maxlength="30" onkeypress="check(event)"/>
                                             </div>
 
                                                 <div class="col-lg-6">
@@ -166,7 +199,7 @@ va
                                                            class="form-control" />
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="departamentp">Departamento </label>
+                                                    <label for="departamento">Departamento </label>
                                                     <select class="form-control" name="departamento" id="departamento">
                                                         <option value="<?php echo $objFuncionario->getIdDepartamento(); ?>"><?php echo $objFuncionario->getDepartamento(); ?></option>
                                                         <?php while($row = $resultado->fetch_assoc()) { ?>
@@ -181,7 +214,7 @@ va
                                                 <div class="col-lg-6">
 
 
-                                                        <label>Permiso</label>
+                                                        <label for="Permiso">Permiso</label>
                                                         <select class="form-control" id="Permiso" required name="Permiso">
                                                             <option <?php echo ($objFuncionario->getPermiso() == "Administrador 1") ? "selected" : ""; ?> value="3">Administrador 1</option>
                                                             <option <?php echo ($objFuncionario->getPermiso() == "Administrador 2") ? "selected" : ""; ?> value="4">Administrador 2</option>
@@ -207,7 +240,7 @@ va
                                                 <div class="col-lg-6">
                                                     <label for="Celular"><strong>Celular</strong></span></label>
                                                     <input type="text" value="<?php echo $objFuncionario->getCelular(); ?>" name="Celular"  required
-                                                            class="form-control" id="Celular" >
+                                                            class="form-control" id="Celular" minlength="7" maxlength="10" onkeypress="valida(event)" >
                                                 </div>
 
 
@@ -280,6 +313,108 @@ va
 <!-- END wrapper -->
 
 <?php include("Includes/scripts.php") ?>
+<script>
+    $().ready(function () {
+
+        $("#FormFuncionario").validate({
+            rules:{
+                Nombre1:{
+                    required: true,
+                    minlenght: 2,
+                    maxlenght: 30
+                },
+                Apellido1: {
+                    required: true,
+                    minlenght: 2,
+                    maxlenght: 30
+                },
+                Celular: {
+                    required: true,
+                    minlenght:7,
+                    maxlenght:10
+
+                },
+                Cedula:{
+                    required: true,
+                    minlenght:7,
+                    maxlenght:15
+                },
+
+                Rango: {
+                    required: true,
+                    minlenght:4,
+                    maxlenght:30
+                },
+                Usuario:{
+                    required: true,
+                    minlenght:2
+                },
+                Pass:{
+                    required:true,
+                    minlenght:5
+                },
+                Password2:{
+                    required: true,
+                    equalTo: "#Pass"
+                },
+                messages:{
+
+                    Nombre1: {
+                        required:"Por favor ingrese su primer nombre",
+                        minlenght:"Ingrese un nombre válido",
+                        maxlenght:"Ingrese un nombre válido"
+                    },
+
+                    Apellido1: {
+                        required:"Por favor ingrese su primer apellido",
+                        minlenght:"Ingrese un apellido válido",
+                        maxlenght:"Ingrese un apellido válido"
+                    },
+
+                    Celular: {
+                        required:"Por favor ingrese su celular",
+                        minlenght:"Ingrese un celular válido",
+                        maxlenght:"Ingrese un celular válido"
+                    },
+
+                    Cedula: {
+                        required:"Por favor ingrese su cedula",
+                        minlenght:"Ingrese una cédula válida",
+                        maxlenght:"Ingrese una cédula válida"
+                    },
+
+                    Rango: {
+                        required:"Por favor ingrese su Rango",
+                        minlenght:"Ingrese un rango válido",
+                        maxlenght:"Ingrese un rango válido"
+                    },
+
+                    Usuario: {
+                        required:"Por favor ingrese un usuario",
+                        minlenght:"Ingrese un usuario de por lo menos 5 caracteres",
+                        maxlenght:"Ingrese un usuario de máximo 30 caracteres"
+                    },
+
+                    Pass: {
+                        required:"Por favor ingrese su contraseña",
+                        minlenght:"Su contraseña debe ser de por lo menos 5 caracteres",
+                        maxlenght:"Su contraseña no debe superar los 30 caracteres"
+                    },
+
+                    Password2: {
+                        required:"Por favor ingrese confirme su contraseña",
+                        equalTo: "Las contraseñas no coinciden, por favor verifiquelas"
+                    }
+
+                }
+            }
+
+        });
+
+    });
+
+
+</script>
 
 </body>
 </html>
