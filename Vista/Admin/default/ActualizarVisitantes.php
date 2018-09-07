@@ -175,10 +175,11 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="text" value="<?php echo $objVisitante->getApellido2(); ?>" name="Apellido2" id="Apellido2"
                                                        class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" />
                                             </div>
+
                                             <div class="form-group">
-                                                <label for="UrlImagen">Imagen </label>
-                                                <input type="file" class="form-control-file" id="UrlImagen" aria-describedby="fileHelp" name="UrlImagen">
-                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
+                                              <label for="urlImagen">Foto</label>
+                                              <br>
+                                                <img src="../../../ImagenesVisitas/<?php echo $objVisitante->getUrlImagen(); ?>"/>
                                             </div>
 
                                             <div class="col-lg-6">

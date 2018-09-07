@@ -14,6 +14,35 @@ File: Main Css
 .metismenu ul {
   padding: 0;
 }
+input:required {
+    background:hsl(180, 50%, 90%);
+    border:1px solid #999;
+}
+input:optional {
+    background:hsl(300, 50%, 90%);
+    border:1px dotted hsl(180, 50%, 90%);
+}
+input:valid,
+input:in-range {
+    background:hsl(120, 50%, 90%);
+    border-color:hsl(120, 50%, 50%);
+}
+
+input:invalid,
+input:out-of-range {
+    border-color:hsl(0, 50%, 50%);
+    background:hsl(0, 50%, 90%);
+}
+.help {
+    display:none;
+    font-size:90%;
+}
+input:focus + .help {
+    display:inline-block;
+}
+div.submit {
+    margin-left:100px;
+}
 
 .metismenu ul li {
   list-style: none;
@@ -28,6 +57,7 @@ File: Main Css
   animation:banner 10s infinite;
 
 }
+
 @keyframes banner {
   0%, 21%{
     background-image:url(../../assets/images/ComplejoCarcelarioTulua.jpg);

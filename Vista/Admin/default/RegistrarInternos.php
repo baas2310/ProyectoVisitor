@@ -232,7 +232,8 @@ $(function() {
                                     <legend style="color: #38586c;">Información </legend>
                                     <div class="form-group">
                                         <label for="IdRegistrador"></label>
-                                        <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador" hidden>
+                                        <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"  hidden>
+                                         <span id="name-format" class="help">Format: firstname lastname</span>
                                     </div>
 
                                     <div class="row m-t-20">
@@ -271,7 +272,7 @@ $(function() {
                                             </div>
 
                                             <div class="form-group">
-                                                <input type='file' id="urlImagen" name="urlImagen" />
+                                                <input type='file' id="urlImagen" name="urlImagen"required />
                                                 <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>

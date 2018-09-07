@@ -38,6 +38,7 @@ Class Visita extends db_abstract_class{
     private $IdParentesco;
     private $Parentesco;
     private $UrlImagenVisitante;
+    private $TargetaProfecional;
 
     private $IdRegistradorVisita;
 
@@ -51,7 +52,7 @@ Class Visita extends db_abstract_class{
             }
     }else{
             $this->IdRegistro="";
-            $this->IdRegistradorIngreso;
+            $this->IdRegistradorIngreso="";
             $this->IdRegistrado="";
             $this->TD="";
             $this->Nombre1="";
@@ -85,6 +86,7 @@ Class Visita extends db_abstract_class{
             $this->TipoVisitante="";
             $this->IdParentesco="";
             $this->Parentesco="";
+            $this->TargetaProfecional="";
 
 
     }
@@ -657,6 +659,23 @@ Class Visita extends db_abstract_class{
         $this->FechaSalida = $FechaSalida;
     }
 
+    /**
+     * @return string
+     */
+    public function getTargetaProfecional()
+    {
+        return $this->TargetaProfecional;
+    }
+
+    /**
+     * @param string $TargetaProfecional
+     */
+    public function setTargetaProfecional($TargetaProfecional)
+    {
+        $this->TargetaProfecional = $TargetaProfecional;
+    }
+
+
 
 
 
@@ -727,11 +746,23 @@ Class Visita extends db_abstract_class{
     $tmp->Disconnect();
         return $arrayVisita;
     }
-    public static function buscarIdVisita($Cedula){
+    public static function buscarVisitante($Cedula){
         $Visita = new Visita();
         if ($Cedula>"") {
-            $getRow = $Visita->getRow("SELECT IdVisita FROM `tbVisita`WHERE Cedula =?", array($Cedula));
-            $Visita->IdRegistrado = $getRow['IdVisita'];
+            $getRow = $Visita->getRow("SELECT * FROM `tbVisita`WHERE Cedula =?", array($Cedula));
+            $Visita->IdRegistrado = $getRow['IdVisitante'];
+            $Visita->CedulaVisitante = $getRow['Cedula'];
+            $Visita->Nombre1Visitante = $getRow['Nombre1'];
+            $Visita->Nombre2Visitante = $getRow['Nombre2'];
+            $Visita->Apellido1Visitante = $getRow['Apellido1'];
+            $Visita->Apellido2Visitante = $getRow['Apellido2'];
+            $Visita->UrlImagenVisitante = $getRow['UrlImagen'];
+            $Visita->TipoVisitante = $getRow['IdTipoVisitante'];
+            $Visita->TargetaProfecional = $getRow['TargetaProfecional'];
+            $Visita->Estado = $getRow['IdEstado'];
+
+
+            array_push($arrayVisita,$Visita);
 
             $Visita->Disconnect();
             return $Visita;
@@ -758,28 +789,9 @@ Class Visita extends db_abstract_class{
 
     public static function getAll()
     {
-        return Visita::buscar("SELECT IdRegistro, tbVisita.IdVisita, tbregistro.TD,tbVisita.Nombre1,tbVisita.Nombre2,tbVisita.Apellido1,tbVisita.Apellido2,tbVisita.FechaNacimiento,tbVisita.UrlImagen,tbtipoVisita.TipoVisita,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacionVisita.Patio,tbubicacionVisita.Seccion,tbubicacionVisita.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado FROM `tbregistro`
-                                        INNER JOIN tbVisita ON tbVisita.IdVisita = tbregistro.IdRegistrado 
-                                        INNER JOIN tbtipoVisita on tbtipoVisita.IdTipoVisita = tbregistro.IdTipoVisita 
-                                        INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion 
-                                        INNER JOIN tbubicacionVisita on tbubicacionVisita.IdUbicacionVisita = tbregistro.IdUbicacionInterna 
-                                        INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito 
-                                        INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacionVisita.IdCarcel 
-                                        INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion 
-                                        INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado ");
+
     }
-    public static function getAllVisitaVisita()
-    {
-        return Visita::buscar("SELECT IdRegistro, tbVisita.IdVisita, tbregistro.TD,tbVisita.Nombre1,tbVisita.Nombre2,tbVisita.Apellido1,tbVisita.Apellido2,tbVisita.FechaNacimiento,tbVisita.UrlImagen,tbtipoVisita.TipoVisita,tbdelito.Delito,tbtiporeclucion.TipoReclucion,tbubicacionVisita.Patio,tbubicacionVisita.Seccion,tbubicacionVisita.Celda,tbCarcel.NombreCarcel, municipios.municipio, tbestado.Estado  FROM `tbregistro`
-                                        INNER JOIN tbVisita ON tbVisita.IdVisita = tbregistro.IdRegistrado 
-                                        INNER JOIN tbtipoVisita on tbtipoVisita.IdTipoVisita = tbregistro.IdTipoVisita 
-                                        INNER JOIN tbtiporeclucion on tbtiporeclucion.IdTipoReclucion = tbregistro.IdTipodeReclucion 
-                                        INNER JOIN tbubicacionVisita on tbubicacionVisita.IdUbicacionVisita = tbregistro.IdUbicacionInterna 
-                                        INNER JOIN tbdelito ON tbdelito.IdDelito = tbregistro.IdDelito 
-                                        INNER JOIN tbCarcel on tbCarcel.IdCarcel = tbubicacionVisita.IdCarcel 
-                                        INNER JOIN municipios on municipios.id_municipio = tbCarcel.IdUbicacion 
-                                        INNER JOIN tbestado on tbestado.IdEstado = tbregistro.IdEstado where tbRegistro.IdEstado = 1");
-    }
+
     public static function buscarVisita($query)
     {
         $arrayVisitante = array();
@@ -795,21 +807,22 @@ Class Visita extends db_abstract_class{
             $Visitante->Apellido1Visitante=$valor['Apellido1'];
             $Visitante->Apellido2Visitante2=$valor['Apellido2'];
             $Visitante->UrlImagenVisitante=$valor['UrlImagen'];
-            $Visitante->TipoVisitante=$valor['TipoVisitante'];
-            $Visitante->IdParentesco=$valor['IdParentesco'];
-            $Visitante->Parentesco=$valor['Parentesco'];
+            $Visitante->TipoVisitante=$valor['IdTipoVisitante'];
             $Visitante->Estado=$valor['IdEstado'];
 
 
             array_push($arrayVisitante,$Visitante);
         }
         $tmp->Disconnect();
+
         return $arrayVisitante;
     }
     public static function getVisita($Cedula)
     {
 
-        return Visita::buscarVisita("SELECT tbvisitante.IdVisitante, tbvisitante.Cedula,tbvisitante.Nombre1,tbvisitante.Nombre2,tbvisitante.Apellido1,tbvisitante.Apellido2, tbtipovisitante.TipoVisitante,tbparentesco.IdParentesco, tbparentesco.Parentesco,tbvisitante.UrlImagen,tbvisitante.IdEstado FROM `tbvinvulo` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvinvulo.IdVisitante INNER JOIN tbtipovisitante ON tbvisitante.IdTipoVisitante = tbtipovisitante.IdTipoVisitante INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco WHERE tbvisitante.Cedula ="."$Cedula"." AND tbVisitante.IdEstado = 1");
+        var_dump(Visita::buscarVisita("SELECT * FROM `tbvisitante`"));
+
+        return Visita::buscarVisita("SELECT * FROM tbvisitante WHERE Cedula ="."$Cedula"." AND IdEstado = 1");
     }
     public static function buscarLimite($query)
     {
@@ -824,11 +837,7 @@ Class Visita extends db_abstract_class{
         $tmp->Disconnect();
         return $Limite;
     }
-    public static function getLimite($IdVisitado)
-    {
 
-        return Visita::buscarLimite("SELECT COUNT(IdVinculo) FROM tbvinvulo INNER join tbvisitante on tbvisitante.IdVisitante = tbvinvulo.IdVisitante WHERE IdVisitado ="."$IdVisitado"." AND tbVisitante.IdEstado = 1");
-    }
 
     public function insertar()
     {

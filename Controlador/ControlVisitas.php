@@ -21,6 +21,8 @@ class ControlVisitas
             ControlVisitas::Estado('2');
         }elseif ($action == 'BuscarVisitante') {
             ControlVisitas::BusquedaVisitante();
+        }elseif ($action == 'CargarVisitante') {
+            ControlVisitas::CargarVisitante($_POST['Cedula']);
         }
     }
 
@@ -112,66 +114,16 @@ class ControlVisitas
         return $htmlSelect;
     }
 
-    static public function adminTableVisita()
-{
+    static public function CargarVisitante($Cedula)
+    {
 
-    $ArrayVisitas = Visita::getAll();;
-    //$tmpVisita = new Visita();
-    $arrColumnas = [/*"Código",*/
-        "No. TD", "Nombre 1", "Apellido 1", "Tipo Visita", "Delito", "Tipo Reclusion", "Cárcel","Municipio","Estado"];
-    $htmltable = "<thead>";
-    $htmltable .= "<tr>";
+        $ObJVisitas = Visita::getVisita($Cedula);;
+        $ArrayVisitas = (array) $ObJVisitas[0];
 
-    foreach ($arrColumnas as $NameColumna) {
-
-        $htmltable .= "<th style='text-align: center'>" . $NameColumna . "</th>";
-
+        return $ArrayVisitas;
     }
-    $htmltable .= "<th style='text-align: center'>Acciones</th>";
-    $htmltable .= "</tr>";
-    $htmltable .= "</thead>";
 
-    $htmltable .= "<tbody>";
-    foreach ($ArrayVisitas as $objVisita) {
-        $htmltable .= "<tr>";
-
-        /*$htmltable .= "<td>".$objUsuario->getIdUsuario()."</td>";*/
-        $htmltable .= "<td>" . $objVisita->getTD() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getNombre1() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getApellido1() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getTipoVisita() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getDelito() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getTipoReclucion() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getNombreCarcel() . "</td>";
-        $htmltable .= "<td>" . $objVisita->getMunicipio() . "</td>";
-
-        if ($objVisita->getEstado() == "Activo") {
-            $htmltable .= "<td><span class= 'label label-success'>" . $objVisita->getEstado() . "</span></td>";
-        } else {
-            $htmltable .= "<td><span class='label label-inverse' >" . $objVisita->getEstado() . "</span></td>";
-        }
-
-        $icons = "";
-        if ($objVisita->getEstado() == "Activo") {
-            $icons .= "<a data-toggle='tooltip' title='Inactivar Usuario' data-placement='top' class='btn btn-icon waves-effect waves-light btn-danger newTooltip' href='../../../Controlador/ControlVisitas.php?accion=DesactivarVisita&IdRegistrado=" . $objVisita->getIdRegistrado() . "'><i class='fa fa-remove'></i></a>";
-            $icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarVisita.php?IdVisita=" . $objVisita->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
-
-        } else {
-            $icons .= "<a data-toggle='tooltip' title='Visita en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
-        }
-
-        //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarVisita.php?IdVisita=" . $objVisita->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
-
-
-        $htmltable .= "<td style='text-align: center'>" . $icons . "</td>";
-        $htmltable .= "</tr>";
-
-    }
-    $htmltable .= "</tbody>";
-    return $htmltable;
-
-}static public function adminTableTargetas()
-{
+    static public function adminTableTargetas(){
 
     $ArrayVisitas = Visita::getAll();;
     //$tmpVisita = new Visita();
@@ -403,8 +355,6 @@ class ControlVisitas
     }
     static public function BusquedaVisitante (){
         try {
-
-
             $objVisita=Visita::getVisita($_POST["Cedula"]);
 
 
@@ -414,8 +364,8 @@ class ControlVisitas
             header("Location: ../Vista/Admin/default/RegistroVisitasVisita.php?IdRegistro='".$_SESSION["IdRegistro"]);
         }
     }
-    static public function CrearAlertaVisita($IdRegistrado)
-    {
+
+    static public function CrearAlertaVisita($IdRegistrado){
         try {
             //var_dump($_POST);
             $ArrayVisitante = Array();
@@ -423,7 +373,6 @@ class ControlVisitas
             $ArrayVisitante['IdModificado'] =  $IdRegistrado;
             $ArrayVisitante['Alerta']="Inactivacion de Usuario";
             $ArrayVisitante['FechaRegistro'] =date('Y/m/d H:i:s');
-
 
             var_dump($ArrayVisitante);
 
