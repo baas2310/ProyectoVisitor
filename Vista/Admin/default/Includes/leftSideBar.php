@@ -60,7 +60,7 @@
                     <a href="javascript: void(0);"><i class="mdi mdi-clipboard-account"></i><span>Visita </span> <span class="menu-arrow"></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href=" FormularioVisitas.php">Ingreso Visitantes</a></li>
-                        <li><a href=" HistorialVisitas.php">Historial Visitantes</a></li>
+                        <li><a href=" Historial.php">Historial Visitantes</a></li>
 
                     </ul>
                 </li>

@@ -95,7 +95,7 @@ $resultado=$mysqli->query($query);
                             <div class="alert alert-icon alert-success alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente </a>
+                                <strong>Exito!</strong>Se ha registrado correctamente
                             </div>
                         <?php } ?>
 
@@ -127,7 +127,7 @@ $resultado=$mysqli->query($query);
                                 <div class="col-sm-6">
                                   <div class="form-group">
                                       <label for="Patio">Patio</label>
-                                      <input type="text" class="form-control" id="Patio" name="Patio"parsley-trigger="change" required>
+                                      <input type="text" class="form-control" id="Patio" name="Patio" required>
                                   </div>
 
 
@@ -139,12 +139,12 @@ $resultado=$mysqli->query($query);
                                         <div class="col-sm-6">
                                           <div class="form-group">
                                               <label for="Seccion">Sección</label>
-                                              <input type="text" class="form-control" id="Seccion" name="Seccion"parsley-trigger="change" required>
+                                              <input type="text" class="form-control" id="Seccion" name="Seccion" required>
                                           </div>
 
                                           <div class="form-group">
                                               <label for="Celda">Celda</label>
-                                              <input type="text" class="form-control" id="Celda" name="Celda"parsley-trigger="change" required>
+                                              <input type="text" class="form-control" id="Celda" name="Celda" required>
                                           </div>
 
                         </fieldset>
@@ -152,7 +152,7 @@ $resultado=$mysqli->query($query);
 
 
 
-                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar"></input>
+                                <input type="submit" class="btn btn-primary stepy-finish" value="Registrar">
 
                             </form>
 

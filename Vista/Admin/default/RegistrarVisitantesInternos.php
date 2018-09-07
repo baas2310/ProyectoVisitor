@@ -20,8 +20,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <meta charset="utf-8" />
     <title>Visitor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
@@ -63,6 +61,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                 readURL(this);
             });
         });
+
         function valida(e) {
             tecla = (document.all) ? e.keyCode : e.which;
 
@@ -179,7 +178,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" maxlength="30">
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event) " maxlength="30">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Patentesco</label>
@@ -191,12 +190,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" minlength="2" maxlength="30" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" minlength="2" maxlength="30"  onkeypress="return check(event) " required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  minlength="2" maxlength="30" >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  minlength="2" maxlength="30"  onkeypress="return check(event) ">
                                             </div>
 
                                             <div class="form-group">

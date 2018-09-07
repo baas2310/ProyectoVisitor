@@ -786,45 +786,63 @@ Class Visita extends db_abstract_class{
         $tmp->Disconnect();
         return $arrayVisita;
     }
-
-    public static function getAll()
+    public static function buscarIngreso($query)
     {
-
-    }
-
-    public static function buscarVisita($query)
-    {
-        $arrayVisitante = array();
+        $arrayVisita = array();
         $tmp = new Visita();
         $getRows= $tmp->getRows($query);
         foreach ($getRows as $valor){
 
-            $Visitante = new Visita();
-            $Visitante->IdVisitante=$valor['IdVisitante'];
-            $Visitante->CedulaVisitante=$valor['Cedula'];
-            $Visitante->Nombre1Visitante=$valor['Nombre1'];
-            $Visitante->Nombre2Visitante=$valor['Nombre2'];
-            $Visitante->Apellido1Visitante=$valor['Apellido1'];
-            $Visitante->Apellido2Visitante2=$valor['Apellido2'];
-            $Visitante->UrlImagenVisitante=$valor['UrlImagen'];
-            $Visitante->TipoVisitante=$valor['IdTipoVisitante'];
-            $Visitante->Estado=$valor['IdEstado'];
+            $Visita = new Visita();
+            $Visita->IdRegistro=$valor['IdVisita'];
+            $Visita->NombreCarcel=$valor['CONCAT(tbfuncionario.Rango,\' : \', tbfuncionario.Apellido1)'];
+            $Visita->CedulaVisitante=$valor['Cedula'];
+            $Visita->Nombre1Visitante=$valor['CONCAT(tbvisitante.Nombre1,\' : \', tbvisitante.Apellido1)'];
+            $Visita->TD=$valor['TD'];
+            $Visita->Nombre1=$valor['CONCAT(tbinterno.Nombre1,\' : \', tbinterno.Apellido1)'];
+            $Visita->FechaIngreso=$valor['FechaIngreso'];
 
-
-            array_push($arrayVisitante,$Visitante);
+            array_push($arrayVisita,$Visita);
         }
         $tmp->Disconnect();
-
-        return $arrayVisitante;
+        return $arrayVisita;
     }
-    public static function getVisita($Cedula)
+
+    public static function getAll()
     {
-
-        var_dump(Visita::buscarVisita("SELECT * FROM `tbvisitante`"));
-
-        return Visita::buscarVisita("SELECT * FROM tbvisitante WHERE Cedula ="."$Cedula"." AND IdEstado = 1");
+        return Visita::buscarIngreso("SELECT tbVisita.IdVisita, CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbvisitante.Cedula, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbregistro.TD, CONCAT(tbinterno.Nombre1,' : ', tbinterno.Apellido1), tbvisita.FechaIngreso FROM `tbvisita` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvisita.IdVisitante INNER JOIN tbregistro ON tbregistro.IdRegistrado = tbvisita.IdVisitado INNER JOIN tbinterno on tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbvinvulo on tbvinvulo.IdVisitante = tbvisita.IdVisitante AND tbvinvulo.IdVisitado = tbregistro.IdRegistro INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco AND tbvinvulo.IdVisitante = tbvisita.IdVisitante AND tbvinvulo.IdVisitado = tbregistro.IdRegistro INNER JOIN tbfuncionario ON tbfuncionario.IdFuncionario = tbvisita.IdRegistradorVisita WHERE tbvisita.IdRegistradorSalida IS Null and tbvisita.IdRegistradorVisita =".$_SESSION["DataUser"]["IdFuncionario"]);
     }
-    public static function buscarLimite($query)
+
+public static function buscarHistorial($query)
+{
+    $arrayVisita = array();
+    $tmp = new Visita();
+    $getRows= $tmp->getRows($query);
+    foreach ($getRows as $valor){
+
+        $Visita = new Visita();
+        $Visita->IdRegistro=$valor['IdVisita'];
+        $Visita->Patio=$valor['CONCAT(tbfuncionario.Rango,\' : \', tbfuncionario.Apellido1)'];
+        $Visita->CedulaVisitante=$valor['Cedula'];
+        $Visita->Nombre1Visitante=$valor['CONCAT(tbvisitante.Nombre1,\' : \', tbvisitante.Apellido1)'];
+        $Visita->TD=$valor['TD'];
+        $Visita->Nombre1=$valor['CONCAT(tbinterno.Nombre1,\' : \', tbinterno.Apellido1)'];
+        $Visita->FechaIngreso=$valor['FechaIngreso'];
+        $Visita->FechaSalida=$valor['FechaSalida'];
+
+
+        array_push($arrayVisita,$Visita);
+    }
+    $tmp->Disconnect();
+    return $arrayVisita;
+}
+
+public static function getHistorial()
+{
+    return Visita::buscarHistorial("SELECT tbVisita.IdVisita, CONCAT(tbfuncionario.Rango,' : ', tbfuncionario.Apellido1), tbvisitante.Cedula, CONCAT(tbvisitante.Nombre1,' : ', tbvisitante.Apellido1), tbregistro.TD, CONCAT(tbinterno.Nombre1,' : ', tbinterno.Apellido1), tbvisita.FechaIngreso,tbvisita.FechaSalida FROM `tbvisita` INNER JOIN tbvisitante ON tbvisitante.IdVisitante = tbvisita.IdVisitante INNER JOIN tbregistro ON tbregistro.IdRegistrado = tbvisita.IdVisitado INNER JOIN tbinterno on tbinterno.IdInterno = tbregistro.IdRegistrado INNER JOIN tbvinvulo on tbvinvulo.IdVisitante = tbvisita.IdVisitante AND tbvinvulo.IdVisitado = tbregistro.IdRegistro INNER JOIN tbparentesco on tbparentesco.IdParentesco = tbvinvulo.IdParentesco AND tbvinvulo.IdVisitante = tbvisita.IdVisitante AND tbvinvulo.IdVisitado = tbregistro.IdRegistro INNER JOIN tbfuncionario ON tbfuncionario.IdFuncionario = tbvisita.IdRegistradorVisita ");
+}
+
+public static function buscarLimite($query)
     {
 
         $tmp = new Visita();
@@ -876,11 +894,14 @@ $this->Disconnect();
     }
     public function editar()
     {
-        $this->updateRow("update tbRegistro set IdUbicacionInterna= ? where IdRegistrado = ?",array(
+        $this->updateRow("update tbVisita set FechaSalida= ?, IdRegistradorSalida= ? where IdVisita = ?",array(
 
 
-                $this->IdUbicacionInterna,
-                $this->IdRegistrado,
+                $this->FechaSalida,
+                $this->IdRegistradorSalida,
+                $this->IdRegistro,
+
+
             )
         );
         $this->Disconnect();

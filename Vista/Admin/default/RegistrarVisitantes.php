@@ -4,10 +4,11 @@ session_start();
 
 require "../../../Modelo/Visitante.php";
 
-if (empty($_SESSION["DataUser"]["idRol"])){
+
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["idRol"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
@@ -38,18 +39,19 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
     <script>
-        function valida(e){
+        function valida(e) {
             tecla = (document.all) ? e.keyCode : e.which;
 
             //Tecla de retroceso para borrar, siempre la permite
-            if (tecla==8){
+            if (tecla == 8) {
                 return true;
             }
 
             // Patron de entrada, en este caso solo acepta numeros
-            patron =/[0-9]/;
+            patron = /[0-9]/;
             tecla_final = String.fromCharCode(tecla);
             return patron.test(tecla_final);
+        }
             function check(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 
@@ -63,6 +65,31 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+
+                    $('#preview').hide();
+                    $('#preview').fadeIn(650);
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function() {
+            $("input:file").change(function (){
+                var fileName = $(this).val();
+                readURL(this);
+            });
+        });
+
+
     </script>
 </head>
 
@@ -160,6 +187,11 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                     <option value="3">Abogados</option>
 
                                                 </select>
+                                                <div class="form-group">
+                                                    <label for="TarjetaProfesional">Tarjeta Profesional</label>
+                                                    <input type="text" class="form-control" id="TarjetaProfesional" name="TarjetaProfesional" minlength="3" maxlength="25" onkeypress="return check(event) ">
+                                                </div>
+
                                             </div>
 
                                         </div>
@@ -175,13 +207,9 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
 
                                             <div class="form-group">
-                                                <input type='file' id="imgInp" />
-                                                <div id='img_contain'><img id="blah" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
+                                                <input type='file' id="UrlImagen" required />
+                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image"  aria-describedby="fileHelp" /></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="TarjetaProfesional">Tarjeta Profesional</label>
-                                                <input type="text" class="form-control" id="TarjetaProfesional" name="TarjetaProfesional" minlength="3" maxlength="25" onkeypress="return check(event) ">
                                             </div>
 
                                             <div class="form-group">

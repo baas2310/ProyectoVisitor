@@ -157,33 +157,33 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Cedula"> Documento </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="valida(event)" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" onkeypress="check(event)"  maxlength="30" required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" onkeypress="return check(event)"  maxlength="30" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="check(event)"  maxlength="30" >
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event)"  maxlength="30" >
                                             </div>
 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" onkeypress="check(event)" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" onkeypress="return check(event)" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" onkeypress="check(event)" maxlength="30" required >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" onkeypress="return check(event)" maxlength="30" required >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Celular">Celular</label>
-                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" onkeypress="valida(event)" required>
+                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" onkeypress=" return valida(event)" required>
                                             </div>
 
                                             <div class="form-group">

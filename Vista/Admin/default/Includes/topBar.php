@@ -72,7 +72,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="../page-logout.php" class="dropdown-item notify-item">
+                    <a href="page-logout.php" class="dropdown-item notify-item">
                         <i class="mdi mdi-power"></i> <span>Cerrar Sesión</span>
                     </a>
 

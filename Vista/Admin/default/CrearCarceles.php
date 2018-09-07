@@ -36,8 +36,6 @@ $resultado=$mysqli->query($query);
     <script src="assets/jquery/lib/jquery.form.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
@@ -53,6 +51,32 @@ $resultado=$mysqli->query($query);
                 });
             })
         });
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
 
     </script>
 
@@ -145,11 +169,11 @@ $resultado=$mysqli->query($query);
 
                                             <div class="form-group">
                                                 <label for="NombreCarcel">Nombre Carcel</label>
-                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="50" required >
+                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="50"  required  >
                                             </div>
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula Director Carcel</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" >
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" >
                                                 <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar previamente registrado</small>
 
                                             </div>

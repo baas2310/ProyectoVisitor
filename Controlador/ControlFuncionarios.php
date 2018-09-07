@@ -207,7 +207,7 @@ class ControlFuncionarios
         try {
 
             $IdFuncionario = $_GET["IdFuncionario"];
-            $objFuncionario = Funcionario::buscazrId($IdFuncionario);
+            $objFuncionario = Funcionario::buscarId($IdFuncionario);
             $objFuncionario->setEstado($Estado);
             print_r( var_dump($objFuncionario));
             var_dump($objFuncionario);

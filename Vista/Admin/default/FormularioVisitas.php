@@ -30,7 +30,7 @@ $resultado=$mysqli->query($query);
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Controlador Necesario -->
-    <?php require "../../../Controlador/ControlFuncionarios.php" ?>
+    <?php require "../../../Controlador/ControlVisitas.php" ?>
 
     <?php include("Includes/imports.php") ?>
 
@@ -134,7 +134,7 @@ $resultado=$mysqli->query($query);
 
                                     <div class="row m-t-20">
                                         <div class="col-sm-5">
-                                            <label for="Cedula">Carcel</label>
+                                            <label for="Cedula">Cedula</label>
                                             <select class="form-control" name="Cedula" id="Cedula">
                                                 <option value="0">Cedula del Visitante</option>
                                                 <?php while($row = $resultado->fetch_assoc()) { ?>
@@ -143,36 +143,6 @@ $resultado=$mysqli->query($query);
                                             </select>
                                         </div>
 
-                                        <div class="col-lg-6">
-                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-                                            <label for="urlImagen">Imagen del visitante</label>
-                                            <br>
-                                            <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image"/></div>
-                                        </div>
-
-                                        <div class = "col-lg-6">
-                                            <label for="Nombre1">Primer nombre</label>
-                                            <input type="text" value="" name="Nombre1" id="Nombre1"
-                                                   class="form-control"  />
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <label for="Apellido1">Primer apellido </label>
-                                            <input type="text" value="" name="Apellido1" id="Apellido1"
-                                                   class="form-control"  />
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <label for="TipoVisitante">Tipo de visitante </label>
-                                            <select class="form-control" id="UbicacionInterno" required name="UbicacionInterno">
-                                                <option value="3">Tipo de visitante 1</option>
-                                                <option value="4">Administrador 2</option>
-                                                <option value="5">Administrador 3</option>
-                                                <option value="6">Auxiliar 1</option>
-                                                <option value="7">Auxiliar 2</option>
-                                                <option value="8">Auxiliar 3</option>
-                                            </select>
-                                            <br> <br>
-                                        </div>
 
                                         </div>
                                     <fieldset >
@@ -185,60 +155,7 @@ $resultado=$mysqli->query($query);
 
                                             </div>
 
-                                            <div class="col-lg-6">
-                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-                                                <label for="urlImagen">Imagen del interno</label>
-                                                <br>
-                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image"/></div>
-                                            </div>
 
-                                            <div class = "col-lg-6">
-                                                <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" value="" name="Nombre1" id="Nombre1"
-                                                       class="form-control"  />
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <label for="Apellido1">Primer apellido </label>
-                                                <input type="text" value="" name="Apellido1" id="Apellido1"
-                                                       class="form-control"  />
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <label for="UbicacionInterno">Ubicación del interno </label>
-                                                <select class="form-control" id="UbicacionInterno" required name="UbicacionInterno">
-                                                    <option value="3">Ubicacion del interno 1</option>
-                                                    <option value="4">Administrador 2</option>
-                                                    <option value="5">Administrador 3</option>
-                                                    <option value="6">Auxiliar 1</option>
-                                                    <option value="7">Auxiliar 2</option>
-                                                    <option value="8">Auxiliar 3</option>
-                                                </select>
-                                            </div>
-
-
-                                            <div class="col-lg-6">
-                                                <label for="TipoInterno">Tipo de Interno </label>
-                                                <select class="form-control" id="TipoInterno" required name="TipoInterno">
-                                                    <option value="3">Tipo Interno 1</option>
-                                                    <option value="4">Administrador 2</option>
-                                                    <option value="5">Administrador 3</option>
-                                                    <option value="6">Auxiliar 1</option>
-                                                    <option value="7">Auxiliar 2</option>
-                                                    <option value="8">Auxiliar 3</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <label for="Delito">Delito </label>
-                                                <select class="form-control" id="Delito" required name="Delito">
-                                                    <option value="3">Delito 1</option>
-                                                    <option value="4">Administrador 2</option>
-                                                    <option value="5">Administrador 3</option>
-                                                    <option value="6">Auxiliar 1</option>
-                                                    <option value="7">Auxiliar 2</option>
-                                                    <option value="8">Auxiliar 3</option>
-                                                </select>
-                                                <br>
-                                            </div>
 
 
 
@@ -249,6 +166,13 @@ $resultado=$mysqli->query($query);
                                         <input type="submit" class="btn btn-primary stepy-finish" name="boton" id="boton" value="Generar Ingreso">
 
                                     </div>
+                        <table class="table table-hover m-0 table-colored-bordered table-bordered-inverse tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
+
+
+
+                            <?php echo ControlVisitas::adminTableIngresos(); ?>
+
+                        </table>
                         </div>
 
 

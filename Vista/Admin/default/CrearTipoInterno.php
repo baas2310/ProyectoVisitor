@@ -29,8 +29,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <script src="assets/jquery/lib/jquery.form.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
@@ -48,6 +46,34 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
     <!-- ========== Left Sidebar Start ========== -->
     <?php include("Includes/leftSideBar.php") ?>
+    <script>
+        function valida(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        function check(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros y letras
+            patron = /[A-Za-z]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+    </script>
     <!-- Left Sidebar End -->
 
     <!-- ============================================================== -->
@@ -107,11 +133,11 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                 <div class="col-sm-6">
                                   <div class="form-group">
                                       <label for="TipoInterno">Tipo de interno</label>
-                                      <input type="text" class="form-control" id="TipoInterno" name="TipoInterno" minlength="2" maxlength="30" required>
+                                      <input type="text" class="form-control" id="TipoInterno" name="TipoInterno" minlength="2" maxlength="30" onkeypress="return check(event)" required>
                                   </div>
 
                                   <div class="form-group">
-                                      <label for="Descripcion">Descripcion</label>
+                                      <label for="Descripcion">Descripción</label>
                                       <input type="text" class="form-control" id="Descripcion" name="Descripcion" minlength="2" maxlength="150" required>
                                   </div>
 

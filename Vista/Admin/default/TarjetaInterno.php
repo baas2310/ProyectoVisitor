@@ -132,13 +132,21 @@ $resultado=$mysqli->query($query);
 
 
                                         <div class="row">
-                                            <div class="col-lg-6">
 
-                                                <label for="Nombre1">Primer nombre </label>
-
-                                                <input type="text" value="<?php echo $objInterno->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                       class="form-control"  maxlength="30"  disabled/>
+                                            <div class=""col-lg-6">
+                                            <label for="urlImagen">Foto</label>
+                                            <br>
+                                            <img src="../../../ImagenesVisitas/<?php echo $objInterno->getUrlImagen(); ?>"/>
                                             </div>
+                                        <br><br>
+                                        <div class="col-lg-6">
+                                            <label for="nota">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp   &nbsp   &nbsp  Para imprimir este documento, oprima control + p </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="Nombre1">Primer nombre </label>
+                                            <input type="text" value="<?php echo $objInterno->getNombre1(); ?>" name="Nombre1" id="Nombre1"
+                                                   class="form-control"  maxlength="30"  disabled/>
+                                        </div>
 
                                             <div class="col-lg-6">
                                                 <label for="Nombre2">Segundo nombre </label>
@@ -226,6 +234,14 @@ $resultado=$mysqli->query($query);
                                         <div class="form-group text-center">
                                             <br><br>  <br> <br> <br>
 
+                                            <br>
+                                            <label>Reporte Realizado por: &nbsp </label> <label><?php echo $_SESSION["DataUser"]["Rango"]?></label>
+                                            <br>
+                                            <label><?php echo $_SESSION["DataUser"]["Apellido1"]." "?> <label><?php echo $_SESSION["DataUser"]["Apellido2"]?></label></label>
+                                            <br>
+                                            <label>Para la Institucion Penitenciaria:</label>
+                                            <label><?php echo $objInterno->getNombreCarcel()?></label>
+                                            <label><?php echo date('Y/m/d H:i') ?></label>
 
                                         </div>
 
@@ -248,15 +264,7 @@ $resultado=$mysqli->query($query);
 
 
     <footer class="footer text-right">
-        <label>Reporte Realizado por: </label>
-        <br>
-        <label><?php echo $_SESSION["DataUser"]["Rango"]?></label>
-        <br>
-        <label><?php echo $_SESSION["DataUser"]["Apellido1"]." "?> <label><?php echo $_SESSION["DataUser"]["Apellido2"]?></label></label>
-        <br>
-        <label>Para la Institucion Penitenciaria:</label>
-        <label><?php echo $objInterno->getNombreCarcel()?></label>
-        <label><?php echo date('Y/m/d H:i') ?></label>
+
         2018 Software ADSI Visitor
     </footer>
 

@@ -28,8 +28,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
     <script src="assets/jquery/lib/jquery.form.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery.form.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script language="javascript" src="assets/jquery/lib/jquery-3.1.1.js"></script>
     <script language="javascript" src="assets/jquery/lib/Validator.js"></script>
 
@@ -198,7 +196,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-lg-6">
                                                 <label for="TarjetaProfesional">Tarjeta profesional</label>
                                                 <input type="text" value="<?php echo $objVisitante->getTarjetaProfesional(); ?>" name="TarjetaProfesional" id="TarjetaProfesional"
-                                                       class="form-control" minlength="5" maxlength="20" onkeypress="check(event)"/>
+                                                       class="form-control" minlength="5" maxlength="20" onkeypress="valida(event)"/>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Observaciones">Observaciones</label>

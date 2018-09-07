@@ -268,7 +268,7 @@ $(function() {
 
                                             <div class="form-group">
                                                 <label for="SegundoApellido">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"  maxlength="30" >
+                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"  maxlength="30" required >
                                             </div>
 
                                             <div class="form-group">
