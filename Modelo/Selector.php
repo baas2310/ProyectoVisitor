@@ -258,6 +258,10 @@ Class Selector extends db_abstract_class{
     {
         return Selector::buscarParentesco("SELECT * FROM tbParentesco");
     }
+    public static function SelectSeguridadConyugue()
+    {
+        return Selector::buscarParentesco("SELECT * FROM tbParentesco WHERE IdParentesco !=2");
+    }
     public function editar()
     {
 //metodo editar

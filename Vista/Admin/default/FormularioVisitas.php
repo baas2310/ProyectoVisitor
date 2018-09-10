@@ -135,7 +135,7 @@ $resultado=$mysqli->query($query);
                                     <div class="row m-t-20">
                                         <div class="col-sm-5">
                                             <label for="Cedula">Cedula</label>
-                                            <select class="form-control" name="Cedula" id="Cedula">
+                                            <select class="form-control" name="Cedula" id="Cedula" required>
                                                 <option value="0">Cedula del Visitante</option>
                                                 <?php while($row = $resultado->fetch_assoc()) { ?>
                                                     <option value="<?php echo $row['IdVisitante']; ?>"><?php echo $row['Cedula']; ?></option>
@@ -151,7 +151,7 @@ $resultado=$mysqli->query($query);
                                         <div class="row m-t-20">
                                             <div class="form-group">
                                                 <label for="TD">TD </label>
-                                                <select class="form-control" name="TD" id="TD"></select>
+                                                <select class="form-control" name="TD" id="TD" required></select>
 
                                             </div>
 

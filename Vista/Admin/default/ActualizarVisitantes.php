@@ -175,9 +175,10 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
 
                                             <div class="form-group">
-                                              <label for="urlImagen">Foto</label>
-                                              <br>
-                                                <img src="../../../ImagenesVisitas/<?php echo $objVisitante->getUrlImagen(); ?>"/>
+                                                <img src="../../../ImagenesVisitas/<?php echo $objVisitante->getUrlImagen(); ?>" id="preview"/>
+                                                <label for="urlImagen">Foto</label>
+                                                <input type='file' id="urlImagen" name="urlImagen" />
+                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
 
                                             <div class="col-lg-6">

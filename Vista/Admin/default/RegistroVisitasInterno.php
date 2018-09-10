@@ -83,6 +83,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                         <div class="card-box">
                             <h4 class="text-center text-custom">LISTA DE INTERNOS</h4>
 
+                            <h6> <?php echo var_dump($_SESSION )?> </h6>
 
                             <?php
                     $IdRegistro = $_GET["IdRegistro"];

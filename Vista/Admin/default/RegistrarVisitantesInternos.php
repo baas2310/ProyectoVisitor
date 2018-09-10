@@ -4,10 +4,10 @@ session_start();
 
 require "../../../Modelo/Visitante.php";
 
-if (empty($_SESSION["DataUser"]["idRol"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["idRol"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
 if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
@@ -183,7 +183,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-sm-6">
                                                 <label>Patentesco</label>
 
-                                                <?php echo ControlSelectores::SelectParentesco()?>
+                                                <?php if (Visitante::getConyugue($_SESSION["IdRegistro"])==0){
+
+                                                    echo  ControlSelectores::SelectParentesco();
+                                                }else{
+                                                    echo ControlSelectores::SelectParentescoSeguridad();
+                                                }?>
                                             </div>
 
                                         </div>

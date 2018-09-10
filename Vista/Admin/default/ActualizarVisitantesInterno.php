@@ -64,6 +64,29 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
             tecla_final = String.fromCharCode(tecla);
             return patron.test(tecla_final);
         }
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+
+                    $('#preview').hide();
+                    $('#preview').fadeIn(650);
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function() {
+            $("input:file").change(function (){
+                var fileName = $(this).val();
+                readURL(this);
+            });
+        });
     </script>
 
 </head>
@@ -172,11 +195,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="text" value="<?php echo $objVisitante->getApellido2(); ?>" name="Apellido2" id="Apellido2"
                                                        class="form-control" maxlength="30" onkeypress="check(event)"  />
                                             </div>
-                                            <div class="form-group">
-                                                <label for="urlImagen">Foto</label>
-                                                <br>
-                                                <img src="../../../ImagenesVisitas/<?php echo $objVisitante->getUrlImagen(); ?>"/>
-                                            </div>
 
                                             <div class="col-lg-6">
 
@@ -197,6 +215,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                                 <input type="text"  name="Observaciones" id="Observaciones"
                                                        class="form-control" minlength="5" maxlength="150" />
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="Parentesco">Parentesco</label>
                                                 <input type="text" value="<?php echo $objVisitante->getParentesco(); ?>" name="Parentesco" id="Parentesco" class="form-control"  maxlength="30" disabled />
@@ -213,7 +232,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
                                             <br><br>
 
-
+                                            <div class="form-group">
+                                                <img src="../../../ImagenesVisitas/<?php echo $objVisitante->getUrlImagen(); ?>" id="preview"/>
+                                                <label for="urlImagen">Foto</label>
+                                                <input type='file' id="urlImagen" name="urlImagen" />
+                                                <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
+                                            </div>
 
                                         </div>
 

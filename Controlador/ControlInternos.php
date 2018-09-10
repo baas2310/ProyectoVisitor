@@ -29,33 +29,40 @@ class ControlInternos
 {
     try {
 
-        $ArrayInterno = Array();
-        $ArrayInterno['Cedula'] = $_POST['Cedula'];
-        $ArrayInterno['Nombre1'] = $_POST['PrimerNombre'];
-        $ArrayInterno['Nombre2'] = $_POST['SegundoNombre'];
-        $ArrayInterno['Apellido1'] = $_POST['PrimerApellido'];
-        $ArrayInterno['Apellido2'] = $_POST['SegundoApellido'];
-        $ArrayInterno['FechaNacimiento'] = $_POST['FechaNacimiento'];
+        if (Interno::getLimiteRegistro($_POST['Cedula'])==0) {
+            $ArrayInterno = Array();
+            $ArrayInterno['Cedula'] = $_POST['Cedula'];
+            $ArrayInterno['Nombre1'] = $_POST['PrimerNombre'];
+            $ArrayInterno['Nombre2'] = $_POST['SegundoNombre'];
+            $ArrayInterno['Apellido1'] = $_POST['PrimerApellido'];
+            $ArrayInterno['Apellido2'] = $_POST['SegundoApellido'];
+            $ArrayInterno['FechaNacimiento'] = $_POST['FechaNacimiento'];
 
 
-        $formatos   = array('.jpg', '.png');
-        $dir_subida = __DIR__.'../../ImagenesInternos/';
-        $fichero_subido = $dir_subida . basename($_FILES['urlImagen']['name']);
-        $ext              = substr($fichero_subido, strrpos($fichero_subido, '.'));
+            $formatos = array('.jpg', '.png');
+            $dir_subida = __DIR__ . '../../ImagenesInternos/';
+            $fichero_subido = $dir_subida . basename($_FILES['urlImagen']['name']);
+            $ext = substr($fichero_subido, strrpos($fichero_subido, '.'));
 
-        if (in_array($ext, $formatos)){
-            move_uploaded_file($_FILES['urlImagen']['tmp_name'], $fichero_subido);
-            //echo "El fichero es válido y se subió con éxito.\n";
-            $ArrayInterno['urlImagen'] = $_FILES['urlImagen']['name'];
-            $Interno = new Interno($ArrayInterno);
+            if (in_array($ext, $formatos)) {
+                move_uploaded_file($_FILES['urlImagen']['tmp_name'], $fichero_subido);
+                //echo "El fichero es válido y se subió con éxito.\n";
+                $ArrayInterno['UrlImagen'] = $_FILES['urlImagen']['name'];
+                $Interno = new Interno($ArrayInterno);
 
-            $Interno->insertar();
-            $IdRegistrado=(Interno::buscarIdInterno($_POST['Cedula']));
-            var_dump($IdRegistrado->getIdRegistrado());
-            var_dump(self::CrearRegistro($IdRegistrado->getIdRegistrado()));
-            //header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
-        } else {
-           // echo "¡Posible ataque de subida de ficheros!\n";
+                $Interno->insertar();
+                $IdRegistrado = (Interno::buscarIdInterno($_POST['Cedula']));
+                var_dump($IdRegistrado->getIdRegistrado());
+                self::CrearRegistro($IdRegistrado->getIdRegistrado());
+
+            }
+        }else{
+
+            if (Interno::getValidacionRegistro(Interno::getLimiteRegistro($_POST['Cedula']))==0){
+                self::CrearRegistro(Interno::getLimiteRegistro($_POST['Cedula']));
+            }else{
+                header("location: ../Vista/Admin/default/TarjetaInterno.php?IdInterno=".Interno::getValidacionRegistro(Interno::getLimiteRegistro($_POST['Cedula'])));
+            }
         }
 
 
@@ -89,7 +96,7 @@ class ControlInternos
             $Interno = new Interno($ArrayInterno);
             var_dump($Interno);
             $Interno->insertarRegistro();
-            header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
+            //header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
         } catch (Exception $e) {
             var_dump($e);
 
@@ -235,7 +242,7 @@ class ControlInternos
 
         } else {
             $icons .= "<a data-toggle='tooltip' title='Interno en libertad' data-placement='top' class='btn btn-icon waves-effect waves-light btn-success newTooltip' '><i class='fa fa-check'></i></a>";
-            $icons .= "<a data-toggle='tooltip' title='Generar Targeta' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='TarjetaInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
+            $icons .= "<a data-toggle='tooltip' title='Generar Tarjeta' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='TarjetaInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";
         }
 
         //$icons .= "<a data-toggle='tooltip' title='Generar translado' data-placement='top' class='btn btn-icon waves-effect waves-light btn-info newTooltip' href='ActualizarInterno.php?IdInterno=" . $objInterno->getIdRegistrado() . "'><i class='fa fa-pencil'></i></a>";

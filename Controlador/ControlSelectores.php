@@ -22,7 +22,7 @@ class ControlSelectores
     {
 
         $arraySelector = Selector::SelectDelito();
-        $htmlSelect = "<select class='form-control'  required id= 'Delito' name='Delito' class='form-control'>";
+        $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Delito' name='Delito' class='form-control'>";
         $htmlSelect .= "<option >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
@@ -36,7 +36,7 @@ class ControlSelectores
     {
 
         $arraySelector = Selector::SelectTipoInteno();
-        $htmlSelect = "<select class='form-control'  required id= 'TipoInterno' name='TipoInterno' class='form-control'>";
+        $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'TipoInterno' name='TipoInterno' class='form-control'>";
         $htmlSelect .= "<option >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
@@ -50,7 +50,7 @@ class ControlSelectores
     {
 
         $arraySelector = Selector::SelectTipoReclucion();
-        $htmlSelect = "<select class='form-control'  required id= 'TipoReclusion' name='TipoReclusion' class='form-control'>";
+        $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'TipoReclusion' name='TipoReclusion' class='form-control'>";
         $htmlSelect .= "<option >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
@@ -64,7 +64,21 @@ class ControlSelectores
     {
 
         $arraySelector = Selector::SelectParentesco();
-        $htmlSelect = "<select class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
+        $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
+        $htmlSelect .= "<option >Seleccione ...</option>";
+
+        if (count($arraySelector) > 0) {
+            foreach ($arraySelector as $selector)
+                $htmlSelect .= "<option value='" . $selector->getIdParentesco() . "'>" . $selector->getParentesco(). "</option>";
+        }
+        $htmlSelect .= "</select>";
+        return $htmlSelect;
+    }
+    static public function SelectParentescoSeguridad()
+    {
+
+        $arraySelector = Selector::SelectSeguridadConyugue();
+        $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
         $htmlSelect .= "<option >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {

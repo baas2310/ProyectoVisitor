@@ -156,6 +156,17 @@ $resultado=$mysqli->query($query);
 
 
                                         <div class="row">
+                                            <div class=""col-lg-6">
+                                            <label for="urlImagen">Foto</label>
+                                            <br>
+                                            <img src="../../../ImagenesVisitas/<?php echo $objInterno->getUrlImagen(); ?>" id="preview"/>
+                                        </div>
+                                        <br>
+                                        <div class="col-lg-6">
+                                            <label for="TD">TD</label>
+                                            <input type="text" value="<?php echo $objInterno->getTD(); ?>" name="TD" id="TD"
+                                                   class="form-control" disabled/>
+                                        </div>
                                             <div class="col-lg-6">
 
                                                 <label for="Nombre1">Primer nombre </label>
@@ -163,7 +174,6 @@ $resultado=$mysqli->query($query);
                                                 <input type="text" value="<?php echo $objInterno->getNombre1(); ?>" name="Nombre1" id="Nombre1"
                                                        class="form-control"  maxlength="30"  disabled/>
                                             </div>
-                                            a
                                             <div class="col-lg-6">
                                                 <label for="Nombre2">Segundo nombre </label>
                                                 <input type="text" value="<?php echo $objInterno->getNombre2(); ?>" name="Nombre2" id="Nombre2"
@@ -192,13 +202,6 @@ $resultado=$mysqli->query($query);
                                                 <input type="text" value="<?php echo $objInterno->getFechaIngreso(); ?>" name="FechaIngreso" id="FechaIngreso"
                                                        class="form-control" disabled />
                                             </div>
-
-                                              <div class="col-lg-6">
-                                                <label for="TD">TD</label>
-                                                <input type="text" value="<?php echo $objInterno->getTD(); ?>" name="TD" id="TD"
-                                                       class="form-control" disabled/>
-                                              </div>
-
                                                 <div class="col-lg-6">
                                                   <label for="idTipoInterno">Tipo de interno</label>
                                                   <input type="text" value="<?php echo $objInterno->getTipoInterno(); ?>" name="idTipoInterno" id="idTipoInterno"
@@ -224,7 +227,7 @@ $resultado=$mysqli->query($query);
 
                                             <div class="col-lg-6">
                                                 <label for="cbx_Carcel">Carcel</label>
-                                                <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
+                                                <select class="form-control" name="cbx_Carcel" id="cbx_Carcel" required>
                                                     <option value="<?php echo $objInterno->getIdCarcel()?>"><?php echo $objInterno->getNombreCarcel()?> </option>
                                                     <?php while($row = $resultado->fetch_assoc()) { ?>
                                                         <option value="<?php echo $row['IdCarcel']; ?>"><?php echo $row['NombreCarcel']; ?></option>
@@ -234,7 +237,7 @@ $resultado=$mysqli->query($query);
 
                                                 <div class="form-group">
                                                     <label for="cbx_Ubicacion">Ubicación </label>
-                                                    <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion">
+                                                    <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion" required>
                                                         <option value="<?php echo $objInterno->getIdUbicacionInterna()?><?php echo $objInterno->getIdCarcel()?>"><?php echo "Patio: ".$objInterno->getPatio()." Seccion : ".$objInterno->getSeccion()." Celda: ".$objInterno->getCelda()?> </option>
                                                     </select>
                                                 <div class="form-group">

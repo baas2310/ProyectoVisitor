@@ -839,7 +839,7 @@ Class Interno extends db_abstract_class{
                 $this->Nombre2,
                 $this->Apellido1,
                 $this->Apellido2,
-                $this->FechaNacimiento,
+                $this->FechaNacimiento. date('Y/m/d'),
                 $this->UrlImagen,
             )
         );
@@ -937,7 +937,55 @@ $this->Disconnect();
         $this->Disconnect();
 
     }
+    public static function buscarLimiteRegistro($query)
+    {
 
+        $tmp = new Visitante();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            if ($Limite = $valor['IdInterno']!=""){
+                $Limite ==0;
+            }else{
+                $Limite = $valor['IdInterno'];
+            }
+
+            return $Limite;
+        }
+        $tmp->Disconnect();
+
+    }
+
+    public static function getLimiteRegistro($Cedula)
+    {
+
+        return Visitante::buscarLimite("SELECT IdInterno FROM `tbInterno` WHERE Cedula = '"."$Cedula"."'");
+    }
+
+    public static function ValidarLimiteRegistro($query)
+    {
+
+        $tmp = new Visitante();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            if ($Limite = $valor['IdRegistro']!=""){
+                $Limite ==0;
+            }else{
+                $Limite = $valor['IdRegistro'];
+            }
+
+            return $Limite;
+        }
+        $tmp->Disconnect();
+
+    }
+
+    public static function getValidacionRegistro($IdInterno)
+    {
+
+        return Visitante::buscarLimite("SELECT IdRegistro FROM `tbregistro` WHERE IdRegistrado = '"."$IdInterno"."' AND IdEstado = 1");
+    }
     protected function eliminar($id)
     {
         // TODO: Implement eliminar() method.

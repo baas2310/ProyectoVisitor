@@ -500,6 +500,54 @@ $this->Disconnect();
 
     }
 
+    public static function buscarLimite($query)
+    {
+
+        $tmp = new Visitante();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            if ($Limite = $valor['IdVisitante']!=""){
+                $Limite ==0;
+            }else{
+                $Limite = $valor['IdVisitante'];
+            }
+
+            return $Limite;
+        }
+        $tmp->Disconnect();
+
+    }
+
+    public static function getLimite($Cedula)
+    {
+
+        return Visitante::buscarLimite("SELECT IdVisitante FROM `tbvisitante` WHERE Cedula = '"."$Cedula"."'and IdEstado = 1");
+    }
+    public static function buscarConyugue($query)
+    {
+
+        $tmp = new Visitante();
+        $getRows= $tmp->getRows($query);
+        foreach ($getRows as $valor){
+
+            if ($Limite = $valor['IdVinculo']!=""){
+                $Limite ==0;
+            }else{
+                $Limite = $valor['IdVinculo'];
+            }
+
+            return $Limite;
+        }
+        $tmp->Disconnect();
+
+    }
+
+    public static function getConyugue($IdVisitado)
+    {
+
+        return Visitante::buscarConyugue("SELECT IdVinculo FROM `tbvinvulo` WHERE IdVisitado = ".$IdVisitado." AND IdParentesco = 2");
+    }
 
     public function editar()
     {

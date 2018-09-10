@@ -137,17 +137,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                 <!-- Clickable Wizard -->
                 <div class="row">
 
-                    <div id="alertas" class="center-page">
-                        <?php if(!empty($_GET["respuesta"]) && $_GET["respuesta"] == "correcto"){ ?>
-                            <div class="alert alert-icon alert-success alert-dismissible fade show">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <i class="mdi mdi-check-all"></i>
-                                <strong>Exito!</strong>Se ha registrado correctamente
-                            </div>
-                        <?php } ?>
-
-                    </div>
-
                     <div class="col-md-12">
                         <div class="card-box">
                             <h3 class="text-center text-custom" style="color: #0b2e13">REGISTRO DE VISITANTE</h3>
@@ -207,8 +196,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
 
                                             <div class="form-group">
-                                                <input type='file' id="UrlImagen" required />
-                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image"  aria-describedby="fileHelp" /></div>
+                                                <input type='file' id="urlImagen" name="urlImagen"required />
+                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
 
@@ -227,6 +216,16 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                             </form>
 
 
+
+                        </div>
+                        <div id="alertas" class="center-page">
+                            <?php if(!empty($_GET["respuesta"]) && $_GET["respuesta"] == "correcto"){ ?>
+                                <div class="alert alert-icon alert-success alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <i class="mdi mdi-check-all"></i>
+                                    <strong>Exito!</strong>Se ha registrado correctamente
+                                </div>
+                            <?php } ?>
 
                         </div>
                     </div>

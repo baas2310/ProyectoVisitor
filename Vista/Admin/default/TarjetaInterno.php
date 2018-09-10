@@ -136,7 +136,7 @@ $resultado=$mysqli->query($query);
                                             <div class=""col-lg-6">
                                             <label for="urlImagen">Foto</label>
                                             <br>
-                                            <img src="../../../ImagenesVisitas/<?php echo $objInterno->getUrlImagen(); ?>"/>
+                                            <img src="../../../ImagenesVisitas/<?php echo $objInterno->getUrlImagen(); ?>" id="preview"/>
                                             </div>
                                         <br><br>
                                         <div class="col-lg-6">
