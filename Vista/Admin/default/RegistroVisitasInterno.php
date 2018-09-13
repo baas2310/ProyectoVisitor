@@ -4,12 +4,12 @@ require "../../../Modelo/Interno.php";
 
 
 session_start();
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5"&& $_SESSION["user"] != "6"){
     header('Location: Index.php');
 }
 ?>
@@ -38,7 +38,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -83,7 +83,6 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                         <div class="card-box">
                             <h4 class="text-center text-custom">LISTA DE INTERNOS</h4>
 
-                            <h6> <?php echo var_dump($_SESSION )?> </h6>
 
                             <?php
                     $IdRegistro = $_GET["IdRegistro"];

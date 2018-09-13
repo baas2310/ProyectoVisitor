@@ -80,7 +80,7 @@ $resultado=$mysqli->query($query);
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">

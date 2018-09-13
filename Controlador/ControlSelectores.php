@@ -23,7 +23,7 @@ class ControlSelectores
 
         $arraySelector = Selector::SelectDelito();
         $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Delito' name='Delito' class='form-control'>";
-        $htmlSelect .= "<option >Seleccione ...</option>";
+        $htmlSelect .= "<option value=''>Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
             foreach ($arraySelector as $selector)
@@ -37,7 +37,7 @@ class ControlSelectores
 
         $arraySelector = Selector::SelectTipoInteno();
         $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'TipoInterno' name='TipoInterno' class='form-control'>";
-        $htmlSelect .= "<option >Seleccione ...</option>";
+        $htmlSelect .= "<option value=''>Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
             foreach ($arraySelector as $selector)
@@ -51,7 +51,7 @@ class ControlSelectores
 
         $arraySelector = Selector::SelectTipoReclucion();
         $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'TipoReclusion' name='TipoReclusion' class='form-control'>";
-        $htmlSelect .= "<option >Seleccione ...</option>";
+        $htmlSelect .= "<option value=''>Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
             foreach ($arraySelector as $selector)
@@ -65,7 +65,7 @@ class ControlSelectores
 
         $arraySelector = Selector::SelectParentesco();
         $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
-        $htmlSelect .= "<option >Seleccione ...</option>";
+        $htmlSelect .= "<option value='' >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
             foreach ($arraySelector as $selector)
@@ -79,7 +79,7 @@ class ControlSelectores
 
         $arraySelector = Selector::SelectSeguridadConyugue();
         $htmlSelect = "<select aria-required='true' class='form-control'  required id= 'Parentesco' name='Parentesco' class='form-control'>";
-        $htmlSelect .= "<option >Seleccione ...</option>";
+        $htmlSelect .= "<option value='' >Seleccione ...</option>";
 
         if (count($arraySelector) > 0) {
             foreach ($arraySelector as $selector)

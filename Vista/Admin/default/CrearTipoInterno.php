@@ -3,12 +3,12 @@
 session_start();
 
 
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4") {
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" ){
     header('Location: Index.php');
 }
 ?>
@@ -35,7 +35,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -133,12 +133,12 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                 <div class="col-sm-6">
                                   <div class="form-group">
                                       <label for="TipoInterno">Tipo de interno</label>
-                                      <input type="text" class="form-control" id="TipoInterno" name="TipoInterno" minlength="2" maxlength="30" onkeypress="return check(event)" required>
+                                      <input type="text" class="form-control" id="TipoInterno" name="TipoInterno" minlength="2" maxlength="30" onkeypress="return check(event)" required autocomplete="off">
                                   </div>
 
                                   <div class="form-group">
                                       <label for="Descripcion">Descripción</label>
-                                      <input type="text" class="form-control" id="Descripcion" name="Descripcion" minlength="2" maxlength="150" required>
+                                      <input type="text" class="form-control" id="Descripcion" name="Descripcion" minlength="2" maxlength="150" required autocomplete="off">
                                   </div>
 
 

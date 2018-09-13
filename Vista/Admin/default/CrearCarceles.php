@@ -4,13 +4,14 @@ session_start();
 
 require "../../../Modelo/Funcionario.php";
 
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3"){
     header('Location: Index.php');
+
 }
 require ('conexion.php');
 $query = "SELECT id_departamento, departamento FROM departamentos ORDER BY departamento";
@@ -83,7 +84,7 @@ $resultado=$mysqli->query($query);
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -169,11 +170,12 @@ $resultado=$mysqli->query($query);
 
                                             <div class="form-group">
                                                 <label for="NombreCarcel">Nombre Carcel</label>
-                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="50"  required  >
+                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="50"  required autocomplete="off" >
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula Director Carcel</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" >
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" autocomplete="off" >
                                                 <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar previamente registrado</small>
 
                                             </div>

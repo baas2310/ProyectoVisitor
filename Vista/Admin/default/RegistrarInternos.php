@@ -4,12 +4,12 @@ session_start();
 
 require "../../../Modelo/Interno.php";
 
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
 }
 require ('conexion.php');
@@ -166,7 +166,7 @@ $(function() {
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -233,7 +233,7 @@ $(function() {
                                     <div class="form-group">
                                         <label for="IdRegistrador"></label>
                                         <input type="text" value="<?php echo $_SESSION["DataUser"]["IdFuncionario"]?>" class="form-control" id="IdRegistrador" name="IdRegistrador"  hidden>
-                                         <span id="name-format" class="help">Format: firstname lastname</span>
+
                                     </div>
 
                                     <div class="row m-t-20">
@@ -241,40 +241,47 @@ $(function() {
 
                                             <div class="form-group">
                                                 <label for="Cedula">Cedula</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula"  minlength="7" maxlength="15"  onkeypress="return valida(event)"  required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula"  minlength="7" maxlength="15"  onkeypress="return valida(event)" required autocomplete="off">
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="PrimerNombre">Primer nombre</label>
-                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre" minlength="2" maxlength="30" onkeypress="return check(event) "  required>
+                                                <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre" minlength="2" maxlength="30" onkeypress="return check(event) " required autocomplete="off">
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="SegundoNombre">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"  maxlength="30" onkeypress="return check(event) " >
+                                                <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre"  maxlength="30" onkeypress="return check(event) " autocomplete="off">
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="FechaNacimiento"> Fecha de nacimiento </label>
-                                                <input type="text" size="10" class="form-control" id="FechaNacimiento" name="FechaNacimiento" onKeyUp = "this.value=formateafecha(this.value);" max=<?php $hoy=date("Y-m-d"); echo $hoy;?> required maxlength="10">
+                                                <input type="text" size="10" class="form-control" id="FechaNacimiento" name="FechaNacimiento" onKeyUp = "this.value=formateafecha(this.value);" max=<?php $hoy=date("Y-m-d"); echo $hoy;?> required maxlength="10" autocomplete="off">
                                                 <small id="fileHelp" class="form-text text-muted">(dd/mm/aaaa)</small>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                           </div>
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label for="PrimerApellido">Primer apellido</label>
-                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" minlength="2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" minlength="2" maxlength="30" onkeypress="return check(event) " required autocomplete="off">
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="SegundoApellido">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"  maxlength="30" required >
+                                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido"  maxlength="30" required autocomplete="off">
+                                                <span id="name-format" class="help">Campo  requerido</span>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type='file' id="urlImagen" name="urlImagen"required />
-                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
+                                                <input type='file' id="urlImagen" name="urlImagen" required autocomplete="off"/>
+                                                <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp" /></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
 
@@ -292,7 +299,8 @@ $(function() {
                                         <div class="form-group">
                                             <label for="TD">TD</label>
                                             <input type="text" class="form-control" id="TD" name="TD"
-                                                    maxlength="30" onkeypress="return valida(event) " required>
+                                                    maxlength="30" onkeypress="return valida(event) " autocomplete="off"  required>
+                                            <span id="name-format" class="help">Campo  requerido</span>
                                         </div>
                                         <label>Tipo Interno</label>
                                         <?php echo ControlSelectores::SelectTipoInterno(); ?>
@@ -301,8 +309,8 @@ $(function() {
                                     </div>
                                     <div class="col-sm-5">
                                         <label for="cbx_Carcel">Carcel</label>
-                                    <select class="form-control" name="cbx_Carcel" id="cbx_Carcel">
-                                        <option value="0">Seleccionar Carcel</option>
+                                    <select class="form-control" name="cbx_Carcel" required id="cbx_Carcel">
+                                        <option value="">Selecciona una opción...</option>
                                         <?php while($row = $resultado->fetch_assoc()) { ?>
                                             <option value="<?php echo $row['IdCarcel']; ?>"><?php echo $row['NombreCarcel']; ?></option>
                                         <?php } ?>
@@ -311,7 +319,9 @@ $(function() {
 
                                         <div class="form-group">
                                             <label for="cbx_Ubicacion">Ubicacion </label>
-                                            <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion"></select>
+                                            <select class="form-control" name="cbx_Ubicacion" id="cbx_Ubicacion">
+                                                <option value="">Selecciona una opción</option>
+                                            </select>
                                             <label for="UbicacionDom">Ubicacion Domiciliaria </label>
                                             <input type="text" class="form-control" id="UbicacionDom" name="UbicacionDom" >
                                         </div>

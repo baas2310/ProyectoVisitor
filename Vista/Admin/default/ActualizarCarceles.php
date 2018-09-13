@@ -70,7 +70,7 @@ $resultado=$mysqli->query($query);
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -150,18 +150,18 @@ $resultado=$mysqli->query($query);
                                                 <div class="form-group">
                                                     <label for="municipio">Municipio </label>
                                                     <select class="form-control" name="municipio" id="municipio">
-
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="NombreCarcel">Nombre Carcel</label>
-                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="30" required >
+                                                <label for="NombreCarcel">Nombre de la cárcel</label>
+                                                <input type="text" class="form-control" id="NombreCarcel" name="NombreCarcel" minlength="3" maxlength="30" required autocomplete="off">
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="Cedula">Cedula Director Carcel</label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" >
+                                                <label for="Cedula">Cedula Director Cárcel</label>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" autocomplete="off" >
                                                 <small id="fileHelp" class="form-text text-muted">El Funcionario debe estar priviamente registrado</small>
 
                                             </div>

@@ -9,7 +9,7 @@ if (empty($_SESSION["DataUser"]["IdPermiso"])){
 }
 $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5"&& $_SESSION["user"] != "6"&& $_SESSION["user"] != "7"&& $_SESSION["user"] != "8"){
     header('Location: Index.php');
 }
 ?>
@@ -68,7 +68,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -145,33 +145,38 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 
                                         <div class="row">
                                             <div class="col-lg-6">
-
-                                                <label for="Cedula">Cedula </label>
-
+                                                <label for="Cedula">Cédula </label>
                                                 <input type="text" value="<?php echo $objVisitante->getCedula(); ?>" name="Cedula" id="Cedula"
-                                                       class="form-control" minlength="7" maxlength="15" onkeypress="valida(event)" required/>
+                                                 class="form-control" minlength="7" maxlength="15" onkeypress="valida(event)" required autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
+
                                             <div class="col-lg-6">
-
                                                 <label for="Nombre1">Primer nombre </label>
-
                                                 <input type="text" value="<?php echo $objVisitante->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                       class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required/>
+                                                class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
+
                                             <div class="col-lg-6">
                                                 <label for="Nombre2">Segundo nombre</label>
                                                 <input type="text" value="<?php echo $objVisitante->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                       class="form-control"  maxlength="30" onkeypress="check(event)"/>
+                                                class="form-control"  maxlength="30" onkeypress="check(event)" autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
+
                                             <div class="col-lg-6">
                                                 <label for="Apellido1">Primer apellido </label>
                                                 <input type="text" value="<?php echo $objVisitante->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                       class="form-control" minlength="2" maxlength="30" required onkeypress="check(event)"/>
+                                                class="form-control" minlength="2" maxlength="30" required onkeypress="check(event)" autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
+
                                             <div class="col-lg-6">
                                                 <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objVisitante->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" />
+                                                class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" autocomplete="off" />
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
@@ -197,12 +202,13 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             <div class="col-lg-6">
                                                 <label for="TarjetaProfesional">Tarjeta profesional</label>
                                                 <input type="text" value="<?php echo $objVisitante->getTarjetaProfesional(); ?>" name="TarjetaProfesional" id="TarjetaProfesional"
-                                                       class="form-control" minlength="5" maxlength="20" onkeypress="valida(event)"/>
+                                                       class="form-control" minlength="5" maxlength="20" onkeypress="valida(event)" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label for="Observaciones">Observaciones</label>
                                                 <input type="text"  name="Observaciones" id="Observaciones"
-                                                       class="form-control"  maxlength="150" required />
+                                                 class="form-control"  maxlength="150" required autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">

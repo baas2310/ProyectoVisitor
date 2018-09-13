@@ -36,7 +36,9 @@ class ControlInternos
             $ArrayInterno['Nombre2'] = $_POST['SegundoNombre'];
             $ArrayInterno['Apellido1'] = $_POST['PrimerApellido'];
             $ArrayInterno['Apellido2'] = $_POST['SegundoApellido'];
-            $ArrayInterno['FechaNacimiento'] = $_POST['FechaNacimiento'];
+
+            $newDate = date("Y/m/d",( $_POST['FechaNacimiento']));
+            $ArrayInterno['FechaNacimiento'] =$newDate;
 
 
             $formatos = array('.jpg', '.png');
@@ -55,10 +57,12 @@ class ControlInternos
                 var_dump($IdRegistrado->getIdRegistrado());
                 self::CrearRegistro($IdRegistrado->getIdRegistrado());
 
+                $Validacion =Interno::getLimiteRegistro($_POST['Cedula']);
             }
         }else{
+            $Validacion =Interno::getLimiteRegistro($_POST['Cedula']);
 
-            if (Interno::getValidacionRegistro(Interno::getLimiteRegistro($_POST['Cedula']))==0){
+            if (Interno::getValidacionRegistro($Validacion)==0){
                 self::CrearRegistro(Interno::getLimiteRegistro($_POST['Cedula']));
             }else{
                 header("location: ../Vista/Admin/default/TarjetaInterno.php?IdInterno=".Interno::getValidacionRegistro(Interno::getLimiteRegistro($_POST['Cedula'])));
@@ -96,7 +100,7 @@ class ControlInternos
             $Interno = new Interno($ArrayInterno);
             var_dump($Interno);
             $Interno->insertarRegistro();
-            //header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
+            header("location: ../Vista/Admin/default/RegistrarInternos.php?respuesta=Correcto");
         } catch (Exception $e) {
             var_dump($e);
 

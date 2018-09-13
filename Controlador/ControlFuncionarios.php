@@ -223,7 +223,7 @@ class ControlFuncionarios
 
         try {
             $Usuario = $_POST['Usuario'];
-            $Password = $_POST['Password'];
+            $Password = md5( $_POST['Password']);
             if(!empty($Usuario) && !empty($Password)) {
                 $respuesta = Funcionario::Login($Usuario, $Password);
                 if (is_array($respuesta)) {

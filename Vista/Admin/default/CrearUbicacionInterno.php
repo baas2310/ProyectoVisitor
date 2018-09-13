@@ -3,12 +3,12 @@ session_start();
 
 require "../../../Modelo/Ubicacion.php";
 
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
     header('Location: Index.php');
 }
 require ('conexion.php');
@@ -47,7 +47,7 @@ $resultado=$mysqli->query($query);
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -127,7 +127,8 @@ $resultado=$mysqli->query($query);
                                 <div class="col-sm-6">
                                   <div class="form-group">
                                       <label for="Patio">Patio</label>
-                                      <input type="text" class="form-control" id="Patio" name="Patio" required>
+                                      <input type="text" class="form-control" id="Patio" name="Patio" autocomplete="off" required>
+                                      <span id="name-format" class="help">Campo requerido</span>
                                   </div>
 
 
@@ -139,12 +140,14 @@ $resultado=$mysqli->query($query);
                                         <div class="col-sm-6">
                                           <div class="form-group">
                                               <label for="Seccion">Sección</label>
-                                              <input type="text" class="form-control" id="Seccion" name="Seccion" required>
+                                              <input type="text" class="form-control" id="Seccion" name="Seccion" required autocomplete="off">
+                                              <span id="name-format" class="help">Campo requerido</span>
                                           </div>
 
                                           <div class="form-group">
                                               <label for="Celda">Celda</label>
-                                              <input type="text" class="form-control" id="Celda" name="Celda" required>
+                                              <input type="text" class="form-control" id="Celda" name="Celda" required autocomplete="off">
+                                              <span id="name-format" class="help">Campo requerido</span>
                                           </div>
 
                         </fieldset>

@@ -9,7 +9,7 @@ if (empty($_SESSION["DataUser"]["IdPermiso"])){
 }
 $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5"&& $_SESSION["user"] != "6"&& $_SESSION["user"] != "7"){
     header('Location: Index.php');
 }
 ?>
@@ -94,7 +94,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -168,17 +168,20 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                              <div class="form-group">
                                                 <label for="Cedula"> Cédula </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15"  onkeypress="return valida(event)" autocomplete="off" required>
+                                                 <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" minlength="2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" minlength="2" maxlength="30" onkeypress="return check(event)" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event) " maxlength="30">
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event)" autocomplete="off" maxlength="30">
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Patentesco</label>
@@ -195,12 +198,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" minlength="2" maxlength="30"  onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" minlength="2" maxlength="30"  onkeypress="return check(event)" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  minlength="2" maxlength="30"  onkeypress="return check(event) ">
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"  minlength="2" maxlength="30"  onkeypress="return check(event)" autocomplete="off">
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
 
                                             <div class="form-group">
@@ -210,7 +215,8 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                             </div>
                                             <div class="form-group">
                                                 <label for="Observaciones">Observaciones</label>
-                                                <input type="text" class="form-control" id="Observaciones" name="Observaciones" maxlength="125" required >
+                                                <input type="text" class="form-control" id="Observaciones" name="Observaciones" maxlength="125" required autocomplete="off" >
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
 
                                             <div class="form-group">

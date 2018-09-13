@@ -84,7 +84,7 @@ va
 </head>
 
 
-<body>
+<body oncontextmenu="return false">
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -166,32 +166,37 @@ va
                                                 </div>
                                                 <br> <br>
                                                 <div class="col-lg-6">
-
                                                     <label for="Nombre1">Primer nombre </label>
-
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre1(); ?>" name="Nombre1" id="Nombre1"
-                                                           class="form-control" maxlength="30" minlength="2" onkeypress="check(event)" required/>
+                                                    class="form-control" maxlength="30" minlength="2" onkeypress="check(event)" required autocomplete="off"/>
+                                                    <span id="name-format" class="help">Campo requerido</span>
                                                 </div>
+
                                                 <div class="col-lg-6">
                                                     <label for="Nombre2">Segundo nombre</label>
                                                     <input type="text" value="<?php echo $objFuncionario->getNombre2(); ?>" name="Nombre2" id="Nombre2"
-                                                           class="form-control"  maxlength="30" onkeypress="check(event)" />
+                                                    class="form-control"  maxlength="30" onkeypress="check(event)" autocomplete="off"/>
+                                                    <span id="name-format" class="help">Campo no requerido</span>
                                                 </div>
+
                                                 <div class="col-lg-6">
                                                     <label for="Apellido1">Primer apellido </label>
                                                     <input type="text" value="<?php echo $objFuncionario->getApellido1(); ?>" name="Apellido1" id="Apellido1"
-                                                           class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required />
+                                                    class="form-control" minlength="2" maxlength="30" onkeypress="check(event)" required autocomplete="off"/>
                                                 </div>
+
                                             <div class="col-lg-6">
                                                 <label for="Apellido2">Segundo apellido </label>
                                                 <input type="text" value="<?php echo $objFuncionario->getApellido2(); ?>" name="Apellido2" id="Apellido2"
-                                                       class="form-control"  maxlength="30" onkeypress="check(event)"/>
+                                                       class="form-control"  maxlength="30" onkeypress="check(event)" autocomplete="off"/>
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
 
                                                 <div class="col-lg-6">
                                                     <label for="Rango">Rango </label>
                                                     <input type="text" value="<?php echo $objFuncionario->getRango(); ?>" name="Rango" id="Rango"
-                                                           class="form-control"  required/>
+                                                           class="form-control"  required autocomplete="off"/>
+                                                    <span id="name-format" class="help">Campo requerido</span>
                                                 </div>
                                                 <div class="col-lg-6" hidden>
                                                     <label for="Estado">Estado </label>
@@ -212,8 +217,6 @@ va
                                                 </div>
 
                                                 <div class="col-lg-6">
-
-
                                                         <label for="Permiso">Permiso</label>
                                                         <select class="form-control" id="Permiso" required name="Permiso">
                                                             <option <?php echo ($objFuncionario->getPermiso() == "Administrador 1") ? "selected" : ""; ?> value="3">Administrador 1</option>
@@ -223,9 +226,8 @@ va
                                                             <option <?php echo ($objFuncionario->getPermiso() == "Auxiliar 2") ? "selected" : ""; ?> value="7">Auxiliar 2</option>
                                                             <option <?php echo ($objFuncionario->getPermiso() == "Auxiliar 3") ? "selected" : ""; ?> value="8">Auxiliar 3</option>
                                                         </select>
-
-
                                                     </div>
+
                                                 <div class="col-lg-6">
                                                     <label for="municipio">Municipio </label>
                                                     <select class="form-control" name="municipio" id="municipio">
@@ -235,27 +237,31 @@ va
                                                 <div class="col-lg-6">
                                                     <label for="Usuario">Usuario</label>
                                                     <input type="text" value="<?php echo $objFuncionario->getUsuario(); ?>" name="Usuario" id="Usuario"
-                                                           class="form-control"  required/>
+                                                           class="form-control"  required autocomplete="off"/>
+                                                    <span id="name-format" class="help">Campo requerido</span>
+
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <label for="Celular"><strong>Celular</strong></span></label>
                                                     <input type="text" value="<?php echo $objFuncionario->getCelular(); ?>" name="Celular"  required
-                                                            class="form-control" id="Celular" minlength="7" maxlength="10" onkeypress="valida(event)" >
+                                                            class="form-control" id="Celular" minlength="7" maxlength="10" onkeypress="valida(event)" autocomplete="off">
+                                                    <span id="name-format" class="help">Campo requerido</span>
                                                 </div>
 
 
                                                 <div class="row">
-
                                                     <div class="col-lg-6">
                                                         <label for="Password"><strong>Contraseña</label>
                                                         <input id="Password" value="<?php echo $objFuncionario->getPass(); ?>" name="Password" type="password"  required
-                                                               class="form-control" minlength="3" maxlength="50">
+                                                         class="form-control" minlength="3" maxlength="50" autocomplete="off">
+                                                        <span id="name-format" class="help">Campo requerido</span>
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <label for="Password2"><strong>Confirme Contraseña</strong><span class="text-danger">*</span></label>
                                                         <input data-parsley-equalto="#Password" type="password" required minlength="3" maxlength="50"
-                                                               class="form-control" id="Password2">
+                                                        class="form-control" id="Password2"  autocomplete="off">
+                                                        <span id="name-format" class="help">Campo requerido</span>
                                                     </div>
                                                 <br><br>
 

@@ -959,7 +959,7 @@ $this->Disconnect();
     public static function getLimiteRegistro($Cedula)
     {
 
-        return Visitante::buscarLimite("SELECT IdInterno FROM `tbInterno` WHERE Cedula = '"."$Cedula"."'");
+        return Interno::buscarLimiteRegistro("SELECT IdInterno FROM `tbInterno` WHERE Cedula = '"."$Cedula"."'");
     }
 
     public static function ValidarLimiteRegistro($query)
@@ -984,7 +984,8 @@ $this->Disconnect();
     public static function getValidacionRegistro($IdInterno)
     {
 
-        return Visitante::buscarLimite("SELECT IdRegistro FROM `tbregistro` WHERE IdRegistrado = '"."$IdInterno"."' AND IdEstado = 1");
+        echo "SELECT IdRegistro FROM `tbregistro` WHERE IdRegistrado = "."$IdInterno"." AND IdEstado = 1";
+        return Interno::ValidarLimiteRegistro("SELECT IdRegistro FROM `tbregistro` WHERE IdRegistrado = "."$IdInterno"." AND IdEstado = 1");
     }
     protected function eliminar($id)
     {

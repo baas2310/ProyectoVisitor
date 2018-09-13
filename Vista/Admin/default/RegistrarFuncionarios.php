@@ -4,12 +4,12 @@ session_start();
 
 require "../../../Modelo/Funcionario.php";
 
-if (empty($_SESSION["DataUser"]["IdFuncionario"])){
+if (empty($_SESSION["DataUser"]["IdPermiso"])){
     header("Location: login.php");
 }
-$_SESSION["user"]=$_SESSION["DataUser"]["IdFuncionario"];
+$_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5") {
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5"){
     header('Location: Index.php');
 }
     require ('conexion.php');
@@ -87,7 +87,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 </head>
 
 
-<body>
+<body oncontextmenu="return false" >
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -150,46 +150,53 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
 
                             <form id="FormFuncionario" role="form" method="post" action="../../../Controlador/ControlFuncionarios.php?accion=Crear">
 
-                                <fieldset title="Datos básicos">
+                                <fieldset>
                                     <legend>Información </legend>
 
                                     <div class="row m-t-20">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="Cedula"> Documento </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" required>
+                                                <label for="Cedula"> Cédula </label>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="15" onkeypress="return valida(event)" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" onkeypress="return check(event)"  maxlength="30" required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" onkeypress="return check(event)" autocomplete="off"  maxlength="30" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event)"  maxlength="30" >
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" onkeypress="return check(event)" autocomplete="off" maxlength="30" >
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" onkeypress="return check(event)" required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1" maxlength="30" onkeypress="return check(event)" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" onkeypress="return check(event)" maxlength="30" required >
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2" onkeypress="return check(event)" maxlength="30" autocomplete="off" >
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Celular">Celular</label>
-                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" onkeypress=" return valida(event)" required>
+                                                <input type="text" class="form-control" id="Celular" name="Celular" minlength="7" maxlength="10" onkeypress=" return valida(event)" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Rango">Rango</label>
                                                 <input type="text" class="form-control" id="Rango" name="Rango"
-                                                       required maxlength="30">
+                                                       required maxlength="30" autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
                                         </div>
                                     </div>
@@ -205,13 +212,15 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="form-group">
                                             <label for="Usuario">Usuario</label>
                                             <input type="text" class="form-control" id="Usuario" name="Usuario"
-                                                   maxlength="30" required>
+                                                   maxlength="30" required autocomplete="off">
+                                            <span id="name-format" class="help">Campo requerido</span>
 
                                         </div>
                                         <div class="form-group">
                                             <label for="Password">Contraseña</label>
                                             <input type="password" class="form-control" id="Password" name="Password"
-                                                   maxlength="30" required>
+                                                   maxlength="30" required autocomplete="off">
+                                            <span id="name-format" class="help">Campo requerido</span>
                                         </div>
 
 
@@ -221,12 +230,14 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="form-group">
                                             <label for="Password2">Confirmar Contraseña</label>
                                             <input data-parsley-equalto="#Password" type="password" class="form-control"
-                                            id="Password2" name="Password2" required>
+                                            id="Password2" name="Password2" autocomplete="off" required>
+                                            <span id="name-format" class="help">Campo requerido</span>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <label for="Permiso">Permiso</label>
-                                            <select class="form-control" id="Permiso" required name="Permiso">
+                                            <select class="form-control" required id="Permiso" name="Permiso">
+                                                <option value="">Seleccione una opción...</option>
                                                 <option value="3">Administrador 1</option>
                                                 <option value="4">Administrador 2</option>
                                                 <option value="5">Administrador 3</option>
@@ -239,7 +250,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                             <label for="departamento">Departamento </label>
                                         <select class="form-control" name="departamento" id="departamento">
-                                            <option value="0">Seleccionar departamento</option>
+                                            <option value="">Selecciona una opción...</option>
                                             <?php while($row = $resultado->fetch_assoc()) { ?>
                                                 <option value="<?php echo $row['id_departamento']; ?>"><?php echo $row['departamento']; ?></option>
                                             <?php } ?>
@@ -249,6 +260,7 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != 
                                         <div class="form-group">
                                             <label for="municipio">Municipio </label>
                                             <select class="form-control" name="municipio" id="municipio" >
+                                                <option value="">Selecciona una opción...</option>
                                             </select>
                                         </div>
 

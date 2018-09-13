@@ -10,7 +10,7 @@ if (empty($_SESSION["DataUser"]["IdPermiso"])){
 }
 $_SESSION["user"]=$_SESSION["DataUser"]["IdPermiso"];
 
-if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4"){
+if($_SESSION["user"] != "1" && $_SESSION["user"] != "3" && $_SESSION["user"] != "4" && $_SESSION["user"] != "5"&& $_SESSION["user"] != "6"){
     header('Location: Index.php');
 }
 ?>
@@ -156,47 +156,55 @@ if($_SESSION["user"] != "1" && $_SESSION["user"] != "2" && $_SESSION["user"] != 
                                         <div class="col-sm-6">
                                              <div class="form-group">
                                                 <label for="Cedula"> Cédula </label>
-                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="30" onkeypress="return valida(event)" required>
+                                                <input type="text" class="form-control" id="Cedula" name="Cedula" minlength="7" maxlength="30" onkeypress="return valida(event)" autocomplete="off" required>
+                                                 <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre1">Primer nombre</label>
-                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" minlength="2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" minlength="2" maxlength="30" onkeypress="return check(event) " autocomplete="off" required>
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Nombre2">Segundo nombre</label>
-                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Nombre2" name="Nombre2" maxlength="30" onkeypress="return check(event) " autocomplete="off" >
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="TipoVisitante">Tipo de Visitante</label>
                                                 <select class="form-control" id="TipoVisitante" required name="TipoVisitante">
-
+                                                    <option value="">Seleccione una opción ...</option>
                                                     <option value="1">Visitante Ocasional</option>
                                                     <option value="3">Abogados</option>
-
                                                 </select>
-                                                <div class="form-group">
-                                                    <label for="TarjetaProfesional">Tarjeta Profesional</label>
-                                                    <input type="text" class="form-control" id="TarjetaProfesional" name="TarjetaProfesional" minlength="3" maxlength="25" onkeypress="return check(event) ">
-                                                </div>
+                                                <br>
 
                                             </div>
+                                                <div class="form-group">
+                                                    <label for="TarjetaProfesional">Tarjeta Profesional</label>
+                                                    <input type="text" class="form-control" id="TarjetaProfesional" name="TarjetaProfesional" minlength="3" maxlength="25" onkeypress="return check(event) " autocomplete="off">
+                                                    <span id="name-format" class="help">Campo no requerido</span>
+                                                </div>
+
+
 
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="Apellido1">Primer apellido</label>
-                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1"  minlength="2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Apellido1" name="Apellido1"  minlength="2" maxlength="30" onkeypress="return check(event) " required autocomplete="off">
+                                                <span id="name-format" class="help">Campo requerido</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="Apellido2">Segundo apellido</label>
-                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"   minlength="2" maxlength="30" onkeypress="return check(event) " required>
+                                                <input type="text" class="form-control" id="Apellido2" name="Apellido2"   minlength="2" maxlength="30" onkeypress="return check(event) " required autocomplete="off">
+                                                <span id="name-format" class="help">Campo no requerido</span>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type='file' id="urlImagen" name="urlImagen"required />
+                                                <input type='file' id="urlImagen" name="urlImagen" required />
                                                 <div id='img_contain'><img id="preview" align='middle' src="http://www.clker.com/cliparts/c/W/h/n/P/W/generic-image-file-icon-hi.png" alt="your image" title='' aria-describedby="fileHelp"/></div>
                                                 <small id="fileHelp" class="form-text text-muted">Archivos permitidos (.jpg .png .gif)</small>
                                             </div>
